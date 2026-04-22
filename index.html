@@ -3,114 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>綠色循環：全方位網購減碳教學</title>
+    <title>綠色循環：網購包材減碳大冒險</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8faf9; }
-        .page-content { display: none; }
-        .page-content.active { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        /* 讓畫面更滿版 */
-        .full-content { max-width: 95rem; margin: 0 auto; }
-        .nav-link.active { background-color: #059669; color: white; border-radius: 8px; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f1f6f2; }
+        .page-content { display: none; animation: slideUp 0.5s ease-out; }
+        .page-content.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 寬螢幕容器設定 */
+        .wide-container { max-width: 1400px; margin: 0 auto; width: 95%; }
+        
+        .nav-link.active { background-color: #10b981; color: white; border-radius: 15px; }
+        .hero-gradient { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); }
+        .card-pop { transition: transform 0.3s; border-radius: 2.5rem; }
+        .card-pop:hover { transform: translateY(-5px); }
+        
+        /* 包裹互動區樣式 */
+        .box-visual { transition: 0.5s; cursor: pointer; }
+        .box-visual:hover { transform: rotate(-3deg) scale(1.1); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col pb-10">
 
-    <nav class="bg-white border-b border-green-100 px-8 py-4 sticky top-0 z-50">
-        <div class="full-content flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
-                <i class="fa-solid fa-leaf text-green-600 text-2xl"></i>
-                <span class="font-black text-xl text-green-900">Eco-System 專業教學平台</span>
+    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm px-6 py-4">
+        <div class="wide-container flex justify-between items-center">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showPage('home')">
+                <div class="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                    <i class="fa-solid fa-leaf"></i>
+                </div>
+                <span class="font-black text-2xl text-green-900 tracking-tighter">Eco-Mission</span>
             </div>
-            <div class="flex gap-2 font-bold text-green-800">
-                <span onclick="showPage('home')" id="link-home" class="nav-link active px-4 py-2 cursor-pointer">首頁</span>
-                <span onclick="showPage('compare')" id="link-compare" class="nav-link px-4 py-2 cursor-pointer">包材解密</span>
-                <span onclick="showPage('carbon')" id="link-carbon" class="nav-link px-4 py-2 cursor-pointer">數據百科</span>
-                <span onclick="showPage('game')" id="link-game" class="nav-link px-4 py-2 cursor-pointer">情境模擬</span>
-                <span onclick="showPage('test')" id="link-test" class="nav-link px-4 py-2 cursor-pointer text-orange-700">測驗挑戰</span>
+            <div class="hidden md:flex gap-2 font-bold text-green-700 bg-green-50 p-1.5 rounded-2xl">
+                <span onclick="showPage('home')" id="link-home" class="nav-link active px-6 py-2.5 cursor-pointer transition">首頁</span>
+                <span onclick="showPage('compare')" id="link-compare" class="nav-link px-6 py-2.5 cursor-pointer transition">包材實驗室</span>
+                <span onclick="showPage('carbon')" id="link-carbon" class="nav-link px-6 py-2.5 cursor-pointer transition">深度數據庫</span>
+                <span onclick="showPage('game')" id="link-game" class="nav-link px-6 py-2.5 cursor-pointer transition">下單挑戰</span>
+                <span onclick="showPage('test')" id="link-test" class="nav-link px-6 py-2.5 cursor-pointer text-orange-600 transition">終極測驗</span>
             </div>
         </div>
     </nav>
 
-    <main class="full-content w-full flex-grow p-6 py-10">
+    <main class="wide-container mt-8 flex-grow">
 
         <div id="page-home" class="page-content active">
-            <div class="bg-green-900 text-white p-12 md:p-16 rounded-[2rem] shadow-2xl mb-10">
-                <h1 class="text-5xl md:text-7xl font-black mb-6">網購包裝：線性到循環的轉型</h1>
-                <p class="text-xl opacity-80 max-w-3xl leading-relaxed mb-10">
-                    本網站將探討從資源開採到廢棄處理的「全生命週期 (LCA)」，帶領你理解為何循環袋是 2030 零廢棄目標的唯一解。
-                </p>
-                <div class="grid md:grid-cols-4 gap-6">
-                    <div class="bg-white/10 p-6 rounded-2xl border border-white/20">
-                        <h4 class="text-green-400 font-bold mb-2">● 經濟效益</h4>
-                        <p class="text-sm">降低包材一次性購入成本，建立長期租賃模式。</p>
+            <div class="hero-gradient p-12 md:p-20 rounded-[3.5rem] text-white shadow-2xl flex flex-col md:flex-row items-center gap-12 relative overflow-hidden">
+                <div class="md:w-2/3 z-10">
+                    <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight">網購愛地球，<br><span class="text-green-400 italic">從選對袋子開始！</span></h1>
+                    <p class="text-xl opacity-90 mb-10 leading-relaxed max-w-2xl">
+                        你可知道？台灣一年網購產生的廢棄物足以填滿兩座大巨蛋。這不只是關於「丟垃圾」，更是關於「資源如何重生」。
+                    </p>
+                    <div class="flex gap-4">
+                        <button onclick="showPage('compare')" class="bg-yellow-400 text-green-900 px-10 py-5 rounded-2xl font-black hover:bg-yellow-300 transition shadow-xl text-lg">立即展開旅程</button>
                     </div>
-                    <div class="bg-white/10 p-6 rounded-2xl border border-white/20">
-                        <h4 class="text-green-400 font-bold mb-2">● 環境效益</h4>
-                        <p class="text-sm">減少 75% 碳足跡與 95% 海洋塑膠污染。</p>
+                </div>
+                <div class="md:w-1/3 flex flex-col items-center gap-4 z-10">
+                    <div class="box-visual text-9xl">📦</div>
+                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center">
+                        <p class="text-xs font-bold">點擊導覽列開始學習 ➜</p>
                     </div>
-                    <div class="bg-white/10 p-6 rounded-2xl border border-white/20">
-                        <h4 class="text-green-400 font-bold mb-2">● 物流效益</h4>
-                        <p class="text-sm">標準化尺寸提高物流運輸堆疊率。</p>
-                    </div>
-                    <div class="bg-white/10 p-6 rounded-2xl border border-white/20">
-                        <h4 class="text-green-400 font-bold mb-2">● 社會效益</h4>
-                        <p class="text-sm">培養公民對於資源永續使用的正確態度。</p>
-                    </div>
+                </div>
+                <div class="absolute -bottom-10 -right-10 text-[15rem] font-black opacity-5 pointer-events-none">RECYCLE</div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+                <div class="bg-white p-8 card-pop shadow-sm border-b-8 border-green-500">
+                    <h4 class="font-black text-green-800 text-lg mb-3">📍 線性陷阱</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">傳統模式：開採資源 ➔ 製造 ➔ 丟棄。這導致全球每年損失數十億美元的可用資源。</p>
+                </div>
+                <div class="bg-white p-8 card-pop shadow-sm border-b-8 border-green-500">
+                    <h4 class="font-black text-green-800 text-lg mb-3">📍 循環之美</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">循環模式：設計 ➔ 使用 ➔ 回收再製。包材不再是終點，而是下一個產品的起點。</p>
+                </div>
+                <div class="bg-white p-8 card-pop shadow-sm border-b-8 border-green-500">
+                    <h4 class="font-black text-green-800 text-lg mb-3">📍 碳中和願景</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">透過循環袋系統，電商平台可實現範疇三 (Scope 3) 的大幅減碳，達成 ESG 目標。</p>
+                </div>
+                <div class="bg-white p-8 card-pop shadow-sm border-b-8 border-green-500">
+                    <h4 class="font-black text-green-800 text-lg mb-3">📍 減量 2.0</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">政府法規正嚴格限制膠帶長度與箱內填充物，推動「綠色包裝」標準化。</p>
                 </div>
             </div>
         </div>
 
         <div id="page-compare" class="page-content">
-            <h2 class="text-4xl font-black text-green-900 mb-10">材質科學與環境成本</h2>
-            <div class="grid lg:grid-cols-2 gap-8">
-                <div class="bg-white p-10 rounded-[2rem] border border-green-100">
-                    <h3 class="text-2xl font-black mb-6">為什麼傳統包裝效率低？</h3>
-                    <div class="space-y-6 text-slate-600">
-                        <p><strong>1. 紙箱的隱形代價：</strong> 紙箱體積大，運輸過程佔據大量貨櫃空間，等於在運送「空氣」。加上膠帶殘膠處理困難。</p>
-                        <p><strong>2. 塑膠的聚合問題：</strong> 現代網購袋常使用複合塑料（如 PE+鋁箔），這類材質在技術上「幾乎不可回收」，只能焚燒。</p>
-                        <p><strong>3. 回收機制失效：</strong> 因包裝廢棄物混入家庭垃圾，導致後端分類效率不到 20%，大量資源被浪費。</p>
+            <h2 class="text-4xl font-black text-green-900 mb-10 text-center">包材材質深度對決</h2>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="bg-rose-50 p-10 rounded-[3rem] border-2 border-rose-100">
+                    <h3 class="text-2xl font-bold text-rose-700 mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-xmark"></i> 傳統網購包材（不可持續）
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm">
+                            <h4 class="font-black text-slate-700">PVC 封箱膠帶</h4>
+                            <p class="text-sm text-slate-500 mt-2">含有增塑劑，回收時會釋放氯化氫。循環袋則全面改用不織布扣帶或拉鍊，徹底取代膠帶。</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm">
+                            <h4 class="font-black text-slate-700">發泡聚苯乙烯 (保麗龍)</h4>
+                            <p class="text-sm text-slate-500 mt-2">雖然防震，但極難自然降解，破碎後會造成嚴重的鳥類與海洋生物誤食問題。</p>
+                        </div>
                     </div>
                 </div>
-                <div class="bg-green-50 p-10 rounded-[2rem] border border-green-200">
-                    <h3 class="text-2xl font-black mb-6 text-green-800">循環包材的技術門檻</h3>
-                    <div class="space-y-6 text-slate-700">
-                        <p><strong>1. 強度與耐受力：</strong> 採用高分子結構 PP，可承受 50 次以上高壓運輸，防水防腐蝕。</p>
-                        <p><strong>2. 物聯網整合：</strong> 每個包材嵌入 QR Code/RFID，與後台資料庫連結，即時追蹤流通次數與使用狀態。</p>
-                        <p><strong>3. 封條創新：</strong> 改用防盜防篡改的特殊卡扣，取代一次性封箱膠帶。</p>
+                <div class="bg-emerald-50 p-10 rounded-[3rem] border-2 border-emerald-100">
+                    <h3 class="text-2xl font-bold text-emerald-700 mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check"></i> Eco-Loop 循環科技
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm">
+                            <h4 class="font-black text-slate-700">耐衝擊 PP 梭織布</h4>
+                            <p class="text-sm text-slate-500 mt-2">結合了編織強度與塗層防水性，能保護精密電子產品，且單個袋子壽命可達 3 年。</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm">
+                            <h4 class="font-black text-slate-700">抗菌塗層處理</h4>
+                            <p class="text-sm text-slate-500 mt-2">考量衛生需求，循環袋表面經過醫療級抗菌處理，每次回收後皆會進行紫外線消毒。</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="page-carbon" class="page-content">
-            <h2 class="text-4xl font-black text-green-900 mb-10">數據分析與環境指標</h2>
-            <div class="grid lg:grid-cols-3 gap-6">
-                <div class="bg-white p-8 rounded-2xl shadow border-l-8 border-green-500">
-                    <div class="text-sm font-bold text-green-600 uppercase mb-2">能源指標</div>
-                    <div class="text-4xl font-black mb-2">92%</div>
-                    <p class="text-sm text-slate-500">全面採用循環模式後，預期能降低的紙漿與水資源消耗比例。</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow border-l-8 border-yellow-500">
-                    <div class="text-sm font-bold text-yellow-600 uppercase mb-2">經濟指標</div>
-                    <div class="text-4xl font-black mb-2">15%</div>
-                    <p class="text-sm text-slate-500">企業實施包裝優化後，長期物流成本的平均下降幅度。</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow border-l-8 border-blue-500">
-                    <div class="text-sm font-bold text-blue-600 uppercase mb-2">政策指標</div>
-                    <div class="text-4xl font-black mb-2">2030</div>
-                    <p class="text-sm text-slate-500">台灣政府訂定的網購包裝減量與全面零廢棄政策里程碑。</p>
+            <div class="bg-slate-900 rounded-[3.5rem] p-16 text-white shadow-2xl">
+                <h2 class="text-3xl font-black mb-12 text-center text-green-400">環境科學：數據會說話</h2>
+                <div class="grid lg:grid-cols-2 gap-16">
+                    <div class="space-y-8">
+                        <div class="border-l-4 border-green-500 pl-6">
+                            <h4 class="text-xl font-bold mb-2">關於 LCA 生命週期評估</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                我們不能只看「製造」時的排碳。循環袋在製造初期雖比紙箱多排 2kg 碳，但攤提至 50 次使用後，每次的平均排碳量僅為紙箱的 1/10。這就是「分攤與永續」的數學邏輯。
+                            </p>
+                        </div>
+                        <div class="border-l-4 border-yellow-500 pl-6">
+                            <h4 class="text-xl font-bold mb-2">全球每年產生的膠帶長度</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                全球快遞包裹每年使用的膠帶總長度可以往返地球與月球數十次。這些膠帶皆為石化副產品，且多數無法回收。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-white/5 p-8 rounded-3xl text-center">
+                            <div class="text-5xl font-black text-green-400">80%</div>
+                            <p class="text-xs mt-3 text-slate-400">消費者表示若歸還方便<br>願意選擇循環包材</p>
+                        </div>
+                        <div class="bg-white/5 p-8 rounded-3xl text-center">
+                            <div class="text-5xl font-black text-green-400">350g</div>
+                            <p class="text-xs mt-3 text-slate-400">平均每個包裹<br>減少的廢棄物重量</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div id="page-game" class="page-content text-center py-20"><h2 class="text-4xl font-black">互動模組 (請維持此架構)</h2></div>
-        <div id="page-test" class="page-content text-center py-20"><h2 class="text-4xl font-black">測驗模組 (請維持此架構)</h2></div>
+        <div id="page-game" class="page-content">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-4xl font-black text-green-900 mb-10 italic">結帳時的關鍵時刻</h2>
+                <div class="bg-white p-12 rounded-[4rem] shadow-2xl border-4 border-green-100 flex flex-col md:flex-row gap-8 items-center">
+                    <div onclick="play(false)" class="flex-1 cursor-pointer p-10 rounded-[3rem] border-2 border-slate-100 hover:bg-red-50 transition-all text-center">
+                        <div class="text-6xl mb-4">📦</div>
+                        <h4 class="font-black text-slate-800">直接寄送</h4>
+                        <p class="text-xs text-red-400 mt-2">產生膠帶與紙屑垃圾</p>
+                    </div>
+                    <div class="text-3xl font-black text-slate-300">VS</div>
+                    <div onclick="play(true)" class="flex-1 cursor-pointer p-10 rounded-[3rem] border-4 border-green-500 bg-green-50 hover:bg-green-100 transition-all text-center">
+                        <div class="text-6xl mb-4">♻️</div>
+                        <h4 class="font-black text-green-800">使用循環袋</h4>
+                        <p class="text-xs text-green-600 mt-2">愛地球，減少 1.2kg 碳排</p>
+                    </div>
+                </div>
+                <div id="gameResult" class="mt-8 text-xl font-bold text-slate-400">請做出你的綠色選擇...</div>
+            </div>
+        </div>
+
+        <div id="page-test" class="page-content">
+            <div class="max-w-2xl mx-auto bg-white p-12 rounded-[4rem] shadow-2xl border-2 border-green-50">
+                <div id="quiz-header" class="mb-10">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-green-100 text-green-700 px-4 py-1 rounded-full text-xs font-black">挑戰進度</span>
+                        <span id="p-text" class="text-xs font-black text-slate-400">1 / 5</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                        <div id="p-bar" class="bg-green-500 h-full transition-all duration-500" style="width: 20%;"></div>
+                    </div>
+                </div>
+
+                <div id="quiz-container">
+                    <div id="qq1">
+                        <h3 class="text-2xl font-black mb-8 text-slate-800">1. 循環包材重複使用幾次後，其碳排放會低於紙箱？</h3>
+                        <div class="space-y-4">
+                            <button onclick="toNext('qq1', 'qq2', 40)" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition border border-transparent hover:border-green-300">A. 約 6 次</button>
+                            <button onclick="alert('再想想！')" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition">B. 必須 100 次以上</button>
+                            <button onclick="alert('再想想！')" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition">C. 永遠不會比較低</button>
+                        </div>
+                    </div>
+                    <div id="qq2" class="hidden">
+                        <h3 class="text-2xl font-black mb-8 text-slate-800">2. 下列哪種材質是循環袋的主要成分，具備耐用與可回收性？</h3>
+                        <div class="space-y-4">
+                            <button onclick="alert('再想想！')" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition">A. PVC 塑膠</button>
+                            <button onclick="toNext('qq2', 'qq3', 60)" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition border border-transparent hover:border-green-300">B. 強化 PP 梭織布</button>
+                            <button onclick="alert('再想想！')" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition">C. 發泡保麗龍</button>
+                        </div>
+                    </div>
+                    <div id="qq3" class="hidden">
+                        <h3 class="text-2xl font-black mb-8 text-slate-800">3. 在循環經濟流程中，消費者「收到包裹後」應做什麼？</h3>
+                        <div class="space-y-4">
+                            <button onclick="alert('再想想！')" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition">A. 直接當垃圾丟棄</button>
+                            <button onclick="toNext('qq3', 'qq4', 80)" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition border border-transparent hover:border-green-300">B. 至合作據點歸還袋子</button>
+                            <button onclick="alert('再想想！')" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition">C. 留在家裡裝舊報紙</button>
+                        </div>
+                    </div>
+                    <div id="qq4" class="hidden">
+                        <h3 class="text-2xl font-black mb-8 text-slate-800">4. 使用循環包材可以減少約多少比例的碳排放？</h3>
+                        <div class="space-y-4">
+                            <button onclick="alert('再想想！')" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition">A. 10%</button>
+                            <button onclick="alert('再想想！')" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition">B. 30%</button>
+                            <button onclick="toNext('qq4', 'qq5', 100)" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition border border-transparent hover:border-green-300">C. 75% 以上</button>
+                        </div>
+                    </div>
+                    <div id="qq5" class="hidden">
+                        <h3 class="text-2xl font-black mb-8 text-slate-800">5. 為什麼要在網購介面顯示「已減碳 1kg」？（ARCS 模式）</h3>
+                        <div class="space-y-4">
+                            <button onclick="finishTest()" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition border border-transparent hover:border-green-300">A. 提升使用者滿足感 (Satisfaction)</button>
+                            <button onclick="alert('再想想！')" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition">B. 只是為了好看</button>
+                            <button onclick="alert('再想想！')" class="w-full p-5 bg-slate-50 rounded-2xl hover:bg-green-100 text-left font-bold transition">C. 這是政府強制規定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
+
+    <footer class="text-center py-12 text-slate-400 text-sm mt-20">
+        <div class="flex justify-center gap-4 mb-4 opacity-30">
+            <i class="fa-solid fa-earth-asia text-3xl"></i>
+            <i class="fa-solid fa-recycle text-3xl"></i>
+        </div>
+        <p class="font-bold text-green-900 mb-1 underline decoration-yellow-400 underline-offset-4">數位教材設計 ‧ 專題報告專用</p>
+        <p>© 2026 劉怡萱與團隊共同開發製作</p>
+    </footer>
 
     <script>
         function showPage(pageId) {
@@ -118,6 +250,28 @@
             document.getElementById('page-' + pageId).classList.add('active');
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             document.getElementById('link-' + pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function play(isEco) {
+            const res = document.getElementById('gameResult');
+            if(isEco) {
+                res.innerHTML = "🏆 <span class='text-green-600'>決策正確！減少 1.2kg 碳排，你的帳戶獲得 100 綠色積分！</span>";
+            } else {
+                res.innerHTML = "📦 <span class='text-red-400'>產生了無法降解的垃圾，地球負擔增加。</span>";
+            }
+        }
+
+        function toNext(curr, next, progress) {
+            document.getElementById(curr).classList.add('hidden');
+            document.getElementById(next).classList.remove('hidden');
+            document.getElementById('p-bar').style.width = progress + '%';
+            document.getElementById('p-text').innerText = (progress/20) + ' / 5';
+        }
+
+        function finishTest() {
+            alert("恭喜完成 5 題挑戰！你已獲得「綠色循環大師」稱號！🎉");
+            location.reload();
         }
     </script>
 </body>
