@@ -10,38 +10,39 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #f7faf8; }
         
-        .page-content { display: none; opacity: 0; transform: translateY(15px); }
-        .page-content.active { display: block; opacity: 1; transform: translateY(0); transition: all 0.5s ease; }
-        
-        .nav-link.active { background-color: #065f46; color: white; border-radius: 12px; }
+        /* 強制隱藏/顯示邏輯 */
+        .page-content { display: none; }
+        .page-content.active { display: block !important; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .nav-link.active { background-color: #065f46; color: white !important; }
         .wide-container { max-width: 1400px; margin: 0 auto; width: 94%; }
         
-        .option-card { background: white; border-radius: 2rem; border: 1px solid #e5e7eb; transition: 0.3s; position: relative; overflow: hidden; }
-        .option-card:hover { transform: translateY(-8px); border-color: #10b981; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-        
+        /* 增加可點擊範圍的指標 */
+        .nav-btn { cursor: pointer; border: none; outline: none; }
+        .option-card { background: white; border-radius: 2rem; border: 1px solid #e5e7eb; transition: 0.3s; }
         .price-badge { background: #065f46; color: white; padding: 4px 14px; border-radius: 99px; font-weight: 800; font-size: 0.85rem; }
-        .compare-table tr { border-bottom: 1px solid #edf2f7; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col pb-12">
 
-    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-green-100 px-8 py-5">
+    <nav class="bg-white sticky top-0 z-50 border-b border-green-100 px-8 py-5 shadow-sm">
         <div class="wide-container flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
-                <div class="w-10 h-10 bg-green-700 rounded-xl flex items-center justify-center text-white shadow-lg">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="location.reload()">
+                <div class="w-10 h-10 bg-green-700 rounded-xl flex items-center justify-center text-white">
                     <i class="fa-solid fa-graduation-cap"></i>
                 </div>
                 <div class="flex flex-col">
                     <span class="font-black text-xl text-slate-800 leading-none">教育科技專題</span>
-                    <span class="text-[10px] font-bold text-green-600 tracking-widest mt-1 uppercase">Sustainable Packaging</span>
+                    <span class="text-[10px] font-bold text-green-600 uppercase mt-1">Green Decision Support</span>
                 </div>
             </div>
-            <div class="hidden md:flex gap-1 font-bold text-slate-600 bg-slate-100 p-1.5 rounded-2xl">
-                <button onclick="showPage('home')" id="link-home" class="nav-link active px-6 py-2.5 transition">首頁</button>
-                <button onclick="showPage('compare')" id="link-compare" class="nav-link px-6 py-2.5 transition">包材對比詳解</button>
-                <button onclick="showPage('carbon')" id="link-carbon" class="nav-link px-6 py-2.5 transition">減碳數據</button>
-                <button onclick="showPage('game')" id="link-game" class="nav-link px-6 py-2.5 transition">出貨模擬</button>
-                <button onclick="showPage('test')" id="link-test" class="nav-link px-6 py-2.5 transition text-emerald-700">學習評量</button>
+            <div class="hidden md:flex gap-2 font-bold text-slate-600 bg-slate-100 p-1 rounded-2xl">
+                <button data-target="home" class="nav-btn nav-link active px-6 py-2.5 transition rounded-xl">首頁</button>
+                <button data-target="compare" class="nav-btn nav-link px-6 py-2.5 transition rounded-xl">包材對比詳解</button>
+                <button data-target="carbon" class="nav-btn nav-link px-6 py-2.5 transition rounded-xl">減碳數據</button>
+                <button data-target="game" class="nav-btn nav-link px-6 py-2.5 transition rounded-xl">出貨模擬</button>
+                <button data-target="test" class="nav-btn nav-link px-6 py-2.5 transition rounded-xl text-emerald-700">學習評量</button>
             </div>
         </div>
     </nav>
@@ -49,53 +50,61 @@
     <main class="wide-container mt-10 flex-grow">
 
         <div id="page-home" class="page-content active">
-            <div class="bg-gradient-to-br from-green-900 to-green-700 p-16 md:p-24 text-white rounded-[3rem] shadow-2xl flex flex-col md:flex-row items-center gap-16">
+            <div class="bg-gradient-to-br from-green-900 to-green-700 p-16 md:p-24 text-white rounded-[3rem] shadow-xl flex flex-col md:flex-row items-center gap-16">
                 <div class="md:w-3/5">
                     <h1 class="text-5xl md:text-6xl font-black mb-8 leading-tight">賣家出貨新標準：<br><span class="text-green-300">環保、經濟、高效</span></h1>
-                    <p class="text-xl opacity-90 mb-10 leading-relaxed">
-                        選擇對的包材，能為你的店鋪省下隱形成本，更能在消費者心中建立高品質的綠色品牌形象。
-                    </p>
-                    <button onclick="showPage('compare')" class="bg-white text-green-900 px-10 py-4 rounded-xl font-black hover:bg-green-50 shadow-xl transition">進入包材對比中心</button>
+                    <p class="text-xl opacity-90 mb-10 leading-relaxed">這是專為賣家打造的環保包材決策指南，幫助你分析成本與環保價值。</p>
                 </div>
-                <div class="md:w-2/5 text-center text-[10rem] drop-shadow-2xl">🌿</div>
+                <div class="md:w-2/5 text-center text-[10rem]">🌿</div>
             </div>
         </div>
 
         <div id="page-compare" class="page-content">
             <div class="bg-white p-10 rounded-[3rem] shadow-sm mb-12 border border-slate-100">
-                <h3 class="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3">
-                    <i class="fa-solid fa-scale-balanced text-green-600"></i> 包材對比分析表
-                </h3>
+                <h3 class="text-2xl font-black text-slate-800 mb-8"><i class="fa-solid fa-scale-balanced mr-2 text-green-600"></i>包材快速對比分析</h3>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left compare-table">
+                    <table class="w-full text-left">
                         <thead>
-                            <tr class="bg-slate-50 text-slate-500 text-sm uppercase">
-                                <th class="p-4">包材類型</th>
-                                <th class="p-4">傳統材質 (高碳排)</th>
-                                <th class="p-4">環保材質 (推薦)</th>
-                                <th class="p-4">主要轉型優勢</th>
+                            <tr class="bg-slate-50 text-slate-500 text-sm">
+                                <th class="p-4">類別</th>
+                                <th class="p-4 text-red-500">傳統材質</th>
+                                <th class="p-4 text-green-700">綠色推薦</th>
+                                <th class="p-4">轉型核心價值</th>
                             </tr>
                         </thead>
-                        <tbody class="text-slate-700 font-bold">
-                            <tr>
-                                <td class="p-5">外包裝</td>
-                                <td class="p-5 text-red-500">塑膠破壞袋</td>
+                        <tbody class="font-bold">
+                            <tr class="border-b border-slate-100">
+                                <td class="p-5">外包袋</td>
+                                <td class="p-5 text-red-400">塑膠破壞袋</td>
                                 <td class="p-5 text-green-600">循環袋 / 生物分解袋</td>
-                                <td class="p-5 text-sm font-medium">降低塑膠垃圾、可重複利用</td>
+                                <td class="p-5 text-sm text-slate-500">減少一次性浪費</td>
                             </tr>
-                            <tr>
-                                <td class="p-5">防撞緩衝</td>
-                                <td class="p-5 text-red-500">氣泡布 / 保麗龍</td>
+                            <tr class="border-b border-slate-100">
+                                <td class="p-5">緩衝材</td>
+                                <td class="p-5 text-red-400">氣泡布</td>
                                 <td class="p-5 text-green-600">蜂巢紙 / 澱粉發泡</td>
-                                <td class="p-5 text-sm font-medium">100% 自然分解、減少倉儲空間</td>
-                            </tr>
-                            <tr>
-                                <td class="p-5">封箱固定</td>
-                                <td class="p-5 text-red-500">OPP 塑膠膠帶</td>
-                                <td class="p-5 text-green-600">水性牛皮紙膠帶</td>
-                                <td class="p-5 text-sm font-medium">不影響紙箱回收純淨度</td>
+                                <td class="p-5 text-sm text-slate-500">100% 自然分解</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="option-card p-8 border-green-200 bg-green-50/20">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-4xl">🐝</span>
+                        <div class="text-right"><div class="price-badge">約 $1.5 - 3 /捲</div></div>
+                    </div>
+                    <h4 class="text-xl font-black text-green-900 mb-4">FSC 蜂巢緩衝紙</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        <strong>【詳解】</strong>：以認證林木紙漿製成，拉開後的立體結構具強大防撞力。<br>
+                        <strong>【優點】</strong>：省下 80% 倉儲空間，適合 3C、飾品賣家，能同步提升開箱美感。
+                    </p>
+                </div>
+                <div class="option-card p-8">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-4xl">♻️</span>
+                        <div class="text-right"><div class="price-badge">約 $2.5 - 5 /次</div></div>
+                    </div>
+                    <h4 class="text-xl font-black text-slate-800 mb-4">耐衝擊
