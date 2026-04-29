@@ -8,103 +8,186 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f7faf8; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f7faf8; margin: 0; padding: 0; }
         
-        /* 強制隱藏/顯示邏輯 */
-        .page-content { display: none; }
-        .page-content.active { display: block !important; animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        /* 頁面切換核心：強制控制 */
+        .page-content { display: none !important; visibility: hidden; }
+        .page-content.active { display: block !important; visibility: visible; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .nav-link.active { background-color: #065f46; color: white !important; }
-        .wide-container { max-width: 1400px; margin: 0 auto; width: 94%; }
+        .nav-btn { cursor: pointer; transition: 0.2s; border-radius: 12px; }
+        .nav-btn.active { background-color: #065f46 !important; color: white !important; }
+        .wide-container { max-width: 1300px; margin: 0 auto; width: 92%; }
         
-        /* 增加可點擊範圍的指標 */
-        .nav-btn { cursor: pointer; border: none; outline: none; }
-        .option-card { background: white; border-radius: 2rem; border: 1px solid #e5e7eb; transition: 0.3s; }
-        .price-badge { background: #065f46; color: white; padding: 4px 14px; border-radius: 99px; font-weight: 800; font-size: 0.85rem; }
+        .option-card { background: white; border-radius: 1.5rem; border: 1px solid #e5e7eb; height: 100%; }
+        .price-badge { background: #065f46; color: white; padding: 2px 10px; border-radius: 99px; font-size: 0.8rem; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col pb-12">
+<body class="min-h-screen flex flex-col">
 
-    <nav class="bg-white sticky top-0 z-50 border-b border-green-100 px-8 py-5 shadow-sm">
-        <div class="wide-container flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="location.reload()">
-                <div class="w-10 h-10 bg-green-700 rounded-xl flex items-center justify-center text-white">
-                    <i class="fa-solid fa-graduation-cap"></i>
+    <header class="bg-white border-b border-green-100 sticky top-0 z-[9999] shadow-sm">
+        <div class="wide-container py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-700 rounded-lg flex items-center justify-center text-white">
+                    <i class="fa-solid fa-leaf"></i>
                 </div>
-                <div class="flex flex-col">
-                    <span class="font-black text-xl text-slate-800 leading-none">教育科技專題</span>
-                    <span class="text-[10px] font-bold text-green-600 uppercase mt-1">Green Decision Support</span>
-                </div>
+                <span class="font-black text-xl text-slate-800">綠色出貨專題</span>
             </div>
-            <div class="hidden md:flex gap-2 font-bold text-slate-600 bg-slate-100 p-1 rounded-2xl">
-                <button data-target="home" class="nav-btn nav-link active px-6 py-2.5 transition rounded-xl">首頁</button>
-                <button data-target="compare" class="nav-btn nav-link px-6 py-2.5 transition rounded-xl">包材對比詳解</button>
-                <button data-target="carbon" class="nav-btn nav-link px-6 py-2.5 transition rounded-xl">減碳數據</button>
-                <button data-target="game" class="nav-btn nav-link px-6 py-2.5 transition rounded-xl">出貨模擬</button>
-                <button data-target="test" class="nav-btn nav-link px-6 py-2.5 transition rounded-xl text-emerald-700">學習評量</button>
-            </div>
+            
+            <nav class="flex flex-wrap justify-center gap-1 bg-slate-100 p-1 rounded-xl">
+                <button onclick="changePage('home')" id="btn-home" class="nav-btn active px-4 py-2 font-bold text-slate-600">首頁</button>
+                <button onclick="changePage('compare')" id="btn-compare" class="nav-btn px-4 py-2 font-bold text-slate-600">對比詳解</button>
+                <button onclick="changePage('carbon')" id="btn-carbon" class="nav-btn px-4 py-2 font-bold text-slate-600">數據</button>
+                <button onclick="changePage('test')" id="btn-test" class="nav-btn px-4 py-2 font-bold text-emerald-700">學習評量</button>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <main class="wide-container mt-10 flex-grow">
+    <main class="wide-container mt-8 flex-grow">
 
-        <div id="page-home" class="page-content active">
-            <div class="bg-gradient-to-br from-green-900 to-green-700 p-16 md:p-24 text-white rounded-[3rem] shadow-xl flex flex-col md:flex-row items-center gap-16">
-                <div class="md:w-3/5">
-                    <h1 class="text-5xl md:text-6xl font-black mb-8 leading-tight">賣家出貨新標準：<br><span class="text-green-300">環保、經濟、高效</span></h1>
-                    <p class="text-xl opacity-90 mb-10 leading-relaxed">這是專為賣家打造的環保包材決策指南，幫助你分析成本與環保價值。</p>
+        <section id="page-home" class="page-content active">
+            <div class="bg-green-800 p-12 md:p-20 text-white rounded-[2.5rem] shadow-lg text-center md:text-left flex flex-col md:flex-row items-center justify-between">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-black mb-6">賣家出貨新選擇</h1>
+                    <p class="text-lg opacity-80 mb-8">分析包材成本與環保價值，讓您的店鋪邁向永續經營。</p>
+                    <button onclick="changePage('compare')" class="bg-white text-green-900 px-8 py-3 rounded-xl font-black">開始學習</button>
                 </div>
-                <div class="md:w-2/5 text-center text-[10rem]">🌿</div>
+                <div class="text-9xl mt-8 md:mt-0">📦</div>
             </div>
-        </div>
+        </section>
 
-        <div id="page-compare" class="page-content">
-            <div class="bg-white p-10 rounded-[3rem] shadow-sm mb-12 border border-slate-100">
-                <h3 class="text-2xl font-black text-slate-800 mb-8"><i class="fa-solid fa-scale-balanced mr-2 text-green-600"></i>包材快速對比分析</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="bg-slate-50 text-slate-500 text-sm">
-                                <th class="p-4">類別</th>
-                                <th class="p-4 text-red-500">傳統材質</th>
-                                <th class="p-4 text-green-700">綠色推薦</th>
-                                <th class="p-4">轉型核心價值</th>
-                            </tr>
-                        </thead>
-                        <tbody class="font-bold">
-                            <tr class="border-b border-slate-100">
-                                <td class="p-5">外包袋</td>
-                                <td class="p-5 text-red-400">塑膠破壞袋</td>
-                                <td class="p-5 text-green-600">循環袋 / 生物分解袋</td>
-                                <td class="p-5 text-sm text-slate-500">減少一次性浪費</td>
-                            </tr>
-                            <tr class="border-b border-slate-100">
-                                <td class="p-5">緩衝材</td>
-                                <td class="p-5 text-red-400">氣泡布</td>
-                                <td class="p-5 text-green-600">蜂巢紙 / 澱粉發泡</td>
-                                <td class="p-5 text-sm text-slate-500">100% 自然分解</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <section id="page-compare" class="page-content">
+            <h2 class="text-2xl font-black text-slate-800 mb-6 border-l-4 border-green-600 pl-4">包材對比與詳細說明</h2>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-sm mb-8 overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th class="p-3">類型</th>
+                            <th class="p-3 text-red-500">傳統材質</th>
+                            <th class="p-3 text-green-700">環保推薦</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-bold text-slate-700">
+                        <tr class="border-t">
+                            <td class="p-3">緩衝防撞</td>
+                            <td class="p-3">氣泡布 (塑膠)</td>
+                            <td class="p-3">蜂巢紙 / 澱粉發泡</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="p-3">封箱膠帶</td>
+                            <td class="p-3">OPP 膠帶</td>
+                            <td class="p-3">水性牛皮紙膠帶</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="option-card p-8 border-green-200 bg-green-50/20">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-4xl">🐝</span>
-                        <div class="text-right"><div class="price-badge">約 $1.5 - 3 /捲</div></div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="option-card p-6">
+                    <div class="flex justify-between mb-4">
+                        <span class="text-3xl">🐝</span>
+                        <span class="price-badge">約 $1.5-3 /捲</span>
                     </div>
-                    <h4 class="text-xl font-black text-green-900 mb-4">FSC 蜂巢緩衝紙</h4>
-                    <p class="text-sm text-slate-600 leading-relaxed">
-                        <strong>【詳解】</strong>：以認證林木紙漿製成，拉開後的立體結構具強大防撞力。<br>
-                        <strong>【優點】</strong>：省下 80% 倉儲空間，適合 3C、飾品賣家，能同步提升開箱美感。
+                    <h4 class="font-black text-lg mb-2">FSC 蜂巢緩衝紙</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        <strong>解釋：</strong>長纖維原紙製成，拉開後具強大防震力。<br>
+                        <strong>優點：</strong>100%回收，節省80%倉庫空間，提升品牌開箱質感。
                     </p>
                 </div>
-                <div class="option-card p-8">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-4xl">♻️</span>
-                        <div class="text-right"><div class="price-badge">約 $2.5 - 5 /次</div></div>
+                <div class="option-card p-6">
+                    <div class="flex justify-between mb-4">
+                        <span class="text-3xl">♻️</span>
+                        <span class="price-badge">約 $2.5-5 /次</span>
                     </div>
-                    <h4 class="text-xl font-black text-slate-800 mb-4">耐衝擊
+                    <h4 class="font-black text-lg mb-2">耐衝擊循環袋</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        <strong>解釋：</strong>高強度PP材質，專為重複物流設計。<br>
+                        <strong>優點：</strong>單個可回用50次，平攤成本極低，大幅減廢。
+                    </p>
+                </div>
+                <div class="option-card p-6">
+                    <div class="flex justify-between mb-4">
+                        <span class="text-3xl">🩹</span>
+                        <span class="price-badge">約 $15-25 /捲</span>
+                    </div>
+                    <h4 class="font-black text-lg mb-2">水性牛皮紙膠帶</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        <strong>解釋：</strong>澱粉膠背塗，沾水後與紙箱合一。<br>
+                        <strong>優點：</strong>可隨紙箱一同回收，不需撕除，提升回收效率。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-carbon" class="page-content">
+            <div class="bg-slate-900 rounded-[2.5rem] p-12 text-white text-center">
+                <h2 class="text-2xl font-black text-green-400 mb-6">減碳數據庫</h2>
+                <p class="mb-4">轉向綠色包材，平均可降低 75% 的物流碳排放。</p>
+                <div class="w-full bg-white/10 h-2 rounded-full max-w-md mx-auto">
+                    <div class="bg-green-500 h-full w-3/4 rounded-full"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-test" class="page-content">
+            <div class="max-w-xl mx-auto bg-white p-8 rounded-3xl shadow-lg border border-slate-100">
+                <h3 class="text-xl font-bold mb-6 text-center text-slate-800">學習評量 Assessment</h3>
+                <div id="q1">
+                    <p class="font-bold mb-4">1. 關於「蜂巢紙」的敘述，何者正確？</p>
+                    <button onclick="nextQ()" class="w-full text-left p-4 bg-slate-50 rounded-xl mb-3 hover:bg-green-50 font-bold border border-slate-100">A. 100% 可自然分解且省倉儲空間</button>
+                    <button onclick="alert('答錯囉！')" class="w-full text-left p-4 bg-slate-50 rounded-xl hover:bg-green-50 font-bold border border-slate-100">B. 它是不可回收的塑膠</button>
+                </div>
+                <div id="q_finish" class="hidden text-center py-6">
+                    <div class="text-5xl mb-4">🎉</div>
+                    <p class="text-xl font-black text-green-700">恭喜完成評量！</p>
+                    <button onclick="location.reload()" class="mt-4 text-sm text-slate-400 underline">重新開始</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-slate-400 border-t bg-white mt-12">
+        <p class="font-bold text-slate-700">教育科技專題：綠色出貨決策教學</p>
+        <p class="text-[10px]">2026 數位教學製作 ‧ 劉怡萱</p>
+    </footer>
+
+    <script>
+        // 極簡化切換邏輯
+        function changePage(targetId) {
+            console.log('切換至：' + targetId); // 除錯用
+
+            // 1. 隱藏所有頁面
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(p => {
+                p.classList.remove('active');
+            });
+
+            // 2. 顯示目標頁面
+            const targetPage = document.getElementById('page-' + targetId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // 3. 更新按鈕樣式
+            const btns = document.querySelectorAll('.nav-btn');
+            btns.forEach(b => {
+                b.classList.remove('active');
+            });
+            const activeBtn = document.getElementById('btn-' + targetId);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+
+            // 4. 置頂
+            window.scrollTo(0, 0);
+        }
+
+        function nextQ() {
+            document.getElementById('q1').style.display = 'none';
+            document.getElementById('q_finish').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
