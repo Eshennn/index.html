@@ -10,9 +10,9 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; }
         
-        /* 核心切換邏輯：預設隱藏，有 .active 才顯示 */
         .page-content { display: none; }
-        .page-content.active { display: block !important; }
+        .page-content.active { display: block !important; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .nav-btn { cursor: pointer; transition: 0.3s; padding: 10px 20px; border-radius: 12px; font-weight: bold; color: #475569; }
         .nav-btn.active { background-color: #065f46 !important; color: white !important; }
@@ -23,6 +23,8 @@
         .match-item { cursor: pointer; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1rem; transition: 0.2s; background: #f8fafc; }
         .match-item.selected { border-color: #065f46; background-color: #ecfdf5; transform: scale(1.02); }
         .match-item.correct { border-color: #10b981 !important; background-color: #f0fdf4 !important; opacity: 0.6; cursor: default; }
+        
+        .hero-gradient { background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #0f172a 100%); }
     </style>
 </head>
 <body class="min-h-screen">
@@ -46,12 +48,47 @@
     <main class="max-w-7xl mx-auto px-4 mt-10 pb-20">
         
         <section id="page-home" class="page-content active">
-            <div class="bg-green-900 text-white p-12 md:p-20 rounded-[3rem] shadow-xl">
-                <h1 class="text-5xl font-black mb-6">循環包材：<br><span class="text-green-400">電商轉型的關鍵</span></h1>
-                <p class="text-lg opacity-80 max-w-2xl leading-relaxed mb-8">
-                    我們不再只是「買、用、丟」。透過 8 種綠色包材與創新的混搭策略，你可以在保持低成本的同時，為地球減少 90% 以上的塑膠廢棄物。
-                </p>
-                <button onclick="showPage('compare')" class="bg-white text-green-900 px-8 py-3 rounded-xl font-black">開始探索</button>
+            <div class="hero-gradient text-white p-12 md:p-24 rounded-[3.5rem] shadow-2xl relative overflow-hidden">
+                <div class="relative z-10">
+                    <h1 class="text-6xl font-black mb-8 leading-tight">循環物流：<br><span class="text-green-400">定義下一個十年的出貨基準</span></h1>
+                    <p class="text-xl opacity-90 max-w-3xl leading-relaxed mb-10 font-medium">
+                        台灣電商每年產生超過 8,000 萬個包裝袋。傳統「取用-製造-丟棄」的線性模式已面臨瓶頸。我們提供的解決方案，旨在協助賣家在**環境永續**與**獲利成長**之間，找到完美的平衡點。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="showPage('compare')" class="bg-white text-green-900 px-10 py-4 rounded-2xl font-black shadow-lg hover:scale-105 transition">探索 8 種環保方案</button>
+                        <button onclick="showPage('balance')" class="bg-green-800/50 backdrop-blur border border-white/20 text-white px-10 py-4 rounded-2xl font-black hover:bg-green-700 transition">查看搭配策略</button>
+                    </div>
+                </div>
+                <div class="absolute -right-20 -bottom-20 text-[20rem] opacity-10 rotate-12 hidden lg:block">📦</div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mt-16">
+                <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
+                    <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-recycle"></i></div>
+                    <h3 class="text-2xl font-black mb-4">什麼是循環包材？</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm">
+                        不同於一次性包裝，循環包材強調高強度、易清潔與可追蹤性。透過全台回收點的佈局，包裹不再是垃圾，而是可以不斷往返於賣家與買家之間的資產，單個循環袋生命週期可抵消 50 個以上的塑膠破壞袋。
+                    </p>
+                </div>
+                <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3 class="text-2xl font-black mb-4">轉型的經濟誘因</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm">
+                        許多賣家擔心環保等於高昂成本。事實上，透過「混合搭配策略」，您可以降低昂貴緩衝材的浪費。長期而言，隨著全球碳稅徵收與一次性塑膠包裝規費提升，及早轉型循環系統將為店鋪省下 20%-30% 的潛在環保支出。
+                    </p>
+                </div>
+                <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
+                    <div class="w-14 h-14 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-earth-asia"></i></div>
+                    <h3 class="text-2xl font-black mb-4">品牌價值的重塑</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm">
+                        根據 2026 消費行為報告，超過 9 成的 Z 世代消費者會優先選擇提供綠色出貨選項的店家。將「開箱體驗」從剝離膠帶的煩躁，轉化為參與永續行動的成就感，是品牌建立忠誠度最高效的方式。
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-slate-100 p-8 rounded-3xl flex items-center gap-6 border border-slate-200">
+                <div class="animate-pulse bg-green-200 text-green-800 px-4 py-1 rounded-full text-xs font-black">2026 TREND</div>
+                <p class="text-slate-600 text-sm font-medium italic">「未來的競爭不在於出貨的速度，而在於出貨的溫度——一種對地球負責任的溫度。」</p>
             </div>
         </section>
 
@@ -92,8 +129,8 @@
                 <h2 class="text-3xl font-black text-green-400 mb-12">數據說話</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="p-8 bg-white/5 rounded-2xl"> <div class="text-4xl mb-4">🌳</div> <p class="text-3xl font-black">92 棵樹</p> <p class="text-xs opacity-60 mt-2">每萬件改用循環袋的年減碳</p> </div>
-                    <div class="p-8 bg-white/5 rounded-2xl"> <div class="text-4xl mb-4">🛢️</div> <p class="text-3xl font-black">450 公升</p> <p class="text-xs opacity-60 mt-2">改用牛皮紙膠帶節省的原油</p> </div>
-                    <div class="p-8 bg-white/5 rounded-2xl"> <div class="text-4xl mb-4">👍</div> <p class="text-3xl font-black">92% 偏好</p> <p class="text-xs opacity-60 mt-2">消費者對綠色包裝的回購率</p> </div>
+                    <div class="p-8 bg-white/5 rounded-2xl"> <div class="text-4xl mb-4">🛢️</div> <p class="text-3xl font-black">450 公升</p> <p class="text-xs opacity-60 mt-2">改用環保膠帶節省的原油量</p> </div>
+                    <div class="p-8 bg-white/5 rounded-2xl"> <div class="text-4xl mb-4">👍</div> <p class="text-3xl font-black">92% 回購率</p> <p class="text-xs opacity-60 mt-2">消費者對綠色包裝的認同感</p> </div>
                 </div>
             </div>
         </section>
@@ -102,7 +139,6 @@
             <div class="max-w-4xl mx-auto bg-white p-12 rounded-[3rem] shadow-xl border border-slate-100 text-center">
                 <h3 class="text-2xl font-black mb-4 text-slate-800">包材特性連連看</h3>
                 <p class="text-slate-500 mb-10 italic">點選左側圖示，再點選右側描述</p>
-                
                 <div class="grid grid-cols-2 gap-8 text-left">
                     <div class="space-y-4">
                         <div onclick="pickLeft('A', this)" class="match-item flex items-center gap-4"> <span class="text-2xl">🐝</span> <span class="font-bold">蜂巢紙</span> </div>
@@ -121,45 +157,33 @@
 
     </main>
 
-    <footer class="text-center py-10 text-slate-400 border-t bg-white mt-10">
+    <footer class="text-center py-10 text-slate-400 border-t bg-white mt-20">
         <p class="font-bold text-slate-700">教育科技專題：綠色出貨決策系統</p>
         <p class="text-xs">2026 數位教育研發 ‧ 劉怡萱製作</p>
     </footer>
 
     <script>
-        // 1. 頁面切換：直接操作所有 section 的 class
         function showPage(pageId) {
-            // 隱藏所有頁面
             const pages = document.querySelectorAll('.page-content');
             pages.forEach(p => p.classList.remove('active'));
-
-            // 顯示目標頁面
             const target = document.getElementById('page-' + pageId);
-            if (target) {
-                target.classList.add('active');
-            }
+            if (target) target.classList.add('active');
 
-            // 更新按鈕狀態
             const btns = document.querySelectorAll('.nav-btn');
             btns.forEach(b => b.classList.remove('active'));
-            
             const activeBtn = document.getElementById('btn-' + pageId);
-            if (activeBtn) {
-                activeBtn.classList.add('active');
-            }
+            if (activeBtn) activeBtn.classList.add('active');
             
             window.scrollTo(0, 0);
         }
 
-        // 2. 連連看邏輯
         let leftID = null;
         let leftEl = null;
         let totalCorrect = 0;
 
         function pickLeft(id, el) {
             if (el.classList.contains('correct')) return;
-            leftID = id;
-            leftEl = el;
+            leftID = id; leftEl = el;
             document.querySelectorAll('.match-item').forEach(i => i.classList.remove('selected'));
             el.classList.add('selected');
         }
@@ -173,9 +197,7 @@
                 leftID = null;
                 totalCorrect++;
                 document.getElementById('m-msg').innerText = "✅ 正確配對！";
-                if (totalCorrect === 3) {
-                    document.getElementById('m-msg').innerText = "🎉 恭喜完成！你已掌握綠色包材核心知識！";
-                }
+                if (totalCorrect === 3) document.getElementById('m-msg').innerText = "🎉 恭喜完成！你已掌握綠色包材核心知識！";
             } else {
                 document.getElementById('m-msg').innerText = "❌ 答錯了，請再試試看！";
             }
