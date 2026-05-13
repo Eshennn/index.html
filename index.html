@@ -17,9 +17,16 @@
         .nav-btn { cursor: pointer; transition: 0.3s; padding: 10px 20px; border-radius: 12px; font-weight: bold; color: #475569; }
         .nav-btn.active { background-color: #065f46 !important; color: white !important; }
         
-        .info-card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; padding: 1.5rem; transition: 0.3s; }
+        /* 百科卡片增強 */
+        .info-card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; padding: 1.5rem; transition: 0.4s; position: relative; overflow: hidden; }
+        .info-card:hover { transform: translateY(-8px); box-shadow: 0 12px 20px rgba(0,0,0,0.05); border-color: #10b981; }
         .price-tag { background: #ecfdf5; color: #065f46; padding: 4px 10px; border-radius: 99px; font-weight: 800; font-size: 0.75rem; }
         
+        /* 標籤切換器 */
+        .filter-btn { cursor: pointer; padding: 6px 16px; border-radius: 99px; font-size: 0.875rem; transition: 0.3s; border: 1px solid #e2e8f0; background: white; color: #64748b; }
+        .filter-btn.active { background: #065f46; color: white; border-color: #065f46; }
+
+        /* 連連看樣式 */
         .match-item { cursor: pointer; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1rem; transition: 0.2s; background: #f8fafc; }
         .match-item.selected { border-color: #065f46; background-color: #ecfdf5; transform: scale(1.02); }
         .match-item.correct { border-color: #10b981 !important; background-color: #f0fdf4 !important; opacity: 0.6; cursor: default; }
@@ -47,129 +54,109 @@
 
     <main class="max-w-7xl mx-auto px-4 mt-10 pb-20">
         
+        <!-- [頁面 1: 首頁] -->
         <section id="page-home" class="page-content active">
             <div class="hero-gradient text-white p-12 md:p-24 rounded-[3.5rem] shadow-2xl relative overflow-hidden">
                 <div class="relative z-10">
                     <h1 class="text-6xl font-black mb-8 leading-tight">循環物流：<br><span class="text-green-400">定義下一個十年的出貨基準</span></h1>
-                    <p class="text-xl opacity-90 max-w-3xl leading-relaxed mb-10 font-medium">
-                        台灣電商每年產生超過 8,000 萬個包裝袋。傳統「取用-製造-丟棄」的線性模式已面臨瓶頸。我們提供的解決方案，旨在協助賣家在**環境永續**與**獲利成長**之間，找到完美的平衡點。
-                    </p>
+                    <p class="text-xl opacity-90 max-w-3xl leading-relaxed mb-10 font-medium">台灣電商每年產生超過 8,000 萬個包裝袋。我們旨在協助賣家在**環境永續**與**獲利成長**之間，找到完美的平衡點。</p>
                     <div class="flex flex-wrap gap-4">
-                        <button onclick="showPage('compare')" class="bg-white text-green-900 px-10 py-4 rounded-2xl font-black shadow-lg hover:scale-105 transition">探索 8 種環保方案</button>
-                        <button onclick="showPage('balance')" class="bg-green-800/50 backdrop-blur border border-white/20 text-white px-10 py-4 rounded-2xl font-black hover:bg-green-700 transition">查看搭配策略</button>
+                        <button onclick="showPage('compare')" class="bg-white text-green-900 px-10 py-4 rounded-2xl font-black shadow-lg hover:scale-105 transition">互動百科探索</button>
                     </div>
                 </div>
             </div>
-            <div class="grid md:grid-cols-3 gap-8 mt-16">
-                <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
-                    <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-recycle"></i></div>
-                    <h3 class="text-2xl font-black mb-4">什麼是循環包材？</h3>
-                    <p class="text-slate-500 leading-relaxed text-sm">不同於一次性包裝，循環包材強調高強度、易清潔與可追蹤性。單個循環袋生命週期可抵消 50 個以上的塑膠破壞袋。</p>
-                </div>
-                <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
-                    <div class="w-14 h-14 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-chart-line"></i></div>
-                    <h3 class="text-2xl font-black mb-4">轉型的經濟誘因</h3>
-                    <p class="text-slate-500 leading-relaxed text-sm">透過「混合搭配策略」，您可以降低昂貴緩衝材的浪費。長期而言，這將為店鋪省下 20%-30% 的潛在環境稅支出。</p>
-                </div>
-                <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm">
-                    <div class="w-14 h-14 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-earth-asia"></i></div>
-                    <h3 class="text-2xl font-black mb-4">品牌價值的重塑</h3>
-                    <p class="text-slate-500 leading-relaxed text-sm">根據 2026 消費行為報告，超過 9 成的消費者會優先選擇提供綠色出貨選項的店家，大幅提升品牌忠誠度。</p>
-                </div>
-            </div>
         </section>
 
+        <!-- [頁面 2: 互動式包材百科] -->
         <section id="page-compare" class="page-content">
-            <h2 class="text-3xl font-black text-center mb-10">8 大環保包材詳解與價格</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="info-card"> <div class="flex justify-between mb-4"><span>🐝</span><span class="price-tag">NT$ 1.5-3</span></div> <h4 class="font-black mb-2">FSC 蜂巢紙</h4> <p class="text-xs text-slate-500">全紙質緩衝，保護力強且省空間。</p> </div>
-                <div class="info-card"> <div class="flex justify-between mb-4"><span>♻️</span><span class="price-tag">NT$ 2.5-5</span></div> <h4 class="font-black mb-2">耐衝擊循環袋</h4> <p class="text-xs text-slate-500">重複用50次以上，平均成本極低。</p> </div>
-                <div class="info-card"> <div class="flex justify-between mb-4"><span>🌽</span><span class="price-tag">NT$ 0.8-1.5</span></div> <h4 class="font-black mb-2">PLA 分解袋</h4> <p class="text-xs text-slate-500">植物澱粉製，工業堆肥下可全分解。</p> </div>
-                <div class="info-card"> <div class="flex justify-between mb-4"><span>🌱</span><span class="price-tag">NT$ 0.1</span></div> <h4 class="font-black mb-2">水溶性發泡乖乖</h4> <p class="text-xs text-slate-500">遇水即溶，無微塑膠污染，超輕量。</p> </div>
-                <div class="info-card bg-amber-50"> <div class="flex justify-between mb-4"><span>🩹</span><span class="price-tag">NT$ 15-25</span></div> <h4 class="font-black mb-2">牛皮紙膠帶</h4> <p class="text-xs text-slate-500">澱粉膠沾水即黏，免撕除直接回收。</p> </div>
-                <div class="info-card"> <div class="flex justify-between mb-4"><span>🎨</span><span class="price-tag">+1-2%</span></div> <h4 class="font-black mb-2">大豆油墨印刷</h4> <p class="text-xs text-slate-500">環保無毒，提升開箱質感與回收率。</p> </div>
-                <div class="info-card"> <div class="flex justify-between mb-4"><span>🌾</span><span class="price-tag">NT$ 0.5-1</span></div> <h4 class="font-black mb-2">草本墊材</h4> <p class="text-xs text-slate-500">稻草回收製成，風格獨特帶有香氣。</p> </div>
-                <div class="info-card bg-slate-50 border-dashed"> <div class="flex justify-between mb-4"><span>📠</span><span class="price-tag">NT$ 0</span></div> <h4 class="font-black mb-2">紙箱再製機</h4> <p class="text-xs text-slate-500">廢紙箱切碎變緩衝材，成本為零。</p> </div>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-black mb-4">8 大環保包材互動百科</h2>
+                <div class="flex flex-wrap justify-center gap-3 mt-6">
+                    <button onclick="filterMaterials('all')" class="filter-btn active" id="f-all">全部顯示</button>
+                    <button onclick="filterMaterials('low')" class="filter-btn" id="f-low">經濟首選 (NT$1以下)</button>
+                    <button onclick="filterMaterials('high')" class="filter-btn" id="f-high">高強度保護</button>
+                    <button onclick="filterMaterials('special')" class="filter-btn" id="f-special">特殊應用</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="material-grid">
+                <!-- 1 -->
+                <div class="info-card" data-cat="high"> <div class="flex justify-between mb-4"><span>🐝</span><span class="price-tag">NT$ 1.5-3</span></div> <h4 class="font-black mb-2 text-lg">FSC 蜂巢紙</h4> <p class="text-xs text-slate-500 leading-relaxed">全紙質緩衝。拉開後具結構力，極省儲倉空間。</p> </div>
+                <!-- 2 -->
+                <div class="info-card" data-cat="high"> <div class="flex justify-between mb-4"><span>♻️</span><span class="price-tag">NT$ 2.5-5</span></div> <h4 class="font-black mb-2 text-lg">耐衝擊循環袋</h4> <p class="text-xs text-slate-500 leading-relaxed">可重複使用50次。高強度保護，單次平攤成本極低。</p> </div>
+                <!-- 3 -->
+                <div class="info-card" data-cat="low"> <div class="flex justify-between mb-4"><span>🌽</span><span class="price-tag">NT$ 0.8-1.5</span></div> <h4 class="font-black mb-2 text-lg">PLA 分解袋</h4> <p class="text-xs text-slate-500 leading-relaxed">澱粉製成。工業堆肥下全分解，適合輕量服飾。</p> </div>
+                <!-- 4 -->
+                <div class="info-card" data-cat="low"> <div class="flex justify-between mb-4"><span>🌱</span><span class="price-tag">NT$ 0.1</span></div> <h4 class="font-black mb-2 text-lg">水溶性發泡乖乖</h4> <p class="text-xs text-slate-500 leading-relaxed">遇水即溶。無污染，極輕量，適合填滿箱內縫隙。</p> </div>
+                <!-- 5 -->
+                <div class="info-card bg-amber-50" data-cat="special"> <div class="flex justify-between mb-4"><span>🩹</span><span class="price-tag">NT$ 15-25</span></div> <h4 class="font-black mb-2 text-lg">牛皮紙膠帶</h4> <p class="text-xs text-slate-500 leading-relaxed">沾水即黏。免撕直接回收，防盜性比傳統強。</p> </div>
+                <!-- 6 -->
+                <div class="info-card" data-cat="special"> <div class="flex justify-between mb-4"><span>🎨</span><span class="price-tag">+1-2%</span></div> <h4 class="font-black mb-2 text-lg">大豆油墨印刷</h4> <p class="text-xs text-slate-500 leading-relaxed">環保無毒。不影響廢紙回收純度，提升質感。</p> </div>
+                <!-- 7 -->
+                <div class="info-card" data-cat="special"> <div class="flex justify-between mb-4"><span>🌾</span><span class="price-tag">NT$ 0.5-1</span></div> <h4 class="font-black mb-2 text-lg">草本墊材</h4> <p class="text-xs text-slate-500 leading-relaxed">稻草再製。天然質樸風，具備獨特香氣與品牌力。</p> </div>
+                <!-- 8 -->
+                <div class="info-card bg-slate-50 border-dashed" data-cat="low"> <div class="flex justify-between mb-4"><span>📠</span><span class="price-tag">NT$ 0</span></div> <h4 class="font-black mb-2 text-lg">紙箱再製機</h4> <p class="text-xs text-slate-500 leading-relaxed">廢紙變緩衝。終極環保，將成本徹底降為零。</p> </div>
             </div>
         </section>
 
+        <!-- [頁面 3: 互動式平衡策略] -->
         <section id="page-balance" class="page-content">
-            <h2 class="text-3xl font-black text-center mb-10">環保與成本的平衡方案</h2>
-            <div class="max-w-4xl mx-auto space-y-6">
-                <div class="bg-white p-8 rounded-3xl border-l-8 border-green-700 shadow-sm">
-                    <h3 class="text-xl font-bold text-green-800 mb-2">方案 1：精品高質感 (客單 $1000+)</h3>
-                    <p class="text-slate-600">組合：蜂巢紙 + 水性膠帶 + 大豆油墨。用質感換取客戶忠誠度。</p>
+            <h2 class="text-3xl font-black text-center mb-6">點擊方案：預覽決策內容</h2>
+            <div class="flex flex-col lg:flex-row gap-8 items-start">
+                <!-- 左側：方案選擇 -->
+                <div class="w-full lg:w-1/3 space-y-4">
+                    <div onclick="selectStrategy(1, this)" class="strategy-option p-6 bg-white border-2 border-green-600 rounded-3xl cursor-pointer hover:bg-green-50 transition shadow-md">
+                        <span class="text-green-700 font-black">方案 1：精品高質感</span>
+                    </div>
+                    <div onclick="selectStrategy(2, this)" class="strategy-option p-6 bg-white border-2 border-slate-200 rounded-3xl cursor-pointer hover:bg-sky-50 transition">
+                        <span class="text-sky-700 font-black">方案 2：平價出貨王</span>
+                    </div>
+                    <div onclick="selectStrategy(3, this)" class="strategy-option p-6 bg-white border-2 border-slate-200 rounded-3xl cursor-pointer hover:bg-amber-50 transition">
+                        <span class="text-amber-700 font-black">方案 3：小資極簡風</span>
+                    </div>
                 </div>
-                <div class="bg-white p-8 rounded-3xl border-l-8 border-sky-700 shadow-sm">
-                    <h3 class="text-xl font-bold text-sky-800 mb-2">方案 2：平價出貨王 (服飾/美妝)</h3>
-                    <p class="text-slate-600">組合：循環袋 + 少量PLA分解袋。主力減少垃圾量，長期成本更低。</p>
-                </div>
-                <div class="bg-white p-8 rounded-3xl border-l-8 border-amber-700 shadow-sm">
-                    <h3 class="text-xl font-bold text-amber-800 mb-2">方案 3：小資極簡風 (省錢必備)</h3>
-                    <p class="text-slate-600">組合：二手紙箱 + 紙箱再製機。完全省下緩衝耗材預算。</p>
+                <!-- 右側：動態結果 -->
+                <div class="w-full lg:w-2/3 bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 min-h-[300px]" id="strategy-result">
+                    <div id="strat-1">
+                        <h3 class="text-2xl font-black text-green-800 mb-6 underline decoration-green-300">精品品牌首選</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">主材：FSC 蜂巢紙</div>
+                            <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">封箱：牛皮紙膠帶</div>
+                            <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">細節：大豆油墨印刷</div>
+                            <div class="p-4 bg-green-100 rounded-xl font-bold text-green-800">優點：提升 40% 回購率</div>
+                        </div>
+                        <p class="mt-8 text-slate-500 italic text-sm">適用對象：客單價 $1000 以上之精品、美妝、工藝品賣家。</p>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- [頁面 4: 減碳數據] -->
         <section id="page-carbon" class="page-content">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-black text-slate-800 mb-4">環境影響深度報告</h2>
-                <p class="text-slate-500">數據背後，是我們對地球的實質改變</p>
             </div>
-
             <div class="grid lg:grid-cols-2 gap-8 mb-12">
                 <div class="bg-emerald-900 text-white p-10 rounded-[2.5rem] shadow-xl">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center text-2xl">🌳</div>
-                        <h3 class="text-2xl font-black">森林守護：92 棵樹的意義</h3>
-                    </div>
-                    <p class="leading-relaxed opacity-90 mb-6">
-                        每當賣家改用循環包材達一萬件，減少的二氧化碳排放量約為 **1.1 公噸**。這相當於 **92 棵成年大樹** 一整年的碳吸收量。
-                    </p>
-                    <div class="bg-white/10 p-4 rounded-xl border border-white/20">
-                        <p class="text-sm font-bold text-emerald-300 italic">為什麼重要？</p>
-                        <p class="text-xs mt-1">電商物流的廢棄物佔都市垃圾比例逐年攀升，透過「以租代買」的循環模式，我們可以減少對原生木漿紙箱的過度依賴。</p>
-                    </div>
+                    <div class="flex items-center gap-4 mb-6"> <div class="text-2xl">🌳</div> <h3 class="text-2xl font-black">森林守護：92 棵樹</h3> </div>
+                    <p class="opacity-90">每萬件改用循環包材，減少 1.1 公噸二氧化碳，相當於 92 棵大樹整年的吸收量。</p>
                 </div>
-
                 <div class="bg-slate-900 text-white p-10 rounded-[2.5rem] shadow-xl">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center text-2xl">🛢️</div>
-                        <h3 class="text-2xl font-black">資源節約：450 公升原油</h3>
-                    </div>
-                    <p class="leading-relaxed opacity-90 mb-6">
-                        傳統塑膠膠帶與緩衝材皆為石油製品。若一間中型店鋪改用水性牛皮紙膠帶與蜂巢紙，一年能節省約 **450 公升的石油原油** 消耗。
-                    </p>
-                    <div class="bg-white/10 p-4 rounded-xl border border-white/20">
-                        <p class="text-sm font-bold text-sky-300 italic">減少微塑膠污染</p>
-                        <p class="text-xs mt-1">這不僅是節省能源，更減少了因塑膠焚燒產生的二噁英，以及殘留在海洋中的微塑膠碎片。</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white border border-slate-200 p-10 rounded-[2.5rem] shadow-sm">
-                <div class="flex flex-col md:flex-row items-center gap-10">
-                    <div class="text-center md:text-left">
-                        <div class="text-6xl font-black text-green-700 mb-2">92%</div>
-                        <p class="font-bold text-slate-800 text-xl">消費者的無聲支持</p>
-                    </div>
-                    <div class="h-px md:h-16 w-full md:w-px bg-slate-200"></div>
-                    <p class="text-slate-500 leading-loose flex-grow text-sm">
-                        根據 2026 年環境意識調查，**92% 的消費者對於使用綠色包材的店家更有好感**。其中有 78% 的受訪者表示，如果包裝過度或是使用大量難以回收的塑膠，會降低他們再次購買的意願。環保包材已不再只是口號，而是影響**回購率**的商務指標。
-                    </p>
+                    <div class="flex items-center gap-4 mb-6"> <div class="text-2xl">🛢️</div> <h3 class="text-2xl font-black">資源節約：450 公升原油</h3> </div>
+                    <p class="opacity-90">一間中型店鋪若改用無塑耗材，一年能省下 450 公升原油資源消耗。</p>
                 </div>
             </div>
         </section>
 
+        <!-- [頁面 5: 連連看] -->
         <section id="page-test" class="page-content">
             <div class="max-w-4xl mx-auto bg-white p-12 rounded-[3rem] shadow-xl border border-slate-100 text-center">
-                <h3 class="text-2xl font-black mb-4 text-slate-800">包材特性連連看</h3>
-                <p class="text-slate-500 mb-10 italic">點選左側圖示，再點選右側描述</p>
-                <div class="grid grid-cols-2 gap-8 text-left">
+                <h3 class="text-2xl font-black mb-4">包材特性連連看</h3>
+                <div class="grid grid-cols-2 gap-8 text-left mt-8">
                     <div class="space-y-4">
-                        <div onclick="pickLeft('A', this)" class="match-item flex items-center gap-4"> <span class="text-2xl">🐝</span> <span class="font-bold">蜂巢紙</span> </div>
-                        <div onclick="pickLeft('B', this)" class="match-item flex items-center gap-4"> <span class="text-2xl">🌱</span> <span class="font-bold">澱粉乖乖</span> </div>
-                        <div onclick="pickLeft('C', this)" class="match-item flex items-center gap-4"> <span class="text-2xl">♻️</span> <span class="font-bold">循環袋</span> </div>
+                        <div onclick="pickLeft('A', this)" class="match-item flex items-center gap-4"> <span>🐝</span> <span class="font-bold">蜂巢紙</span> </div>
+                        <div onclick="pickLeft('B', this)" class="match-item flex items-center gap-4"> <span>🌱</span> <span class="font-bold">澱粉乖乖</span> </div>
+                        <div onclick="pickLeft('C', this)" class="match-item flex items-center gap-4"> <span>♻️</span> <span class="font-bold">循環袋</span> </div>
                     </div>
                     <div class="space-y-4">
                         <div onclick="pickRight('B', this)" class="match-item h-[80px] flex items-center text-sm font-bold">遇水即化，不產生微塑膠污染。</div>
@@ -183,12 +170,8 @@
 
     </main>
 
-    <footer class="text-center py-10 text-slate-400 border-t bg-white mt-20">
-        <p class="font-bold text-slate-700">教育科技專題：綠色出貨決策系統</p>
-        <p class="text-xs">2026 數位教育研發 ‧ 劉怡萱製作</p>
-    </footer>
-
     <script>
+        // 核心切換功能
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page-content');
             pages.forEach(p => p.classList.remove('active'));
@@ -199,33 +182,84 @@
             btns.forEach(b => b.classList.remove('active'));
             const activeBtn = document.getElementById('btn-' + pageId);
             if (activeBtn) activeBtn.classList.add('active');
-            
             window.scrollTo(0, 0);
         }
 
-        let leftID = null;
-        let leftEl = null;
-        let totalCorrect = 0;
+        // --- 百科動態濾鏡 ---
+        function filterMaterials(cat) {
+            const cards = document.querySelectorAll('#material-grid > div');
+            const btns = document.querySelectorAll('.filter-btn');
+            
+            btns.forEach(b => b.classList.remove('active'));
+            document.getElementById('f-' + cat).classList.add('active');
 
+            cards.forEach(c => {
+                if(cat === 'all' || c.getAttribute('data-cat') === cat) {
+                    c.style.display = 'block';
+                } else {
+                    c.style.display = 'none';
+                }
+            });
+        }
+
+        // --- 策略動態切換 ---
+        const stratContent = {
+            1: `<h3 class="text-2xl font-black text-green-800 mb-6 underline decoration-green-300">精品品牌首選</h3>
+                <div class="grid grid-cols-2 gap-4 animate-fadeIn">
+                    <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">主材：FSC 蜂巢紙</div>
+                    <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">封箱：牛皮紙膠帶</div>
+                    <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">細節：大豆油墨印刷</div>
+                    <div class="p-4 bg-green-100 rounded-xl font-bold text-green-800">優點：提升質感與認同感</div>
+                </div>`,
+            2: `<h3 class="text-2xl font-black text-sky-800 mb-6 underline decoration-sky-300">大量出貨王</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">外袋：耐衝擊循環袋</div>
+                    <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">內包：少量 PLA 分解袋</div>
+                    <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">緩衝：發泡乖乖</div>
+                    <div class="p-4 bg-sky-100 rounded-xl font-bold text-sky-800">優點：減塑 80%，長期成本低</div>
+                </div>`,
+            3: `<h3 class="text-2xl font-black text-amber-800 mb-6 underline decoration-amber-300">小資極簡方案</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">主材：二手紙箱</div>
+                    <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">緩衝：紙箱再製機墊材</div>
+                    <div class="p-4 bg-slate-50 rounded-xl font-bold text-slate-700">封箱：少量 OPP 膠帶</div>
+                    <div class="p-4 bg-amber-100 rounded-xl font-bold text-amber-800">優點：耗材成本趨近 0 元</div>
+                </div>`
+        };
+
+        function selectStrategy(num, el) {
+            const resultDiv = document.getElementById('strategy-result');
+            const options = document.querySelectorAll('.strategy-option');
+            
+            options.forEach(o => {
+                o.classList.remove('border-green-600', 'border-sky-600', 'border-amber-600', 'shadow-md');
+                o.classList.add('border-slate-200');
+            });
+
+            const colors = { 1: 'green', 2: 'sky', 3: 'amber' };
+            el.classList.remove('border-slate-200');
+            el.classList.add(`border-${colors[num]}-600`, 'shadow-md');
+
+            resultDiv.innerHTML = stratContent[num];
+        }
+
+        // 連連看邏輯
+        let leftID = null, leftEl = null, totalCorrect = 0;
         function pickLeft(id, el) {
             if (el.classList.contains('correct')) return;
             leftID = id; leftEl = el;
             document.querySelectorAll('.match-item').forEach(i => i.classList.remove('selected'));
             el.classList.add('selected');
         }
-
         function pickRight(id, el) {
             if (!leftID || el.classList.contains('correct')) return;
             if (leftID === id) {
-                el.classList.add('correct');
-                leftEl.classList.add('correct');
-                leftEl.classList.remove('selected');
-                leftID = null;
-                totalCorrect++;
+                el.classList.add('correct'); leftEl.classList.add('correct');
+                leftEl.classList.remove('selected'); leftID = null; totalCorrect++;
                 document.getElementById('m-msg').innerText = "✅ 正確配對！";
-                if (totalCorrect === 3) document.getElementById('m-msg').innerText = "🎉 恭喜完成！你已掌握綠色包材核心知識！";
+                if (totalCorrect === 3) document.getElementById('m-msg').innerText = "🎉 恭喜完成！";
             } else {
-                document.getElementById('m-msg').innerText = "❌ 答錯了，請再試試看！";
+                document.getElementById('m-msg').innerText = "❌ 答錯了！";
             }
         }
     </script>
