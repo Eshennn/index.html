@@ -17,41 +17,36 @@
         .nav-btn { cursor: pointer; transition: 0.3s; padding: 10px 20px; border-radius: 12px; font-weight: bold; color: #475569; }
         .nav-btn.active { background-color: #065f46 !important; color: white !important; }
         
-        /* 百科卡片增強 */
+        /* 百科卡片 */
         .info-card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; padding: 1.5rem; transition: 0.4s; }
         .info-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
         .price-tag { background: #ecfdf5; color: #065f46; padding: 4px 10px; border-radius: 99px; font-weight: 800; font-size: 0.75rem; }
         
-        .filter-btn { cursor: pointer; padding: 6px 16px; border-radius: 99px; font-size: 0.875rem; transition: 0.3s; border: 1px solid #e2e8f0; background: white; }
-        .filter-btn.active { background: #065f46; color: white; border-color: #065f46; }
-
-        /* 彈窗樣式 */
+        /* 彈窗 */
         #modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; backdrop-filter: blur(4px); align-items: center; justify-content: center; }
-        #modal-content { background: white; padding: 2.5rem; border-radius: 2rem; max-width: 500px; width: 90%; transform: scale(0.9); transition: 0.3s; }
         #modal-overlay.active { display: flex; }
-        #modal-overlay.active #modal-content { transform: scale(1); }
 
-        .match-item { cursor: pointer; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1rem; transition: 0.2s; background: #f8fafc; }
-        .match-item.selected { border-color: #065f46; background-color: #ecfdf5; }
-        .match-item.correct { border-color: #10b981 !important; background-color: #f0fdf4 !important; opacity: 0.6; }
-        
+        /* 策略進度條 */
+        .stat-bar { height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-top: 4px; }
+        .stat-fill { height: 100%; transition: width 0.8s ease-in-out; }
+
         .hero-gradient { background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #0f172a 100%); }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <!-- 彈窗實體 -->
+    <!-- 彈窗實體 (百科用) -->
     <div id="modal-overlay" onclick="closeModal()">
-        <div id="modal-content" onclick="event.stopPropagation()">
+        <div id="modal-content" class="bg-white p-10 rounded-[2rem] max-w-md w-full m-4" onclick="event.stopPropagation()">
             <div class="flex justify-between items-start mb-4">
                 <span id="modal-icon" class="text-4xl"></span>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <button onclick="closeModal()"><i class="fa-solid fa-xmark text-xl text-slate-400"></i></button>
             </div>
             <h3 id="modal-title" class="text-2xl font-black mb-4"></h3>
-            <p id="modal-desc" class="text-slate-600 leading-loose mb-6"></p>
-            <div class="bg-slate-100 p-4 rounded-xl">
-                <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">預估成本</p>
-                <p id="modal-price" class="text-lg font-black text-green-700"></p>
+            <p id="modal-desc" class="text-slate-600 leading-relaxed mb-6"></p>
+            <div class="bg-green-50 p-4 rounded-xl border border-green-100">
+                <p class="text-xs font-bold text-green-600 mb-1">參考成本</p>
+                <p id="modal-price" class="text-lg font-black text-green-900"></p>
             </div>
         </div>
     </div>
@@ -74,7 +69,7 @@
 
     <main class="max-w-7xl mx-auto px-4 mt-10 pb-20">
         
-        <!-- [頁面 1: 首頁] -->
+        <!-- [首頁] -->
         <section id="page-home" class="page-content active">
             <div class="hero-gradient text-white p-12 md:p-24 rounded-[3.5rem] shadow-2xl relative overflow-hidden">
                 <div class="relative z-10">
@@ -85,7 +80,7 @@
             </div>
         </section>
 
-        <!-- [頁面 2: 點擊式包材百科] -->
+        <!-- [包材百科] -->
         <section id="page-compare" class="page-content">
             <div class="text-center mb-10">
                 <h2 class="text-3xl font-black mb-4">8 大環保包材互動百科</h2>
@@ -93,146 +88,179 @@
                     <button onclick="filterMaterials('all')" class="filter-btn active" id="f-all">全部</button>
                     <button onclick="filterMaterials('low')" class="filter-btn" id="f-low">經濟首選</button>
                     <button onclick="filterMaterials('high')" class="filter-btn" id="f-high">高強度保護</button>
-                    <button onclick="filterMaterials('special')" class="filter-btn" id="f-special">特殊應用</button>
                 </div>
             </div>
-
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="material-grid">
-                <!-- 包材卡片 (簡化版，點擊按鈕跳彈窗) -->
                 <div class="info-card text-center" data-cat="high">
-                    <div class="text-4xl mb-4">🐝</div>
-                    <h4 class="font-black mb-1">FSC 蜂巢紙</h4>
+                    <div class="text-4xl mb-4">🐝</div><h4 class="font-black mb-1">FSC 蜂巢紙</h4>
                     <span class="price-tag mb-4 inline-block">NT$ 1.5-3</span>
                     <button onclick="openModal('蜂巢紙')" class="w-full py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition">查看詳解</button>
                 </div>
-
                 <div class="info-card text-center" data-cat="high">
-                    <div class="text-4xl mb-4">♻️</div>
-                    <h4 class="font-black mb-1">循環袋</h4>
+                    <div class="text-4xl mb-4">♻️</div><h4 class="font-black mb-1">循環袋</h4>
                     <span class="price-tag mb-4 inline-block">NT$ 2.5-5</span>
                     <button onclick="openModal('循環袋')" class="w-full py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition">查看詳解</button>
                 </div>
-
                 <div class="info-card text-center" data-cat="low">
-                    <div class="text-4xl mb-4">🌽</div>
-                    <h4 class="font-black mb-1">PLA 分解袋</h4>
+                    <div class="text-4xl mb-4">🌽</div><h4 class="font-black mb-1">PLA 分解袋</h4>
                     <span class="price-tag mb-4 inline-block">NT$ 0.8-1.5</span>
                     <button onclick="openModal('PLA分解袋')" class="w-full py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition">查看詳解</button>
                 </div>
-
                 <div class="info-card text-center" data-cat="low">
-                    <div class="text-4xl mb-4">🌱</div>
-                    <h4 class="font-black mb-1">發泡乖乖</h4>
+                    <div class="text-4xl mb-4">🌱</div><h4 class="font-black mb-1">發泡乖乖</h4>
                     <span class="price-tag mb-4 inline-block">NT$ 0.1</span>
                     <button onclick="openModal('發泡乖乖')" class="w-full py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition">查看詳解</button>
                 </div>
-
+                <!-- 更多包材... -->
                 <div class="info-card text-center" data-cat="special">
-                    <div class="text-4xl mb-4">🩹</div>
-                    <h4 class="font-black mb-1">牛皮紙膠帶</h4>
+                    <div class="text-4xl mb-4">🩹</div><h4 class="font-black mb-1">牛皮膠帶</h4>
                     <span class="price-tag mb-4 inline-block">NT$ 15-25</span>
                     <button onclick="openModal('牛皮紙膠帶')" class="w-full py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition">查看詳解</button>
                 </div>
-
-                <div class="info-card text-center" data-cat="special">
-                    <div class="text-4xl mb-4">🎨</div>
-                    <h4 class="font-black mb-1">大豆油墨</h4>
-                    <span class="price-tag mb-4 inline-block">+1-2%</span>
-                    <button onclick="openModal('大豆油墨')" class="w-full py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition">查看詳解</button>
-                </div>
-
-                <div class="info-card text-center" data-cat="special">
-                    <div class="text-4xl mb-4">🌾</div>
-                    <h4 class="font-black mb-1">草本墊材</h4>
-                    <span class="price-tag mb-4 inline-block">NT$ 0.5-1</span>
-                    <button onclick="openModal('草本墊材')" class="w-full py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition">查看詳解</button>
-                </div>
-
-                <div class="info-card text-center bg-slate-50 border-dashed" data-cat="low">
-                    <div class="text-4xl mb-4">📠</div>
-                    <h4 class="font-black mb-1">紙箱再製機</h4>
-                    <span class="price-tag mb-4 inline-block">NT$ 0</span>
-                    <button onclick="openModal('紙箱再製機')" class="w-full py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition">查看詳解</button>
-                </div>
             </div>
         </section>
 
-        <!-- [頁面 3: 平衡策略] -->
+        <!-- [互動平衡策略] -->
         <section id="page-balance" class="page-content">
-            <h2 class="text-3xl font-black text-center mb-10">預覽決策：方案組合切換</h2>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-black mb-2">平衡策略模擬器</h2>
+                <p class="text-slate-500">點擊不同方案，預覽包材配置與權重分析</p>
+            </div>
             <div class="flex flex-col lg:flex-row gap-8">
+                <!-- 方案按鈕區 -->
                 <div class="w-full lg:w-1/3 space-y-4">
-                    <div onclick="selectStrategy(1, this)" class="p-6 bg-white border-2 border-green-600 rounded-3xl cursor-pointer hover:bg-green-50 shadow-md"><span class="font-black text-green-700">方案 1：精品高質感</span></div>
-                    <div onclick="selectStrategy(2, this)" class="p-6 bg-white border-2 border-slate-200 rounded-3xl cursor-pointer hover:bg-sky-50"><span class="font-black text-sky-700">方案 2：平價出貨王</span></div>
-                    <div onclick="selectStrategy(3, this)" class="p-6 bg-white border-2 border-slate-200 rounded-3xl cursor-pointer hover:bg-amber-50"><span class="font-black text-amber-700">方案 3：小資極簡風</span></div>
+                    <button onclick="updateStrategy(1, this)" class="strat-btn w-full p-6 bg-white border-2 border-green-600 rounded-3xl text-left hover:bg-green-50 transition shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="font-black text-green-700 text-lg">方案 1：精品高質感</span>
+                            <i class="fa-solid fa-chevron-right text-green-300"></i>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">適合 $1000+ 高單價商品</p>
+                    </button>
+                    <button onclick="updateStrategy(2, this)" class="strat-btn w-full p-6 bg-white border-2 border-slate-100 rounded-3xl text-left hover:bg-sky-50 transition">
+                        <div class="flex justify-between items-center">
+                            <span class="font-black text-sky-700 text-lg">方案 2：平價出貨王</span>
+                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">兼顧環保與極速包裝</p>
+                    </button>
+                    <button onclick="updateStrategy(3, this)" class="strat-btn w-full p-6 bg-white border-2 border-slate-100 rounded-3xl text-left hover:bg-amber-50 transition">
+                        <div class="flex justify-between items-center">
+                            <span class="font-black text-amber-700 text-lg">方案 3：小資極簡風</span>
+                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">廢紙再利用，成本趨近於 0</p>
+                    </button>
                 </div>
-                <div class="w-full lg:w-2/3 bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 min-h-[300px]" id="strategy-result">
-                    <h3 class="text-2xl font-black text-green-800 mb-6 underline decoration-green-300">精品品牌首選</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-50 rounded-xl font-bold">主材：FSC 蜂巢紙</div>
-                        <div class="p-4 bg-slate-50 rounded-xl font-bold">細節：大豆油墨印刷</div>
+                <!-- 詳解展示區 -->
+                <div class="w-full lg:w-2/3 bg-white p-10 rounded-[3rem] shadow-xl border border-slate-50 relative overflow-hidden">
+                    <div id="strat-display" class="animate-fadeIn">
+                        <!-- 動態注入內容 -->
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- [頁面 4: 減碳數據] -->
+        <!-- [互動減碳數據] -->
         <section id="page-carbon" class="page-content">
-            <div class="text-center mb-12"><h2 class="text-4xl font-black text-slate-800 mb-4">環境影響深度報告</h2></div>
-            <div class="grid lg:grid-cols-2 gap-8 mb-12">
-                <div class="bg-emerald-900 text-white p-10 rounded-[2.5rem] shadow-xl">
-                    <h3 class="text-2xl font-black mb-4">🌳 森林守護：92 棵樹</h3>
-                    <p class="opacity-90">改用循環包材能減少二氧化碳排放，相當於 92 棵大樹整年的吸收量。</p>
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black text-slate-800 mb-4">環境影響解碼器</h2>
+                <p class="text-slate-500">點擊數據卡片，解鎖背後真實的環境意義</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- 互動卡片 1 -->
+                <div onclick="revealData(this)" class="cursor-pointer group bg-emerald-900 text-white p-10 rounded-[2.5rem] shadow-xl hover:bg-emerald-800 transition">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="text-5xl">🌳</div>
+                        <div class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold">點擊解碼</div>
+                    </div>
+                    <div class="data-front">
+                        <h3 class="text-5xl font-black mb-2">92 棵樹</h3>
+                        <p class="opacity-70">每萬件循環包材減碳價值</p>
+                    </div>
+                    <div class="data-back hidden mt-4 pt-4 border-t border-white/20 animate-fadeIn">
+                        <p class="text-emerald-200 leading-relaxed">
+                            這不僅是數字！92 棵樹代表一個小型社區公園的規模。改用循環袋，能直接避免這些二氧化碳進入大氣層，是目前電商最有效的「無痛減碳」方式。
+                        </p>
+                    </div>
                 </div>
-                <div class="bg-slate-900 text-white p-10 rounded-[2.5rem] shadow-xl">
-                    <h3 class="text-2xl font-black mb-4">🛢️ 資源節約：450 公升原油</h3>
-                    <p class="opacity-90">避免使用石油製塑膠包材，一年能省下可觀的原油資源消耗。</p>
+
+                <!-- 互動卡片 2 -->
+                <div onclick="revealData(this)" class="cursor-pointer group bg-slate-900 text-white p-10 rounded-[2.5rem] shadow-xl hover:bg-slate-800 transition">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="text-5xl">🛢️</div>
+                        <div class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold">點擊解碼</div>
+                    </div>
+                    <div class="data-front">
+                        <h3 class="text-5xl font-black mb-2">450 L</h3>
+                        <p class="opacity-70">年省原油資源量</p>
+                    </div>
+                    <div class="data-back hidden mt-4 pt-4 border-t border-white/20 animate-fadeIn">
+                        <p class="text-blue-200 leading-relaxed">
+                            450 公升原油相當於 **9 桶標準原油**。減少使用塑膠膠帶與緩衝材，等於直接降低了石化產業的開採需求，從源頭守護海洋環境。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 簡單試算互動 -->
+            <div class="bg-white p-10 rounded-[2.5rem] border-2 border-dashed border-slate-200 text-center">
+                <h4 class="text-xl font-black mb-6 text-slate-700">🌲 我的店鋪減碳模擬</h4>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                    <span class="font-bold">如果我每個月出貨：</span>
+                    <select id="ship-count" onchange="calcImpact()" class="bg-slate-100 px-6 py-3 rounded-2xl font-black text-green-700 focus:outline-none border-2 border-transparent focus:border-green-500">
+                        <option value="100">100 件</option>
+                        <option value="500">500 件</option>
+                        <option value="1000">1,000 件</option>
+                        <option value="5000">5,000 件</option>
+                    </select>
+                    <div class="text-2xl font-black text-slate-800">
+                        一年將為地球種下 <span id="tree-res" class="text-green-600 text-4xl">1.1</span> 棵樹
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- [頁面 5: 連連看] -->
+        <!-- [連連看] -->
         <section id="page-test" class="page-content">
             <div class="max-w-4xl mx-auto bg-white p-12 rounded-[3rem] shadow-xl text-center">
-                <h3 class="text-2xl font-black mb-4">包材特性連連看</h3>
+                <h3 class="text-2xl font-black mb-4 text-slate-800">包材特性連連看</h3>
                 <div class="grid grid-cols-2 gap-8 text-left mt-8">
                     <div class="space-y-4">
-                        <div onclick="pickLeft('A', this)" class="match-item font-bold"><span>🐝</span> 蜂巢紙</div>
-                        <div onclick="pickLeft('B', this)" class="match-item font-bold"><span>🌱</span> 發泡乖乖</div>
+                        <div onclick="pickLeft('A', this)" class="match-item p-4 border-2 rounded-xl cursor-pointer font-bold"><span>🐝</span> 蜂巢紙</div>
+                        <div onclick="pickLeft('B', this)" class="match-item p-4 border-2 rounded-xl cursor-pointer font-bold"><span>🌱</span> 發泡乖乖</div>
+                        <div onclick="pickLeft('C', this)" class="match-item p-4 border-2 rounded-xl cursor-pointer font-bold"><span>♻️</span> 循環袋</div>
                     </div>
                     <div class="space-y-4">
-                        <div onclick="pickRight('B', this)" class="match-item text-sm font-bold h-16 flex items-center">遇水即化，不產生污染。</div>
-                        <div onclick="pickRight('A', this)" class="match-item text-sm font-bold h-16 flex items-center">拉開後具結構力，極省空間。</div>
+                        <div onclick="pickRight('B', this)" class="match-item p-4 border-2 rounded-xl cursor-pointer text-sm font-bold h-[60px] flex items-center">遇水即化，不產生微塑膠污染。</div>
+                        <div onclick="pickRight('A', this)" class="match-item p-4 border-2 rounded-xl cursor-pointer text-sm font-bold h-[60px] flex items-center">拉開後具結構力，極度省空間。</div>
+                        <div onclick="pickRight('C', this)" class="match-item p-4 border-2 rounded-xl cursor-pointer text-sm font-bold h-[60px] flex items-center">可重複使用50次，單次成本極低。</div>
                     </div>
                 </div>
-                <div id="m-msg" class="mt-10 font-black text-green-600"></div>
+                <div id="m-msg" class="mt-10 font-black text-green-600 h-6"></div>
             </div>
         </section>
 
     </main>
 
     <script>
-        // 頁面控制
         function showPage(pageId) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + pageId).classList.add('active');
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + pageId).classList.add('active');
             window.scrollTo(0, 0);
+            if(pageId === 'balance') updateStrategy(1, document.querySelector('.strat-btn'));
         }
 
-        // --- 彈窗資料庫 ---
+        // --- 百科彈窗 ---
         const materialData = {
-            '蜂巢紙': { icon: '🐝', desc: '利用幾何張力提供優異緩衝力，100% 可回收紙質，且拉開前體積僅為氣泡紙的 1/10，極度節省倉儲空間。', price: 'NT$ 1.5 - 3 / 米' },
-            '循環袋': { icon: '♻️', desc: '採用耐磨尼龍或 TPU 材質，可重複使用 50 次以上。搭配逆向物流回收，可減少 90% 的一次性包裝廢棄物。', price: 'NT$ 2.5 - 5 / 單次平攤' },
-            'PLA分解袋': { icon: '🌽', desc: '由玉米澱粉等生物質製成，在工業堆肥環境下可完全降解。適合服飾、非液態商品包裝，手感柔軟。', price: 'NT$ 0.8 - 1.5 / 個' },
-            '發泡乖乖': { icon: '🌱', desc: '以植物澱粉製作，遇水即完全溶解，不留微塑膠。重量極輕，是填補紙箱縫隙、保護易碎品的最佳選擇。', price: 'NT$ 0.1 / 公升' },
-            '牛皮紙膠帶': { icon: '🩹', desc: '澱粉膠水沾濕即產生極強黏性。與紙箱結合後可整箱直接送往造紙廠回收，無需另外撕除。', price: 'NT$ 15 - 25 / 卷' },
-            '大豆油墨': { icon: '🎨', desc: '取代傳統石化溶劑油墨，揮發性有機物(VOC)極低。印刷色彩飽滿且不影響廢紙回收的再生纖維純度。', price: '總成本 +1% - 2%' },
-            '草本墊材': { icon: '🌾', desc: '使用農業剩餘物（如稻草、麥桿）製成，具有天然纖維香氣與粗曠美感，能賦予品牌強烈的永續視覺形象。', price: 'NT$ 0.5 - 1 / 份' },
-            '紙箱再製機': { icon: '📠', desc: '這是一台機器投資！將店鋪內多餘的廢舊紙箱切碎成網格狀或條狀緩衝材，讓廢紙變黃金，耗材成本歸零。', price: '機器投入後 $0 成本' }
+            '蜂巢紙': { icon: '🐝', desc: '100% 可回收紙質，拉開後產生幾何結構，防震力強，且儲存空間比氣泡袋節省 90%。', price: 'NT$ 1.5 - 3 / 米' },
+            '循環袋': { icon: '♻️', desc: '耐磨防水設計，可重複回收使用 50 次以上。適合服飾與非易碎品，是極致減塑方案。', price: 'NT$ 2.5 - 5 / 單次' },
+            'PLA分解袋': { icon: '🌽', desc: '生物質來源，具備傳統塑膠的韌性，但在特定環境下可全分解回歸自然。', price: 'NT$ 0.8 - 1.5 / 個' },
+            '發泡乖乖': { icon: '🌱', desc: '澱粉製作，遇水即溶。雖然體積大但重量極輕，填充效能優異且無環境壓力。', price: 'NT$ 0.1 / 份' },
+            '牛皮紙膠帶': { icon: '🩹', desc: '沾水即黏，可隨紙箱直接進入回收管道，無需費心撕除。', price: 'NT$ 15 - 25 / 卷' }
         };
-
         function openModal(name) {
             const data = materialData[name];
             document.getElementById('modal-title').innerText = name;
@@ -241,39 +269,70 @@
             document.getElementById('modal-price').innerText = data.price;
             document.getElementById('modal-overlay').classList.add('active');
         }
+        function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
 
-        function closeModal() {
-            document.getElementById('modal-overlay').classList.remove('active');
-        }
+        // --- 策略模擬器互動 ---
+        const stratInfo = {
+            1: { title: '精品高質感組合', items: ['🐝 蜂巢紙', '🩹 牛皮紙膠帶', '🎨 大豆印刷'], cost: 90, eco: 75, desc: '此方案專注於「開箱體驗」。蜂巢紙的儀式感讓顧客感受到商品的珍貴與店家的用心。' },
+            2: { title: '平價出貨王組合', items: ['♻️ 循環袋', '🌽 分解內袋', '🌱 發泡乖乖'], cost: 40, eco: 85, desc: '針對高頻率、大物流量設計。雖然單次投入稍高，但透過循環回收，長期成本最低。' },
+            3: { title: '小資極簡方案', items: ['📦 二手紙箱', '📠 再製墊材', '✏️ 手寫感謝'], cost: 5, eco: 95, desc: '極致的循環利用。將廢棄紙箱再次賦予價值，適合個人賣家或文青雜貨。' }
+        };
 
-        // 百科濾鏡
-        function filterMaterials(cat) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('f-' + cat).classList.add('active');
-            document.querySelectorAll('#material-grid > div').forEach(c => {
-                c.style.display = (cat === 'all' || c.getAttribute('data-cat') === cat) ? 'block' : 'none';
+        function updateStrategy(id, el) {
+            document.querySelectorAll('.strat-btn').forEach(b => {
+                b.classList.remove('border-green-600', 'border-sky-600', 'border-amber-600', 'shadow-sm', 'bg-slate-50');
+                b.classList.add('border-slate-100');
             });
+            const colors = {1:'green', 2:'sky', 3:'amber'}[id];
+            el.classList.remove('border-slate-100');
+            el.classList.add(`border-${colors}-600`, 'shadow-sm', `bg-${colors}-50`);
+
+            const data = stratInfo[id];
+            document.getElementById('strat-display').innerHTML = `
+                <h3 class="text-3xl font-black text-${colors}-800 mb-6">${data.title}</h3>
+                <div class="flex flex-wrap gap-3 mb-8">
+                    ${data.items.map(i => `<span class="bg-white border-2 border-${colors}-100 px-4 py-2 rounded-full font-bold text-sm shadow-sm">${i}</span>`).join('')}
+                </div>
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-slate-500 mb-1"><span>環保貢獻度</span><span>${data.eco}%</span></div>
+                        <div class="stat-bar"><div class="stat-fill bg-green-500" style="width: ${data.eco}%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-slate-500 mb-1"><span>單件平均成本 (相對)</span><span>${data.cost}%</span></div>
+                        <div class="stat-bar"><div class="stat-fill bg-amber-400" style="width: ${data.cost}%"></div></div>
+                    </div>
+                </div>
+                <p class="mt-10 text-slate-500 leading-relaxed italic border-l-4 border-${colors}-200 pl-6">${data.desc}</p>
+            `;
         }
 
-        // 平衡策略
-        function selectStrategy(num, el) {
-            const res = document.getElementById('strategy-result');
-            document.querySelectorAll('.strategy-option').forEach(o => o.classList.add('border-slate-200'));
-            const contents = {
-                1: '<h3 class="text-2xl font-black text-green-800 mb-6">精品品牌首選</h3><div class="grid grid-cols-2 gap-4"><div class="p-4 bg-slate-50 rounded-xl font-bold">蜂巢紙</div><div class="p-4 bg-slate-50 rounded-xl font-bold">大豆油墨</div></div>',
-                2: '<h3 class="text-2xl font-black text-sky-800 mb-6">大量出貨王</h3><div class="grid grid-cols-2 gap-4"><div class="p-4 bg-slate-50 rounded-xl font-bold">循環袋</div><div class="p-4 bg-slate-50 rounded-xl font-bold">PLA分解袋</div></div>',
-                3: '<h3 class="text-2xl font-black text-amber-800 mb-6">小資極簡方案</h3><div class="grid grid-cols-2 gap-4"><div class="p-4 bg-slate-50 rounded-xl font-bold">二手紙箱</div><div class="p-4 bg-slate-50 rounded-xl font-bold">再製機墊材</div></div>'
-            };
-            res.innerHTML = contents[num];
+        // --- 數據解碼與試算 ---
+        function revealData(el) { el.querySelector('.data-back').classList.toggle('hidden'); }
+        function calcImpact() {
+            const count = document.getElementById('ship-count').value;
+            const treeImpact = (count * 12 * 0.11 / 12).toFixed(1); // 簡化公式
+            document.getElementById('tree-res').innerText = treeImpact;
         }
 
-        // 連連看邏輯 (簡化)
-        let leftID = null, leftEl = null;
-        function pickLeft(id, el) { leftID = id; leftEl = el; document.querySelectorAll('.match-item').forEach(i => i.classList.remove('border-green-600')); el.classList.add('border-green-600'); }
+        // 連連看 (同前版本)
+        let leftID = null, leftEl = null, totalCorrect = 0;
+        function pickLeft(id, el) {
+            leftID = id; leftEl = el;
+            document.querySelectorAll('.match-item').forEach(i => i.classList.remove('border-green-600', 'bg-green-50'));
+            el.classList.add('border-green-600', 'bg-green-50');
+        }
         function pickRight(id, el) {
-            if (leftID === id) { el.classList.add('correct'); leftEl.classList.add('correct'); document.getElementById('m-msg').innerText = "✅ 正確！"; }
-            else { document.getElementById('m-msg').innerText = "❌ 再試試！"; }
+            if (leftID === id) {
+                el.classList.add('bg-green-100', 'border-green-600');
+                leftEl.classList.add('bg-green-100', 'border-green-600');
+                document.getElementById('m-msg').innerText = "✅ 答對了！";
+                totalCorrect++;
+            } else { document.getElementById('m-msg').innerText = "❌ 再試試！"; }
         }
+
+        // 初始載入第一方案
+        window.onload = () => { calcImpact(); };
     </script>
 </body>
 </html>
