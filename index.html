@@ -136,30 +136,49 @@
             </div>
         </section>
 
-        <!-- [頁面 3：策略模擬器] -->
+        <!-- [區塊二：策略模擬器 - 高度互動版] -->
         <section id="page-balance" class="page-content">
-            <div class="grid lg:grid-cols-2 gap-10">
-                <div class="space-y-6">
-                    <h2 class="text-3xl font-black">策略配置模擬器</h2>
-                    <p class="text-slate-500">調整經營傾向，即時觀察包材組合的變化與市場反饋。</p>
-                    <div class="bg-white p-8 rounded-[2rem] shadow-xl space-y-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div>
+                        <h2 class="text-4xl font-black text-slate-800 mb-2">出貨策略配比</h2>
+                        <p class="text-slate-500">調整你的經營傾向，看看包材組合會如何變化</p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl shadow-xl space-y-10">
+                        <!-- 互動滑桿 1 -->
                         <div class="space-y-4">
-                            <div class="flex justify-between font-black"><span>💰 預算投入</span><span id="val-budget" class="text-green-600">$ 50</span></div>
-                            <input type="range" id="input-budget" class="slider" oninput="simStrategy()">
+                            <div class="flex justify-between font-black">
+                                <span class="text-slate-600"><i class="fa-solid fa-wallet mr-2"></i>預算投入</span>
+                                <span id="val-budget" class="text-green-600">$ 50</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="50" class="slider" id="input-budget" oninput="simStrategy()">
+                            <div class="flex justify-between text-xs text-slate-400 font-bold"><span>極簡省錢</span><span>豪華包裝</span></div>
                         </div>
+
+                        <!-- 互動滑桿 2 -->
                         <div class="space-y-4">
-                            <div class="flex justify-between font-black"><span>🍃 環保堅持</span><span id="val-eco" class="text-green-600">50%</span></div>
-                            <input type="range" id="input-eco" class="slider" oninput="simStrategy()">
+                            <div class="flex justify-between font-black">
+                                <span class="text-slate-600"><i class="fa-solid fa-earth-asia mr-2"></i>環保堅持</span>
+                                <span id="val-eco" class="text-green-600">50%</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="50" class="slider" id="input-eco" oninput="simStrategy()">
+                            <div class="flex justify-between text-xs text-slate-400 font-bold"><span>傳統塑料</span><span>100% 零廢棄</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-slate-800 p-8 rounded-[2.5rem] text-white flex flex-col">
-                    <h3 class="text-xl font-bold mb-6 text-green-400">實驗室建議配置</h3>
-                    <div id="sim-result" class="flex-1 space-y-3"></div>
+
+                <div class="bg-slate-800 p-10 rounded-[3.5rem] shadow-2xl text-white h-[500px] flex flex-col">
+                    <h4 class="text-xl font-bold mb-6 text-green-400"><i class="fa-solid fa-robot mr-2"></i>AI 建議配置方案</h4>
+                    <div id="sim-result" class="flex-1 space-y-4">
+                        <!-- 動態生成建議內容 -->
+                    </div>
                     <div class="mt-6 pt-6 border-t border-slate-700">
-                        <span class="text-sm opacity-60">顧客預期滿意度</span>
-                        <div class="w-full h-3 bg-slate-700 rounded-full mt-2 overflow-hidden">
-                            <div id="satisfaction-bar" class="h-full bg-yellow-400 transition-all duration-500" style="width: 50%;"></div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="opacity-60">預估顧客滿意度</span>
+                            <div class="w-32 h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div id="satisfaction-bar" class="h-full bg-yellow-400 transition-all duration-500" style="width: 50%;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
