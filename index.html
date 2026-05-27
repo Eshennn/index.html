@@ -1,4 +1,4 @@
-<a!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -23,6 +23,10 @@
         .material-card { background: white; border-radius: 20px; padding: 20px; text-align: center; border: 2px solid transparent; transition: 0.3s; cursor: pointer; }
         .material-card:hover { border-color: #10b981; transform: translateY(-5px); }
         .material-card.active { border-color: #059669; background-color: #f0fdf4; }
+
+        /* 篩選標籤按鈕 */
+        .filter-btn-sub { cursor: pointer; transition: 0.2s; }
+        .filter-btn-sub.active { background-color: #1e293b; color: white; border-color: #1e293b; }
 
         /* 滑桿樣式 */
         .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #e2e8f0; outline: none; }
@@ -78,39 +82,52 @@
             <div class="flex flex-col md:flex-row justify-between items-end gap-4 mb-8">
                 <div>
                     <h2 class="text-3xl font-black text-slate-800">包材互動百科</h2>
-                    <p class="text-slate-500">點擊包材卡片，於下方展開詳細教學內容</p>
+                    <p class="text-slate-500">點擊分類標籤快速檢索，點擊包材卡片可於下方展開教學內容</p>
                 </div>
-                <div class="flex gap-2">
-                    <button onclick="filterCat('all')" class="filter-btn-sub px-4 py-1 rounded-full bg-slate-800 text-white text-xs font-bold">全部</button>
-                    <button onclick="filterCat('high')" class="filter-btn-sub px-4 py-1 rounded-full bg-white border text-xs font-bold">高強度</button>
-                    <button onclick="filterCat('low')" class="filter-btn-sub px-4 py-1 rounded-full bg-white border text-xs font-bold">低成本</button>
+                <div class="flex flex-wrap gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200">
+                    <button onclick="filterCat('all', this)" class="filter-btn-sub active px-3 py-1.5 rounded-lg text-xs font-bold border border-transparent">全部</button>
+                    <button onclick="filterCat('bag', this)" class="filter-btn-sub px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-sm hover:bg-slate-50">外包裝袋</button>
+                    <button onclick="filterCat('cushion', this)" class="filter-btn-sub px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-sm hover:bg-slate-50">緩衝墊材</button>
+                    <button onclick="filterCat('tape', this)" class="filter-btn-sub px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-sm hover:bg-slate-50">印刷膠帶</button>
+                    <button onclick="filterCat('device', this)" class="filter-btn-sub px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-sm hover:bg-slate-50">加工設備</button>
                 </div>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="material-grid">
-                <div class="material-card shadow-sm" data-cat="high" onclick="openInfo('FSC 蜂巢紙', this)">
+                <div class="material-card shadow-sm" data-cat="cushion" onclick="openInfo('FSC 蜂巢紙', this)">
                     <div class="text-4xl mb-3">🐝</div><div class="font-black text-slate-700">FSC 蜂巢紙</div>
+                    <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">緩衝墊材</span>
                 </div>
-                <div class="material-card shadow-sm" data-cat="high" onclick="openInfo('循環袋', this)">
-                    <div class="text-4xl mb-3">♻️</div><div class="font-black text-slate-700">循環袋</div>
-                </div>
-                <div class="material-card shadow-sm" data-cat="low" onclick="openInfo('PLA 分解袋', this)">
-                    <div class="text-4xl mb-3">🌽</div><div class="font-black text-slate-700">PLA 分解袋</div>
-                </div>
-                <div class="material-card shadow-sm" data-cat="low" onclick="openInfo('發泡乖乖', this)">
+                <div class="material-card shadow-sm" data-cat="cushion" onclick="openInfo('發泡乖乖', this)">
                     <div class="text-4xl mb-3">🌱</div><div class="font-black text-slate-700">發泡乖乖</div>
+                    <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">緩衝墊材</span>
                 </div>
-                <div class="material-card shadow-sm" data-cat="special" onclick="openInfo('牛皮紙膠帶', this)">
-                    <div class="text-4xl mb-3">🩹</div><div class="font-black text-slate-700">牛皮紙膠帶</div>
-                </div>
-                <div class="material-card shadow-sm" data-cat="special" onclick="openInfo('大豆油墨', this)">
-                    <div class="text-4xl mb-3">🎨</div><div class="font-black text-slate-700">大豆油墨</div>
-                </div>
-                <div class="material-card shadow-sm" data-cat="special" onclick="openInfo('草本墊材', this)">
+                <div class="material-card shadow-sm" data-cat="cushion" onclick="openInfo('草本墊材', this)">
                     <div class="text-4xl mb-3">🌾</div><div class="font-black text-slate-700">草本墊材</div>
+                    <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">緩衝墊材</span>
                 </div>
-                <div class="material-card shadow-sm" data-cat="low" onclick="openInfo('紙箱再製機', this)">
+
+                <div class="material-card shadow-sm" data-cat="bag" onclick="openInfo('循環袋', this)">
+                    <div class="text-4xl mb-3">♻️</div><div class="font-black text-slate-700">循環袋</div>
+                    <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">外包裝袋</span>
+                </div>
+                <div class="material-card shadow-sm" data-cat="bag" onclick="openInfo('PLA 分解袋', this)">
+                    <div class="text-4xl mb-3">🌽</div><div class="font-black text-slate-700">PLA 分解袋</div>
+                    <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">外包裝袋</span>
+                </div>
+
+                <div class="material-card shadow-sm" data-cat="tape" onclick="openInfo('牛皮紙膠帶', this)">
+                    <div class="text-4xl mb-3">🩹</div><div class="font-black text-slate-700">牛皮紙膠帶</div>
+                    <span class="text-[10px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">印刷膠帶</span>
+                </div>
+                <div class="material-card shadow-sm" data-cat="tape" onclick="openInfo('大豆油墨', this)">
+                    <div class="text-4xl mb-3">🎨</div><div class="font-black text-slate-700">大豆油墨</div>
+                    <span class="text-[10px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">印刷膠帶</span>
+                </div>
+
+                <div class="material-card shadow-sm" data-cat="device" onclick="openInfo('紙箱再製機', this)">
                     <div class="text-4xl mb-3">📠</div><div class="font-black text-slate-700">紙箱再製機</div>
+                    <span class="text-[10px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">加工設備</span>
                 </div>
             </div>
 
@@ -206,7 +223,7 @@
                         <i class="fa-solid fa-circle-info text-green-600"></i> 科學數據是怎麼算的？
                     </h3>
                     <p class="text-sm text-green-800 leading-relaxed font-medium">
-                        本計算機採用行政院環保署與環境保護標準數據。當店家將傳統「一次性塑膠破壞袋與膠帶」替換為「100% 綠色循環包材」時：<br>
+                        本計算機採用行政院環境保護標準數據。當店家將傳統「一次性塑膠破壞袋與膠帶」替換為「100% 綠色循環包材」時：<br>
                         <span class="block mt-2 font-bold text-green-950">每出貨 1 件包材，約可減少 0.12 公斤的碳排放。</span>
                         <span class="block font-bold text-green-950">而台灣原生樹木平均一年的吸碳量約為 12 公斤。</span>
                         <span class="block mt-1 text-xs text-green-700 italic">※ 公式：年出貨量 × 0.12 ÷ 12 ＝ 相當於為地球種植的樹木數量。</span>
@@ -269,7 +286,7 @@
             '循環袋': { icon: '♻️', desc: '以高強度尼龍或 TPU 製成，搭配逆向物流回收，可重複使用達 50 次以上，大幅降低一次性包裝廢棄量。', price: '單次租賃約 NT$ 5' },
             'PLA 分解袋': { icon: '🌽', desc: '生物基澱粉製作，外觀與傳統塑膠袋無異，但在工業堆肥環境下可完全分解，不留微塑膠。', price: 'NT$ 0.8 - 1.5' },
             '發泡乖乖': { icon: '🌱', desc: '利用植物澱粉發泡而成，重量極輕，填充性能優異且「遇水即溶」，是對環境壓力最小的填充材。', price: 'NT$ 0.1 / 份' },
-            '牛皮紙膠帶': { icon: '🩹', desc: '水性澱粉膠設計，可隨著紙箱直接進入回收管道，無需費心撕除，簡化回收流程。', price: 'NT$ 20 / 卷' },
+            '牛皮紙膠帶': { icon: '🩹', desc: '水性澱粉膠設計，可隨著紙箱直接進入回收渠道，無需費力撕除，簡化回收流程。', price: 'NT$ 20 / 卷' },
             '大豆油墨': { icon: '🎨', desc: '取代傳統石化油墨，減少揮發性有機物 (VOC) 排放，色彩飽和且利於再生纖維回收。', price: '+1% 總成本' },
             '草本墊材': { icon: '🌾', desc: '利用稻殼、麥稈等農業廢棄物製成，提供天然纖維香氣與自然質感，營造品牌永續風格。', price: 'NT$ 0.5 - 1' },
             '紙箱再製機': { icon: '📠', desc: '將店內廢舊紙箱切碎，轉化為網格狀緩衝材。投資設備後，耗材支出可完全歸零。', price: '機器投入後 $0' }
@@ -287,7 +304,17 @@
             document.getElementById('detail-price').innerText = d.price;
         }
 
-        function filterCat(cat) {
+        // 修正後的動態篩選邏輯
+        function filterCat(cat, el) {
+            document.querySelectorAll('.filter-btn-sub').forEach(b => {
+                b.classList.remove('active');
+                if(b !== el) {
+                    b.classList.add('bg-white', 'border-slate-200');
+                }
+            });
+            el.classList.add('active');
+            el.classList.remove('bg-white', 'border-slate-200');
+
             document.querySelectorAll('.material-card').forEach(c => {
                 c.style.display = (cat === 'all' || c.getAttribute('data-cat') === cat) ? 'block' : 'none';
             });
@@ -315,12 +342,10 @@
         // 4. 減碳數據可視化
         function visualizeCarbon() {
             const input = document.getElementById('carbon-input').value;
-            // 換算公式：件數 * 0.12公斤 / 12公斤(每棵樹年吸碳量) = 樹木數量 (即件數/100)
             const treeCount = Math.floor(input / 100);
             document.getElementById('tree-count-num').innerText = `${treeCount.toLocaleString()} 棵樹`;
             
             let trees = "";
-            // 限制畫面最多畫出 80 棵樹，避免過度渲染導致網頁卡頓
             const displayCount = Math.min(treeCount, 80);
             for(let i=0; i<displayCount; i++) {
                 trees += `<span class="tree-unit">🌳</span>`;
@@ -349,7 +374,6 @@
             }
         }
 
-        // 預設執行
         window.onload = () => { visualizeCarbon(); };
     </script>
 </body>
