@@ -32,7 +32,10 @@
         .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #e2e8f0; outline: none; }
         .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #059669; cursor: pointer; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
 
-        /* 連連看卡片與點 */
+        .custom-checkbox { width: 20px; height: 20px; border: 2px solid #cbd5e1; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .custom-checkbox:checked { background-color: #059669; border-color: #059669; }
+
+        /* 連連看樣式 */
         .game-container { position: relative; width: 100%; }
         .match-card { background: white; border: 2px solid #e2e8f0; border-radius: 16px; padding: 16px; transition: all 0.2s; position: relative; z-index: 10; min-height: 105px; display: flex; align-items: center; cursor: pointer; }
         .match-card:hover { border-color: #059669; transform: scale(1.01); box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
@@ -276,7 +279,7 @@
                     </div>
                     <div class="space-y-3">
                         <span class="block text-[11px] font-black text-blue-800 bg-blue-50 px-2 py-0.5 rounded w-max">內包裝與封膠替換決策</span>
-                        <label class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100/70 transition"><input type="radio" name="carbon-inner" value="7" onchange="calcEnvironmentalImpact()" class="w-4 h-4 text-green-600 focus:ring-green-500" checked><div class="text-sm font-bold text-slate-700">水性牛皮紙膠帶 <span class="text-xs text-green-600 font-black">(每米省 7g 碳)</span></div></label>
+                        <label class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl pointer cursor-pointer hover:bg-slate-100/70 transition"><input type="radio" name="carbon-inner" value="7" onchange="calcEnvironmentalImpact()" class="w-4 h-4 text-green-600 focus:ring-green-500" checked><div class="text-sm font-bold text-slate-700">水性牛皮紙膠帶 <span class="text-xs text-green-600 font-black">(每米省 7g 碳)</span></div></label>
                         <label class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100/70 transition"><input type="radio" name="carbon-inner" value="8" onchange="calcEnvironmentalImpact()" class="w-4 h-4 text-green-600 focus:ring-green-500"><div class="text-sm font-bold text-slate-700">格拉辛紙 / 雪面紙 <span class="text-xs text-green-600 font-black">(每張省 8g 碳)</span></div></label>
                         <label class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100/70 transition"><input type="radio" name="carbon-inner" value="10" onchange="calcEnvironmentalImpact()" class="w-4 h-4 text-green-600 focus:ring-green-500"><div class="text-sm font-bold text-slate-700">PLA 生物分解透明袋 <span class="text-xs text-green-600 font-black">(每個省 10g 碳)</span></div></label>
                     </div>
@@ -303,114 +306,23 @@
 
         <section id="page-test" class="page-content">
             <div class="max-w-5xl mx-auto bg-white p-6 md:p-10 rounded-[3rem] shadow-xl relative">
-                
-                <div class="flex justify-center gap-1.5 mb-8 bg-slate-100 p-1.5 rounded-2xl max-w-2xl mx-auto">
+                <div class="flex justify-center gap-1.5 mb-8 bg-slate-100 p-1.5 rounded-2xl max-w-xl mx-auto">
                     <button onclick="switchPart(1)" id="part-tab-1" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all bg-white text-green-700 shadow-sm">第一關：出貨最佳化拉線賽</button>
                     <button onclick="switchPart(2)" id="part-tab-2" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black text-slate-500">第二關：碳排王者決策對決</button>
                     <button onclick="switchPart(3)" id="part-tab-3" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black text-slate-500">第三關：永續模擬預算平衡</button>
                 </div>
-
-                <div class="text-center mb-6">
-                    <h2 id="part-title" class="text-2xl font-black text-slate-800">第一關：出貨最佳化拉線賽</h2>
-                    <p id="part-guide" class="text-sm text-slate-500 mt-1">請為左側的真實出貨情境，拉線配對出「最完美平衡成本與環境」的綠色包材策略套餐！</p>
-                </div>
-
-                <div id="box-game-part1" class="game-container my-6">
+                <div class="text-center mb-4"><h2 id="part-title" class="text-2xl font-black text-slate-800"></h2></div>
+                <div class="game-container my-8" id="canvas-wrapper" onmousemove="trackMouseMove(event)">
                     <canvas id="link-canvas" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-4 relative z-10">
-                        <div class="space-y-4 flex flex-col justify-between" id="left-container"></div>
-                        <div class="space-y-4 flex flex-col justify-between" id="right-container"></div>
-                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-6 relative z-10"><div class="space-y-4 flex flex-col justify-between" id="left-container"></div><div class="space-y-4 flex flex-col justify-between" id="right-container"></div></div>
                 </div>
-
-                <div id="box-game-part2" class="hidden my-6 max-w-3xl mx-auto space-y-6">
-                    <p class="text-center font-bold text-slate-600 bg-blue-50 py-3 rounded-xl border border-blue-100">💡 題目：以下兩種出貨方案，哪一個能帶來「更高減碳量、更低化石塑料污染」？點擊綠色勝出者！</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                        <div onclick="submitDuelChoice(false)" class="duel-card border-2">
-                            <span class="text-xs font-black bg-rose-50 text-rose-700 px-2 py-1 rounded">方案 A 傳統包裝</span>
-                            <h4 class="font-black text-xl text-slate-800 mt-3 mb-4">大量服飾基礎出貨</h4>
-                            <ul class="text-sm text-slate-500 space-y-2 font-semibold">
-                                <li>• 外層：傳統化石全新破壞袋 ($3)</li>
-                                <li>• 內層：常規透明OPP密封袋 ($1)</li>
-                                <li>• 封印：封口熱熔膠黏合</li>
-                            </ul>
-                        </div>
-                        <div onclick="submitDuelChoice(true)" class="duel-card border-2">
-                            <span class="text-xs font-black bg-emerald-50 text-emerald-700 px-2 py-1 rounded">方案 B 永續升級</span>
-                            <h4 class="font-black text-xl text-green-700 mt-3 mb-4">PCR綠色循環包裹</h4>
-                            <ul class="text-sm text-slate-600 space-y-2 font-bold">
-                                <li>• 外層：PCR 100%再生破壞袋 ($4.5)</li>
-                                <li>• 內層：半透明薄霧格拉辛紙 ($1.5)</li>
-                                <li>• 效益：<b>每件成功多省下 33g 碳足跡</b></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="box-game-part3" class="hidden my-6 max-w-2xl mx-auto bg-slate-900 text-white p-8 rounded-[2.5rem] shadow-inner space-y-6">
-                    <div class="border-b border-white/10 pb-4 text-center">
-                        <h4 class="text-yellow-400 font-black text-xl">🏬 年度預算平衡挑戰任務</h4>
-                        <p class="text-xs text-slate-400 mt-1">目標：在年度總預算 <b>$15,000 元</b>內，透過調配包材，衝破 <b>250,000g</b> 總減碳關卡！</p>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4 text-center bg-black/20 p-4 rounded-2xl">
-                        <div>
-                            <span class="text-xs text-slate-400 font-bold block">目前預算花費 (上限 $15,000)</span>
-                            <span id="game3-budget-lbl" class="text-2xl font-black text-white">$ 0</span>
-                        </div>
-                        <div>
-                            <span class="text-xs text-slate-400 font-bold block">目前累積減碳 (目標 250,000g)</span>
-                            <span id="game3-carbon-lbl" class="text-2xl font-black text-green-400">0 g</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3 pt-2">
-                        <span class="text-xs font-black text-green-400 block tracking-widest uppercase">📦 點擊調配年度採購策略（以年出貨 1 萬件核算）：</span>
-                        <label class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10 cursor-pointer hover:bg-white/10 transition">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" id="g3-cb-1" value="12000_300000" onchange="runGame3Engine()" class="custom-checkbox">
-                                <span class="text-sm font-bold">升級「FSC 認證環保紙箱」替代傳統紙箱</span>
-                            </div>
-                            <span class="text-xs text-slate-400 font-bold">預算 +$12,000 / 減碳 +300,000g</span>
-                        </label>
-                        <label class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10 cursor-pointer hover:bg-white/10 transition">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" id="g3-cb-2" value="1500_250000" onchange="runGame3Engine()" class="custom-checkbox">
-                                <span class="text-sm font-bold">外袋全面替換為「PCR 100% 再生塑料袋」</span>
-                            </div>
-                            <span class="text-xs text-slate-400 font-bold">預算 +$1,500 / 減碳 +250,000g</span>
-                        </label>
-                        <label class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10 cursor-pointer hover:bg-white/10 transition">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" id="g3-cb-3" value="3000_150000" onchange="runGame3Engine()" class="custom-checkbox">
-                                <span class="text-sm font-bold">緩衝耗材換成「全紙質防震牛皮蜂巢紙」</span>
-                            </div>
-                            <span class="text-xs text-slate-400 font-bold">預算 +$3,000 / 減碳 +150,000g</span>
-                        </label>
-                        <label class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10 cursor-pointer hover:bg-white/10 transition">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" id="g3-cb-4" value="1500_70000" onchange="runGame3Engine()" class="custom-checkbox">
-                                <span class="text-sm font-bold">封箱改用水性植物膠「牛皮紙膠帶」</span>
-                            </div>
-                            <span class="text-xs text-slate-400 font-bold">預算 +$1,500 / 減碳 +70,000g</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="flex flex-col items-center justify-center gap-4 border-t pt-6 mt-8">
-                    <div id="match-msg" class="font-black text-lg text-slate-700 h-8 text-center"></div>
-                    <button onclick="resetCurrentPart()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-6 py-2.5 rounded-xl text-sm transition-all shadow-sm">
-                        <i class="fa-solid fa-arrow-rotate-left mr-1"></i> 重置本關挑戰
-                    </button>
-                </div>
-
+                <div class="flex flex-col items-center justify-center gap-4 border-t pt-6 mt-8"><div id="match-msg" class="font-black text-lg text-slate-700 h-6"></div><button onclick="resetCurrentPart()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-6 py-2.5 rounded-xl text-sm flex items-center gap-2"><i class="fa-solid fa-arrow-rotate-left"></i>重置關卡</button></div>
             </div>
         </section>
 
     </main>
 
     <script>
-        // 1. 頁面控制
         function showPage(pageId) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + pageId).className = 'page-content active';
@@ -422,15 +334,14 @@
             window.scrollTo(0,0);
         }
 
-        // 2. 百科精確數據庫
         const materialData = {
-            'FSC 認證環保紙箱': { icon: '📦', img: 'img5.png', desc: '符合生態管理體系。木材來源受到嚴格管控，確保森林永續，是賣家最基礎且最完美的無痛替換綠色選項。', base: '傳統全新瓦楞紙箱（約 NT$10/個）', truePrice: '約 NT$ 12 / 個', newCarbon: '減少 30 公克碳排', carbonRate: '服飾與鞋盒尺寸優化結構' },
+            'FSC 認證環保紙箱': { icon: '📦', img: 'img5.png', desc: '符合高標準生態管理體系。木材來源受到嚴格管控，確保森林永續，是賣家最基礎且最完美的無痛替換綠色選項。', base: '傳統全新瓦楞紙箱（約 NT$10/個）', truePrice: '約 NT$ 12 / 個', newCarbon: '減少 30 公克碳排', carbonRate: '服飾與鞋盒尺寸優化結構' },
             'PCR 再生塑料破壞袋': { icon: '♻️', img: 'img6.png', desc: 'Post-Consumer Recycled 核心應用。100% 完全使用消費後回收塑料循環製成，材質堅韌防水，極適合投放不怕壓的軟性衣物。', base: '傳統塑膠破壞袋（約 NT$3/個）', truePrice: '約 NT$ 4.5 / 個', newCarbon: '減少 25 公克碳排', carbonRate: '降低石化原生塑料開採損耗' },
             '無膠帶卡扣式環保紙箱': { icon: '🧰', img: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=cover&w=500&q=80', desc: '高端結構包裝。底部與封口透過特殊齒舌結構相互咬合，完全不需要消耗任何膠帶，綠色環保且倍增出貨人員包裝效率。', base: '傳統紙箱＋塑膠膠帶組合', truePrice: '約 NT$ 14 / 個', newCarbon: '減少 35 公克碳排', carbonRate: '零膠帶依賴，一體化卡扣結構' },
             '牛皮蜂巢紙': { icon: '🐝', img: 'img2.png', desc: '拉開後即刻展現立體的 3D 蜂巢網格承重幾何結構。空間效益高，防震力強，能大幅度增進出貨包裹的高級質感。', base: '傳統塑膠氣泡紙（約 NT$3/公尺）', truePrice: '約 NT$ 6 / 公尺', newCarbon: '每公尺減少 15g 碳排', carbonRate: '含延展後長度之全紙質無塑緩衝' },
             '水溶性防撞粒': { icon: '🌱', img: 'img1.png', desc: '以天然玉米澱粉製作。外觀與傳統石化保麗龍顆粒相似，最大亮點在於可直接丟入水中溶解，達到100%環境生物降解。', base: '保麗龍防撞粒（約 NT$2/公升）', truePrice: '約 NT$ 4 / 公升', newCarbon: '每公升減少 30g 碳排', carbonRate: '親水速溶，解決廢棄固物痛點' },
             '廢紙壓邊緩衝材': { icon: '📠', img: 'img7.png', desc: '資源封閉循環的極致體現。將店鋪內廢棄的二手舊紙箱直接透過專用壓切機器切碎為網狀防震緩衝墊，賦予廢料二次生命。', base: '傳統塑膠氣泡紙（約 NT$3/公尺）', truePrice: '約 NT$ 2.5 / 公尺', newCarbon: '每公尺減少 25g 碳排', carbonRate: '自購機器處理時材料成本趨近 0' },
-            '水性牛皮紙膠帶': { icon: '🩹', img: 'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?auto=format&fit=cover&w=500&q=80', desc: '自帶水性植物黏膠，沾水即生極高抓箱黏性。消費者在回收紙箱時完全不用費時撕除膠帶，可直接一併投入紙類回收池。', base: 'OPP透明膠帶（約 NT$0.5/公尺）', truePrice: '約 NT$ 2 / 公尺', newCarbon: '每公尺減少 7g 碳排', carbonRate: '同質化無塑封箱，資源流轉流暢' },
+            '水性牛皮紙膠帶': { icon: '🩹', img: 'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?auto=format&fit=cover&w=500&q=80', desc: '自帶水性植物黏膠，沾水即展現極高抓箱黏性。消費者在回收紙箱時完全不用費時撕除膠帶，可直接一併投入紙類回收池。', base: 'OPP透明膠帶（約 NT$0.5/公尺）', truePrice: '約 NT$ 2 / 公尺', newCarbon: '每公尺減少 7g 碳排', carbonRate: '同質化無塑封箱，資源流轉流暢' },
             '格拉辛紙 / 雪面紙': { icon: '📄', img: 'img3.png', desc: '具有優異防油、防潮特性的半透明特種紙張。常用於高質感服飾或精緻珠寶精品的內層美學包裹，完全不含任何塑膠。', base: '傳統全新塑膠內袋（約 NT$1/個）', truePrice: '約 NT$ 1.5 / 張', newCarbon: '每張減少 8g 碳排', carbonRate: '100%全紙質，兼具防油防水霧面感' },
             'PLA 生物可分解透明袋': { icon: '🌽', img: 'img3.png', desc: '由可再生植物澱粉萃取物聚合製成。非常適合需要向消費者清晰展示內容物，或需要絕對防水、防塵阻絕保護的商品。', base: '傳統全新塑膠內袋（約 NT$1/個）', truePrice: '約 NT$ 3 / 個', newCarbon: '每個減少 10g 碳排', carbonRate: '純植物來源，防水型防護首選' }
         };
@@ -461,10 +372,62 @@
             });
         }
 
-        // 3. 策略模擬計算器
-        function simStrategy() { /* 保留原本核心數據加總邏輯 */ }
+        // --- 策略計算器模擬數據庫與核心修正連動引擎 ---
+        const calcData = {
+            outer: {
+                base_box: { name: '傳統瓦楞紙箱', cost: 10.0, carbon: 0 },
+                base_bag: { name: '傳統塑膠破壞袋', cost: 3.0, carbon: 0 },
+                fsc_box: { name: 'FSC 認證環保紙箱', cost: 12.0, carbon: 30 },
+                pcr_bag: { name: 'PCR 100% 再生塑料破壞袋', cost: 4.5, carbon: 25 },
+                lock_box: { name: '無膠帶卡扣式環保紙箱', cost: 14.0, carbon: 35 }
+            },
+            cushion: {
+                base_bubble: { name: '塑膠氣泡紙', cost: 3.0, carbon: 0 },
+                base_foam: { name: '保麗龍防撞粒', cost: 2.0, carbon: 0 },
+                honey_paper: { name: '牛皮蜂巢紙', cost: 6.0, carbon: 15 },
+                water_peanuts: { name: '水溶性防撞粒', cost: 4.0, carbon: 30 },
+                shred_box: { name: '廢紙壓邊緩衝材', cost: 2.5, carbon: 25 }
+            },
+            inner: {
+                base_inner: { name: '塑膠內袋 + 透明膠帶', cost: 1.5, carbon: 0 },
+                kraft_tape: { name: '水性牛皮紙膠帶', cost: 2.0, carbon: 7 },
+                glassine_paper: { name: '格拉辛紙 / 雪面紙', cost: 1.5, carbon: 8 },
+                pla_bag: { name: 'PLA 生物可分解透明袋', cost: 3.0, carbon: 10 }
+            }
+        };
 
-        // 4. 減碳成果模擬器連動運算
+        // 核心修正：確保選單點選能立即在表格內動態加總渲染
+        function runCalculatorSim() {
+            const outKey = document.getElementById('select-outer').value;
+            const cushKey = document.getElementById('select-cushion').value;
+            const innKey = document.getElementById('select-inner').value;
+
+            const outItem = calcData.outer[outKey];
+            const cushItem = calcData.cushion[cushKey];
+            const innItem = calcData.inner[innKey];
+
+            // 數據渲染到對應的表格列
+            document.getElementById('label-outer-name').innerText = outItem.name;
+            document.getElementById('label-outer-cost').innerText = `NT$ ${outItem.cost.toFixed(1)}`;
+            document.getElementById('label-outer-carbon').innerText = `${outItem.carbon} g`;
+
+            document.getElementById('label-cushion-name').innerText = cushItem.name;
+            document.getElementById('label-cushion-cost').innerText = `NT$ ${cushItem.cost.toFixed(1)}`;
+            document.getElementById('label-cushion-carbon').innerText = `${cushItem.carbon} g`;
+
+            document.getElementById('label-inner-name').innerText = innItem.name;
+            document.getElementById('label-inner-cost').innerText = `NT$ ${innItem.cost.toFixed(1)}`;
+            document.getElementById('label-inner-carbon').innerText = `${innItem.carbon} g`;
+
+            // 即時計算總計
+            const totalCost = outItem.cost + cushItem.cost + innItem.cost;
+            const totalCarbon = outItem.carbon + cushItem.carbon + innItem.carbon;
+
+            document.getElementById('total-calc-cost').innerText = totalCost.toFixed(1);
+            document.getElementById('total-calc-carbon').innerText = `${totalCarbon} g`;
+        }
+
+        // 減碳成果連動計算
         function calcEnvironmentalImpact() {
             const outCarbon = parseInt(document.querySelector('input[name="carbon-outer"]:checked').value);
             const cushCarbon = parseInt(document.querySelector('input[name="carbon-cushion"]:checked').value);
@@ -488,12 +451,8 @@
             document.getElementById('impact-forest-box').innerHTML = trees === "" ? "<span class='text-xs text-slate-500 font-bold p-2'>請提高出貨量或變更包材方案以種植森林...</span>" : trees;
         }
 
-        // ================================================================
-        // 5. 商業決策導向 desafios 挑戰賽引擎 (全新升級版)
-        // ================================================================
-        let selectedLeftId = null, selectedLeftEl = null, correctMatches = [], currentMouseX = 0, currentMouseY = 0;
-
-        // 關卡 1：出貨情境與最佳套餐拉線對應
+        // 挑戰賽營運引擎
+        let leftID = null, leftEl = null, correctMatches = [], currentMouseX = 0, currentMouseY = 0, currentPart = 1;
         const game1Data = {
             left: [
                 { id: "g1_1", icon: "💍", name: "高客單精品珠寶首飾", type: "極致質感防摔" },
@@ -507,33 +466,22 @@
             ]
         };
 
-        function initGame() {
-            switchPart(1);
-            window.addEventListener('resize', resizeCanvas);
-            requestAnimationFrame(gameLoop);
-        }
-
+        function initGame() { switchPart(1); window.addEventListener('resize', resizeCanvas); requestAnimationFrame(gameLoop); }
         function switchPart(partNum) {
             currentPart = partNum; selectedLeftId = null; correctMatches = [];
-            
-            // 隱藏全部關卡容器
             document.getElementById('box-game-part1').className = "hidden";
             document.getElementById('box-game-part2').className = "hidden";
             document.getElementById('box-game-part3').className = "hidden";
             document.getElementById('match-msg').innerText = "";
             document.getElementById('match-msg').className = "font-black text-lg text-slate-700 h-6 text-center";
 
-            // 啟動對應關卡頁籤
-            for(let i=1; i<=3; i++) {
-                document.getElementById(`part-tab-${i}`).className = i === partNum ? "flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all bg-white text-green-700 shadow-sm" : "flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black text-slate-500 hover:text-slate-800";
-            }
+            for(let i=1; i<=3; i++) document.getElementById(`part-tab-${i}`).className = i === partNum ? "flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all bg-white text-green-700 shadow-sm" : "flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black text-slate-500 hover:text-slate-800";
 
             if(partNum === 1) {
                 document.getElementById('box-game-part1').className = "game-container my-6";
                 document.getElementById('part-title').innerText = "第一關：商務出貨黃金配對賽";
                 document.getElementById('part-guide').innerText = "💡 教學任務：請為左側的真實出貨情境，拉線配對出「最完美平衡成本與環境」的綠色包材策略套餐！";
-                renderGame1();
-                setTimeout(resizeCanvas, 60);
+                renderGame1(); setTimeout(resizeCanvas, 60);
             } else if(partNum === 2) {
                 document.getElementById('box-game-part2').className = "my-6 max-w-3xl mx-auto space-y-6 animate-fadeIn";
                 document.getElementById('part-title').innerText = "第二關：碳排王者決策對決";
@@ -546,20 +494,15 @@
             }
         }
 
-        // 渲染第一關
         function renderGame1() {
-            let lHTML = "";
-            game1Data.left.forEach(item => {
-                lHTML += `<div id="g1_l_${item.id}" onclick="clickGame1Left('${item.id}', this)" class="match-card shadow-sm"><div class="text-3xl mr-4">${item.icon}</div><div><div class="font-black text-slate-700 text-sm md:text-base leading-tight">${item.name}</div><span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded font-bold mt-1.5 inline-block">${item.type}</span></div><div class="node-dot node-left"></div></div>`;
-            });
+            let lHTML = ""; game1Data.left.forEach(item => { lHTML += `<div id="g1_l_${item.id}" onclick="clickGame1Left('${item.id}', this)" class="match-card shadow-sm"><div class="text-3xl mr-4">${item.icon}</div><div><div class="font-black text-slate-700 text-sm leading-tight">${item.name}</div><span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded font-bold mt-1.5 inline-block">${item.type}</span></div><div class="node-dot node-left"></div></div>`; });
             document.getElementById('left-container').innerHTML = lHTML;
-
-            let rHTML = "";
-            game1Data.right.forEach(item => {
-                rHTML += `<div id="g1_r_${item.id}" onclick="clickGame1Right('${item.id}', this)" class="match-card text-xs text-slate-600 leading-relaxed pl-6 pr-4"><div class="node-dot node-right"></div><div>${item.text}</div></div>`;
-            });
+            let rHTML = ""; game1Data.right.forEach(item => { rHTML += `<div id="g1_r_${item.id}" onclick="clickGame1Right('${item.id}', this)" class="match-card text-xs text-slate-600 leading-relaxed pl-6 pr-4"><div class="node-dot node-right"></div><div>${item.text}</div></div>`; });
             document.getElementById('right-container').innerHTML = rHTML;
         }
+
+        function clickLeft(id, el) { /* 舊關卡兼容 */ }
+        function clickRight(id, el) { /* 舊關卡兼容 */ }
 
         function clickGame1Left(id, el) {
             if(el.classList.contains('correct')) return;
@@ -584,11 +527,9 @@
             } else {
                 document.getElementById('match-msg').innerText = "❌ 套餐搭配不符合這個商品的成本或防護需求喔！再試試看！";
                 document.getElementById('match-msg').className = "font-black text-lg text-rose-500 h-6 text-center";
-                flashErrorLine(`g1_l_${selectedLeftId}`, `g1_r_${item.id}`);
             }
         }
 
-        // 第二關決策點擊
         function submitDuelChoice(isCorrect) {
             if(isCorrect) {
                 document.getElementById('match-msg').innerText = "🏆 答對了！選用 PCR 再生材料能直接利用現有回收塑料，減碳力與環境循環度完勝傳統石化塑料包材！請前往第三關！";
@@ -599,36 +540,20 @@
             }
         }
 
-        // 第三關經營配置沙盒
-        function resetGame3() {
-            document.querySelectorAll('.custom-checkbox').forEach(cb => cb.checked = false);
-            document.getElementById('game3-budget-lbl').innerText = "$ 0";
-            document.getElementById('game3-carbon-lbl').innerText = "0 g";
-            document.getElementById('game3-budget-lbl').className = "text-2xl font-black text-white";
-        }
-
+        function resetGame3() { document.querySelectorAll('.custom-checkbox').forEach(cb => cb.checked = false); document.getElementById('game3-budget-lbl').innerText = "$ 0"; document.getElementById('game3-carbon-lbl').innerText = "0 g"; document.getElementById('game3-budget-lbl').className = "text-2xl font-black text-white"; }
         function runGame3Engine() {
-            let totalBudgetSpent = 0;
-            let totalCarbonSaved = 0;
-
+            let bSpent = 0, cSaved = 0;
             for(let i = 1; i <= 4; i++) {
                 const cb = document.getElementById(`g3-cb-${i}`);
-                if(cb.checked) {
-                    const values = cb.value.split('_');
-                    totalBudgetSpent += parseInt(values[0]);
-                    totalCarbonSaved += parseInt(values[1]);
-                }
+                if(cb.checked) { const v = cb.value.split('_'); bSpent += parseInt(v[0]); cSaved += parseInt(v[1]); }
             }
-
-            document.getElementById('game3-budget-lbl').innerText = `$ ${totalBudgetSpent.toLocaleString()}`;
-            document.getElementById('game3-carbon-lbl').innerText = `${totalCarbonSaved.toLocaleString()} g`;
-
-            if(totalBudgetSpent > 15000) {
-                document.getElementById('game3-text-lbl');
+            document.getElementById('game3-budget-lbl').innerText = `$ ${bSpent.toLocaleString()}`;
+            document.getElementById('game3-carbon-lbl').innerText = `${cSaved.toLocaleString()} g`;
+            if(bSpent > 15000) {
                 document.getElementById('game3-budget-lbl').className = "text-2xl font-black text-rose-500 animate-pulse";
                 document.getElementById('match-msg').innerText = "❌ 糟糕！經營經費爆預算 ($15,000) 了！店家會破產，請重新勾選調配！";
                 document.getElementById('match-msg').className = "font-black text-lg text-rose-500 h-6 text-center";
-            } else if(totalCarbonSaved >= 250000) {
+            } else if(cSaved >= 250000) {
                 document.getElementById('game3-budget-lbl').className = "text-2xl font-black text-green-400";
                 document.getElementById('match-msg').innerText = "👑 恭喜通關！你在極限的預算內，完成了最大化的減碳營運決策！綠色物流大師就是你！";
                 document.getElementById('match-msg').className = "font-black text-lg text-indigo-600 h-6 text-center animate-bounce";
@@ -639,7 +564,6 @@
             }
         }
 
-        // Canvas 拉線引擎核心
         function trackMouseMove(e) { if (!selectedLeftId) return; const rect = document.getElementById('canvas-wrapper').getBoundingClientRect(); currentMouseX = e.clientX - rect.left; currentMouseY = e.clientY - rect.top; }
         function resizeCanvas() { const canvas = document.getElementById('link-canvas'); if(canvas && currentPart === 1) { const w = document.getElementById('canvas-wrapper'); canvas.width = w.clientWidth; canvas.height = w.clientHeight; } }
         function gameLoop() { if(currentPart === 1) drawAllLines(); requestAnimationFrame(gameLoop); }
@@ -659,30 +583,8 @@
                 ctx.beginPath(); ctx.moveTo(x1, y1); ctx.bezierCurveTo(x1 + 60, y1, currentMouseX - 30, currentMouseY, currentMouseX, currentMouseY); ctx.lineWidth = 3; ctx.strokeStyle = "#3b82f6"; ctx.setLineDash([6, 4]); ctx.stroke(); ctx.setLineDash([]);
             }
         }
-
-        function flashErrorLine(lId, rBoxId) { /* 閃爍效果 */ }
         function resetCurrentPart() { switchPart(currentPart); }
-        
-        // 舊計算器兼容注入
-        function runCalculatorSim() {
-            const outKey = document.getElementById('select-outer').value;
-            const cushKey = document.getElementById('select-cushion').value;
-            const innKey = document.getElementById('select-inner').value;
-            const outItem = calcData.outer[outKey], cushItem = calcData.cushion[cushKey], innItem = calcData.inner[innKey];
-            document.getElementById('label-outer-name').innerText = outItem.name;
-            document.getElementById('label-outer-cost').innerText = `NT$ ${outItem.cost.toFixed(1)}`;
-            document.getElementById('label-outer-carbon').innerText = `${outItem.carbon} g`;
-            document.getElementById('label-cushion-name').innerText = cushItem.name;
-            document.getElementById('label-cushion-cost').innerText = `NT$ ${cushItem.cost.toFixed(1)}`;
-            document.getElementById('label-cushion-carbon').innerText = `${cushItem.carbon} g`;
-            document.getElementById('label-inner-name').innerText = innItem.name;
-            document.getElementById('label-inner-cost').innerText = `NT$ ${innItem.cost.toFixed(1)}`;
-            document.getElementById('label-inner-carbon').innerText = `${innItem.carbon} g`;
-            const totalCost = outItem.cost + cushItem.cost + innItem.cost;
-            const totalCarbon = outItem.carbon + cushItem.carbon + innItem.carbon;
-            document.getElementById('total-calc-cost').innerText = totalCost.toFixed(1);
-            document.getElementById('total-calc-carbon').innerText = `${totalCarbon} g`;
-        }
+        window.onload = () => { runCalculatorSim(); calcEnvironmentalImpact(); };
     </script>
 </body>
 </html>
