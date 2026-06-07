@@ -19,21 +19,14 @@
         .nav-btn { cursor: pointer; transition: 0.3s; padding: 10px 18px; border-radius: 12px; font-weight: bold; color: #64748b; }
         .nav-btn.active { background-color: #059669; color: white; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.2); }
 
-        /* 百科卡片 */
-        .material-card { background: white; border-radius: 20px; padding: 20px; text-align: center; border: 2px solid transparent; transition: 0.3s; cursor: pointer; }
-        .material-card:hover { border-color: #10b981; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
+        /* 百科卡片與首頁領域卡片 */
+        .material-card, .feature-card { background: white; border-radius: 20px; padding: 25px; border: 2px solid transparent; transition: 0.3s; cursor: pointer; }
+        .material-card:hover, .feature-card:hover { border-color: #10b981; transform: translateY(-5px); box-shadow: 0 12px 25px rgba(5, 150, 105, 0.05); }
         .material-card.active { border-color: #059669; background-color: #f0fdf4; }
 
         /* 篩選標籤按鈕 */
         .filter-btn-sub { cursor: pointer; transition: 0.2s; }
         .filter-btn-sub.active { background-color: #1e293b; color: white; border-color: #1e293b; }
-
-        /* 滑桿與選單 */
-        .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #e2e8f0; outline: none; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #059669; cursor: pointer; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-
-        .custom-checkbox { width: 20px; height: 20px; border: 2px solid #cbd5e1; border-radius: 6px; cursor: pointer; transition: 0.2s; }
-        .custom-checkbox:checked { background-color: #059669; border-color: #059669; }
 
         /* 連連看樣式 */
         .game-container { position: relative; width: 100%; }
@@ -56,6 +49,11 @@
         @keyframes grow { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         .hero-gradient { background: linear-gradient(135deg, #064e3b 0%, #059669 50%, #0f172a 100%); }
+
+        /* 跑馬燈無限滾動動畫 */
+        @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        .marquee-inner { display: flex; width: max-content; animation: marquee 25s linear infinite; }
+        .marquee-inner:hover { animation-play-state: paused; }
     </style>
 </head>
 <body>
@@ -78,16 +76,84 @@
 
     <main class="max-w-6xl mx-auto px-4 py-10">
 
-        <!-- 首頁 -->
-        <section id="page-home" class="page-content active">
-            <div class="hero-gradient text-white p-12 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center">
-                <div class="relative z-10">
-                    <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight">循環物流：<br><span class="text-green-400">定義下一個十年的出貨基準</span></h1>
-                    <p class="text-xl opacity-90 max-w-2xl mx-auto leading-relaxed mb-10">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過互動模擬，親手規劃出兼顧環保與商業的出貨方案。</p>
+        <!-- [全新升級頁面 1：豐富動態首頁] -->
+        <section id="page-home" class="page-content active space-y-12">
+            <!-- 英雄看板 -->
+            <div class="hero-gradient text-white p-12 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden text-center">
+                <div class="relative z-10 max-w-3xl mx-auto">
+                    <span class="bg-emerald-500/30 text-emerald-300 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-emerald-500/20 inline-block mb-4">歡迎來到網購永續轉型沙盒</span>
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">循環物流：<br><span class="text-green-400">定義下一個十年的出貨基準</span></h1>
+                    <p class="text-base md:text-lg opacity-80 leading-relaxed mb-8">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過**數據百科、計算器與營運對決**，親手規劃出兼顧商務成本與大自然環境的最佳出貨方案。</p>
                     <div class="flex justify-center gap-4">
-                        <button onclick="showPage('compare')" class="bg-white text-green-900 px-8 py-3 rounded-2xl font-black shadow-lg hover:scale-105 transition">開始探索</button>
-                        <button onclick="showPage('test')" class="bg-green-800 text-white px-8 py-3 rounded-2xl font-black shadow-lg hover:bg-green-700 transition">進入挑戰</button>
+                        <button onclick="showPage('compare')" class="bg-white text-green-900 px-8 py-3.5 rounded-2xl font-black shadow-lg hover:scale-105 transition-all text-sm">開始探索包材</button>
+                        <button onclick="showPage('test')" class="bg-green-800 text-white px-8 py-3.5 rounded-2xl font-black shadow-lg hover:bg-green-700 border border-green-600/30 transition-all text-sm">進入營運挑戰</button>
                     </div>
+                </div>
+            </div>
+
+            <!-- 新增區塊一：實驗室即時大數據看板 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-5">
+                    <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 text-2xl shrink-0"><i class="fa-solid fa-dumpster"></i></div>
+                    <div>
+                        <span class="block text-xs font-bold text-slate-400 uppercase">全台網購包裹年廢棄量</span>
+                        <span class="text-2xl font-black text-slate-800 block mt-0.5">約 5,000 萬個</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-5">
+                    <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 text-2xl shrink-0"><i class="fa-solid fa-cloud-showers-water"></i></div>
+                    <div>
+                        <span class="block text-xs font-bold text-slate-400 uppercase">傳統耗材平均單件排碳</span>
+                        <span class="text-2xl font-black text-slate-800 block mt-0.5">約 180 ~ 320g</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-5">
+                    <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 text-2xl shrink-0"><i class="fa-solid fa-circle-check"></i></div>
+                    <div>
+                        <span class="block text-xs font-bold text-slate-400 uppercase">本專題全綠色轉型目標</span>
+                        <span class="text-2xl font-black text-emerald-600 block mt-0.5">最高減碳達 95%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 新增區塊二：核心研究範疇三大核心分組導覽 -->
+            <div class="space-y-4">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-black text-slate-800">三大核心包材研究範疇</h3>
+                    <p class="text-xs text-slate-400 mt-1 font-bold">本互動實驗室圍繞電商出貨最關鍵的三大物理層面進行深度減碳配置：</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div onclick="showPage('compare'); filterCat('outer', document.querySelectorAll('.filter-btn-sub')[1]);" class="feature-card shadow-sm group">
+                        <div class="text-3xl mb-3">📦</div>
+                        <h4 class="font-black text-lg text-slate-800 group-hover:text-green-600 transition-colors">1. 外包裝袋箱</h4>
+                        <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">研究受控管森林的 FSC 紙箱、高強度 PCR 消費後再生破壞袋，從最外層阻絕原生資源浪費與塑料開採。</p>
+                        <span class="text-xs text-green-600 font-bold mt-4 inline-block">點擊快速檢索範疇 ➔</span>
+                    </div>
+                    <div onclick="showPage('compare'); filterCat('cushion', document.querySelectorAll('.filter-btn-sub')[2]);" class="feature-card shadow-sm group">
+                        <div class="text-3xl mb-3">🐝</div>
+                        <h4 class="font-black text-lg text-slate-800 group-hover:text-green-600 transition-colors">2. 緩衝保護材料</h4>
+                        <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">深入探索 3D 幾何力學牛皮蜂巢紙、親水性遇水即溶玉米防撞粒，全面消滅不可降解的塑膠氣泡薄膜與保麗龍。</p>
+                        <span class="text-xs text-green-600 font-bold mt-4 inline-block">點擊快速檢索範疇 ➔</span>
+                    </div>
+                    <div onclick="showPage('compare'); filterCat('inner', document.querySelectorAll('.filter-btn-sub')[3]);" class="feature-card shadow-sm group">
+                        <div class="text-3xl mb-3">🩹</div>
+                        <h4 class="font-black text-lg text-slate-800 group-hover:text-green-600 transition-colors">3. 內包裝與封膠</h4>
+                        <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">解析自帶天然植物膠的水性紙膠帶、100%無塑防油格拉辛紙，解決傳統出貨回收時殘膠污染再生纖維的痛點。</p>
+                        <span class="text-xs text-green-600 font-bold mt-4 inline-block">點擊快速檢索範疇 ➔</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 新增區塊三：全台電商動態即時永續跑馬燈 -->
+            <div class="bg-slate-900 rounded-2xl py-4 overflow-hidden shadow-inner border border-white/5 relative">
+                <div class="absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-slate-900 to-transparent z-10"></div>
+                <div class="absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-slate-900 to-transparent z-10"></div>
+                <div class="marquee-inner gap-8 items-center text-xs font-bold text-slate-400">
+                    <span class="flex items-center gap-2 text-green-400"><i class="fa-solid fa-circle-check text-[8px] animate-pulse"></i> 台北某服飾店 剛剛選用「PCR再生塑料破壞袋」出貨 ➔ 碳排放即時減少 25g！</span>
+                    <span class="flex items-center gap-2 text-green-400"><i class="fa-solid fa-circle-check text-[8px] animate-pulse"></i> 台中某精品店 剛剛更換為「3D牛皮蜂巢紙」包裹 ➔ 完美免除氣泡紙污染！</span>
+                    <span class="flex items-center gap-2 text-green-400"><i class="fa-solid fa-circle-check text-[8px] animate-pulse"></i> 高雄文青陶藝 剛剛透過「廢紙壓邊緩衝材」出貨 ➔ 包材耗材採購預算歸零！</span>
+                    <span class="flex items-center gap-2 text-green-400"><i class="fa-solid fa-circle-check text-[8px] animate-pulse"></i> 台北某服飾店 剛剛選用「PCR再生塑料破壞袋」出貨 ➔ 碳排放即時減少 25g！</span>
+                    <span class="flex items-center gap-2 text-green-400"><i class="fa-solid fa-circle-check text-[8px] animate-pulse"></i> 台中某精品店 剛剛更換為「3D牛皮蜂巢紙」包裹 ➔ 完美免除氣泡紙污染！</span>
                 </div>
             </div>
         </section>
@@ -314,14 +380,14 @@
             <div class="max-w-5xl mx-auto bg-white p-6 md:p-10 rounded-[3rem] shadow-xl relative">
                 
                 <!-- 頂部關卡頁籤 -->
-                <div class="flex justify-center gap-1.5 mb-8 bg-slate-100 p-1.5 rounded-2xl max-w-2xl mx-auto">
+                <div class="flex justify-center gap-1.5 mb-8 bg-slate-100 p-1.5 rounded-2xl max-w-xl mx-auto">
                     <button onclick="switchPart(1)" id="part-tab-1" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all bg-white text-green-700 shadow-sm">第一關：出貨最佳化拉線賽</button>
                     <button onclick="switchPart(2)" id="part-tab-2" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black text-slate-500">第二關：碳排王者決策對決</button>
                     <button onclick="switchPart(3)" id="part-tab-3" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black text-slate-500">第三關：永續模擬預算平衡</button>
                 </div>
 
                 <!-- 關卡主標題 -->
-                <div class="text-center mb-6">
+                <div class="text-center mb-4">
                     <h2 id="part-title" class="text-2xl font-black text-slate-800">第一關：商務出貨黃金配對賽</h2>
                     <p id="part-guide" class="text-sm text-slate-500 mt-1">請為左側的真實出貨情境，拉線配對出「最完美平衡成本與環境」的綠色包材策略套餐！</p>
                 </div>
@@ -437,7 +503,7 @@
         }
 
         const materialData = {
-            'FSC 認證環保紙箱': { icon: '📦', img: 'img5.png', desc: '符合生態管理體系。木材來源受到嚴格管控，確保森林永續，是賣家最基礎且最完美的無痛替換綠色選項。', base: '傳統全新瓦楞紙箱（約 NT$10/個）', truePrice: '約 NT$ 12 / 個', newCarbon: '減少 30 公克碳排', carbonRate: '服飾與鞋盒尺寸優化結構' },
+            'FSC 認證環保紙箱': { icon: '📦', img: 'img5.png', desc: '符合高標準生態管理體系。木材來源受到嚴格管控，確保森林永續，是賣家最基礎且最完美的無痛替換綠色選項。', base: '傳統全新瓦楞紙箱（約 NT$10/個）', truePrice: '約 NT$ 12 / 個', newCarbon: '減少 30 公克碳排', carbonRate: '服飾與鞋盒尺寸優化結構' },
             'PCR 再生塑料破壞袋': { icon: '♻️', img: 'img6.png', desc: 'Post-Consumer Recycled 核心應用。100% 完全使用消費後回收塑料循環製成，材質堅韌防水，極適合投放不怕壓的軟性衣物。', base: '傳統塑膠破壞袋（約 NT$3/個）', truePrice: '約 NT$ 4.5 / 個', newCarbon: '減少 25 公克碳排', carbonRate: '降低石化原生塑料開採損耗' },
             '無膠帶卡扣式環保紙箱': { icon: '🧰', img: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=cover&w=500&q=80', desc: '高端結構包裝。底部與封口透過特殊齒舌結構相互咬合，完全不需要消耗任何膠帶，綠色環保且倍增出貨人員包裝效率。', base: '傳統紙箱＋塑膠膠帶組合', truePrice: '約 NT$ 14 / 個', newCarbon: '減少 35 公克碳排', carbonRate: '零膠帶依賴，一體化卡扣結構' },
             '牛皮蜂巢紙': { icon: '🐝', img: 'img2.png', desc: '拉開後即刻展現立體的 3D 蜂巢網格承重幾何結構。空間效益高，防震力強，能大幅度增進出貨包裹的高級質感。', base: '傳統塑膠氣泡紙（約 NT$3/公尺）', truePrice: '約 NT$ 6 / 公尺', newCarbon: '每公尺減少 15g 碳排', carbonRate: '含延展後長度之全紙質無塑緩衝' },
@@ -445,7 +511,7 @@
             '廢紙壓邊緩衝材': { icon: '📠', img: 'img7.png', desc: '資源封閉循環的極致體現。將店鋪內廢棄的二手舊紙箱直接透過專用壓切機器切碎為網狀防震緩衝墊，賦予廢料二次生命。', base: '傳統塑膠氣泡紙（約 NT$3/公尺）', truePrice: '約 NT$ 2.5 / 公尺', newCarbon: '每公尺減少 25g 碳排', carbonRate: '自購機器處理時材料成本趨近 0' },
             '水性牛皮紙膠帶': { icon: '🩹', img: 'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?auto=format&fit=cover&w=500&q=80', desc: '自帶水性植物黏膠，沾水即展現極高抓箱黏性。消費者在回收紙箱時完全不用費時撕除膠帶，可直接一併投入紙類回收池。', base: 'OPP透明膠帶（約 NT$0.5/公尺）', truePrice: '約 NT$ 2 / 公尺', newCarbon: '每公尺減少 7g 碳排', carbonRate: '同質化無塑封箱，資源流轉流暢' },
             '格拉辛紙 / 雪面紙': { icon: '📄', img: 'img3.png', desc: '具有優異防油、防潮特性的半透明特種紙張。常用於高質感服飾或精緻珠寶精品的內層美學包裹，完全不含任何塑膠。', base: '傳統全新塑膠內袋（約 NT$1/個）', truePrice: '約 NT$ 1.5 / 張', newCarbon: '每張減少 8g 碳排', carbonRate: '100%全紙質，兼具防油防水霧面感' },
-            'PLA 生物可分解透明袋': { icon: '🌽', img: 'img3.png', desc: '由可再生植物澱粉萃取物聚合製成。非常適合需要向消費者清晰展示內容物，或需要絕對防水、防塵阻絕保護的商品。', base: '傳統全新塑膠內袋（約 NT$1/個）', truePrice: '約 NT$ 3 / 個', newCarbon: '每個減少 10g 碳排', carbonRate: '純植物來源，防水型防護首選' }
+            'PLA 生物可分解透明袋': { icon: '🌽', img: 'img3.png', desc: '由可再生植物澱粉萃取物聚合製成。非常適合需要向消費者清晰展示內容物，或需要絕對防水、防塵阻絕保護的商品。', base: '傳統全新塑膠內袋（約 NT$1/個）', truePrice: '約 NT$ 3 / 個', newCarbon: '每個減少 10g 碳排', carbonRate: '純植物來源，防水型防護首首選' }
         };
 
         function openInfo(name, el) {
@@ -468,7 +534,9 @@
                 b.classList.remove('active');
                 if(b !== el) b.classList.add('bg-white', 'border-slate-200');
             });
-            el.classList.add('active'); el.classList.remove('bg-white', 'border-slate-200');
+            if(el) {
+                el.classList.add('active'); el.classList.remove('bg-white', 'border-slate-200');
+            }
             document.querySelectorAll('.material-card').forEach(c => {
                 c.style.display = (cat === 'all' || c.getAttribute('data-cat') === cat) ? 'block' : 'none';
             });
@@ -595,7 +663,6 @@
             document.getElementById('right-container').innerHTML = rHTML;
         }
 
-        // 核心Bug修復點：確保點選事件變數命名與 Canvas 即時渲染一致
         function clickGame1Left(id, el) {
             if(el.classList.contains('correct')) return;
             selectedLeftId = id; selectedLeftEl = el;
@@ -666,7 +733,6 @@
             const canvas = document.getElementById('link-canvas'); if(!canvas) return; const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height);
             const wRect = document.getElementById('canvas-wrapper').getBoundingClientRect();
             
-            // 繪製固定綠線
             correctMatches.forEach(match => {
                 const l = document.getElementById(match.leftId).querySelector('.node-left').getBoundingClientRect();
                 const r = document.getElementById(match.rightId).querySelector('.node-right').getBoundingClientRect();
@@ -674,7 +740,6 @@
                 ctx.beginPath(); ctx.moveTo(x1, y1); ctx.bezierCurveTo(x1 + 60, y1, x2 - 60, y2, x2, y2); ctx.lineWidth = 4; ctx.strokeStyle = "#10b981"; ctx.stroke();
             });
             
-            // 修正：動態導引藍線抓取對應新節點位置
             if (selectedLeftId) {
                 const l = document.getElementById(`g1_l_${selectedLeftId}`).querySelector('.node-left').getBoundingClientRect();
                 const x1 = l.left - wRect.left + 7, y1 = l.top - wRect.top + 7;
