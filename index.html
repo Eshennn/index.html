@@ -4,340 +4,647 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>綠色物流互動實驗室</title>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #FAF8F5; /* 暖米色底 */
-            --primary-color: #8BA888; /* 柔和的鼠尾草綠 */
-            --accent-color: #D4E0CE; /* 淺薄荷綠 */
-            --text-dark: #4A5D4E; /* 墨綠色 */
-            --text-light: #8E9F91;
-            --white: #FFFFFF;
-            --radius-lg: 40px;
-            --radius-md: 24px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Zen Maru Gothic', '微軟正黑體', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            line-height: 1.8;
-            letter-spacing: 0.05em;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; color: #1e293b; user-select: none; }
+        
+        /* 頁面切換 */
+        .page-content { display: none; }
+        .page-content.active { display: block !important; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         /* 導覽列 */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5vw;
-            background-color: rgba(250, 248, 245, 0.9);
-            backdrop-filter: blur(8px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        .nav-btn { cursor: pointer; transition: 0.3s; padding: 10px 18px; border-radius: 12px; font-weight: bold; color: #64748b; }
+        .nav-btn.active { background-color: #059669; color: white; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.2); }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
+        /* 百科卡片 */
+        .material-card { background: white; border-radius: 20px; padding: 20px; text-align: center; border: 2px solid transparent; transition: 0.3s; cursor: pointer; }
+        .material-card:hover { border-color: #10b981; transform: translateY(-5px); }
+        .material-card.active { border-color: #059669; background-color: #f0fdf4; }
 
-        /* 標題區塊 */
-        .hero-section {
-            text-align: center;
-            padding: 80px 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
+        /* 篩選標籤按鈕 */
+        .filter-btn-sub { cursor: pointer; transition: 0.2s; }
+        .filter-btn-sub.active { background-color: #1e293b; color: white; border-color: #1e293b; }
 
-        .hero-section h1 {
-            font-size: 42px;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
+        /* 滑桿樣式 */
+        .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #e2e8f0; outline: none; }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #059669; cursor: pointer; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
 
-        .hero-section p {
-            font-size: 18px;
-            color: var(--text-light);
-        }
+        /* 數據可視化 */
+        .tree-unit { display: inline-block; animation: grow 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes grow { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* 內容區塊共用 */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 30px;
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        /* 分類按鈕 (Tabs) */
-        .filter-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: var(--white);
-            color: var(--text-light);
-            border: 2px solid transparent;
-            padding: 10px 25px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(139, 168, 136, 0.05);
-        }
-
-        .filter-btn:hover {
-            color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        .filter-btn.active {
-            background: var(--primary-color);
-            color: var(--white);
-            box-shadow: 0 6px 20px rgba(139, 168, 136, 0.2);
-        }
-
-        /* 包材圖鑑網格 */
-        .materials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 30px;
-        }
-
-        .material-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: 40px 25px;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(139, 168, 136, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 2px solid transparent;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .material-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 15px 40px rgba(139, 168, 136, 0.15);
-        }
-
-        .card-emoji {
-            font-size: 50px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--accent-color);
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-        }
-
-        .card-type {
-            font-size: 13px;
-            background: var(--bg-color);
-            color: var(--primary-color);
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .card-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .card-subtitle {
-            font-size: 14px;
-            color: var(--text-light);
-            line-height: 1.5;
-        }
-
-        /* 彈出視窗 (Modal) */
-        .modal-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(74, 93, 78, 0.3);
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-
-        .modal-bg.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-box {
-            background: var(--white);
-            width: 90%;
-            max-width: 450px;
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-bg.show .modal-box {
-            transform: scale(1);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--bg-color);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 18px;
-            cursor: pointer;
-            color: var(--text-dark);
-            transition: 0.3s;
-        }
+        /* 高互動連連看專用樣式 */
+        .game-container { position: relative; width: 100%; }
+        .match-card { background: white; border: 2px solid #e2e8f0; border-radius: 16px; padding: 16px; transition: all 0.2s; position: relative; z-index: 10; min-height: 90px; display: flex; align-items: center; cursor: pointer; }
+        .match-card:hover { border-color: #059669; transform: scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .match-card.selected { border-color: #059669; background: #f0fdf4; box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15); }
+        .match-card.correct { border-color: #10b981; background: #f0fdf4; cursor: default; transform: none; box-shadow: none; }
         
-        .close-btn:hover {
-            background: var(--primary-color);
-            color: var(--white);
-        }
+        /* 連線端點 Node */
+        .node-dot { width: 14px; height: 14px; background: #cbd5e1; border: 3px solid white; border-radius: 50%; position: absolute; top: 50%; transform: translateY(-50%); box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.2s; }
+        .node-left { right: -7px; }
+        .node-right { left: -7px; }
+        .match-card.selected .node-dot { background: #059669; transform: translateY(-50%) scale(1.3); }
+        .match-card.correct .node-dot { background: #10b981; }
 
-        .modal-data {
-            background: var(--bg-color);
-            padding: 20px;
-            border-radius: var(--radius-md);
-            margin: 20px 0;
-            text-align: left;
-        }
-
-        .data-line {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            border-bottom: 1px dashed var(--accent-color);
-            padding-bottom: 10px;
-        }
-        
-        .data-line:last-child {
-            margin-bottom: 0; border-bottom: none; padding-bottom: 0;
-        }
+        .hero-gradient { background: linear-gradient(135deg, #064e3b 0%, #059669 50%, #0f172a 100%); }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">🍃 綠色物流</div>
-    </nav>
-
-    <header class="hero-section">
-        <h1>新世代物流包裝圖鑑</h1>
-        <p>從最外層的防護到最內層的接觸，探索符合經濟效益與環境永續的完整包裝材料系統。</p>
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 py-4 border-b">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-leaf text-green-600 text-3xl"></i>
+                <span class="font-black text-2xl tracking-tighter">綠色物流實驗室</span>
+            </div>
+            <nav class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-2xl">
+                <button onclick="showPage('home')" id="btn-home" class="nav-btn active">首頁</button>
+                <button onclick="showPage('compare')" id="btn-compare" class="nav-btn">包材百科</button>
+                <button onclick="showPage('balance')" id="btn-balance" class="nav-btn">策略模擬</button>
+                <button onclick="showPage('carbon')" id="btn-carbon" class="nav-btn">減碳計算</button>
+                <button onclick="showPage('test')" id="btn-test" class="nav-btn">挑戰賽</button>
+            </nav>
+        </div>
     </header>
 
-    <section class="container">
-        <h2 class="section-title">📦 系統化包材總覽</h2>
-        
-        <div class="filter-tabs" id="filter-container">
-            <button class="filter-btn active" data-filter="all">全部顯示</button>
-            <button class="filter-btn" data-filter="outer">🚚 外包裝</button>
-            <button class="filter-btn" data-filter="inner">🎁 內包裝</button>
-            <button class="filter-btn" data-filter="cushion">☁️ 緩震材料</button>
-        </div>
+    <main class="max-w-6xl mx-auto px-4 py-10">
 
-        <div class="materials-grid" id="card-container">
-            </div>
-    </section>
-
-    <div class="modal-bg" id="detail-modal">
-        <div class="modal-box">
-            <button class="close-btn" id="btn-close">✕</button>
-            <div class="card-emoji" id="m-emoji" style="margin: 0 auto 20px auto;">📦</div>
-            <div class="card-type" id="m-type" style="display: inline-block;">分類</div>
-            <h2 class="card-title" id="m-title" style="margin-top: 10px;">包材名稱</h2>
-            
-            <div class="modal-data">
-                <div class="data-line">
-                    <strong>測量單位</strong>
-                    <span id="m-unit">1 個</span>
-                </div>
-                <div class="data-line">
-                    <strong>碳排數據</strong>
-                    <span id="m-carbon" style="color: var(--primary-color); font-weight: 700;">0.00 kg CO₂e</span>
+        <!-- [頁面 1：首頁] -->
+        <section id="page-home" class="page-content active">
+            <div class="hero-gradient text-white p-12 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center">
+                <div class="relative z-10">
+                    <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight">循環物流：<br><span class="text-green-400">定義下一個十年的出貨基準</span></h1>
+                    <p class="text-xl opacity-90 max-w-2xl mx-auto leading-relaxed mb-10">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過**互動模擬**，親手規劃出兼顧環保與商業的出貨方案。</p>
+                    <div class="flex justify-center gap-4">
+                        <button onclick="showPage('compare')" class="bg-white text-green-900 px-8 py-3 rounded-2xl font-black shadow-lg hover:scale-105 transition">開始探索</button>
+                        <button onclick="showPage('test')" class="bg-green-800 text-white px-8 py-3 rounded-2xl font-black shadow-lg hover:bg-green-700 transition">進入挑戰</button>
+                    </div>
                 </div>
             </div>
-            
-            <p style="color: var(--text-light); font-size: 15px; text-align: justify; line-height: 1.7;" id="m-desc">
-                詳細的包裝科學說明。
-            </p>
-        </div>
-    </div>
+        </section>
+
+        <!-- [頁面 2：包材百科] -->
+        <section id="page-compare" class="page-content">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-4 mb-8">
+                <div>
+                    <h2 class="text-3xl font-black text-slate-800">包材互動百科</h2>
+                    <p class="text-slate-500">點擊分類標籤快速檢索，點擊包材卡片可於下方展開教學內容</p>
+                </div>
+                <div class="flex flex-wrap gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200">
+                    <button onclick="filterCat('all', this)" class="filter-btn-sub active px-3 py-1.5 rounded-lg text-xs font-bold border border-transparent">全部</button>
+                    <button onclick="filterCat('bag', this)" class="filter-btn-sub px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-sm hover:bg-slate-50">外包裝袋</button>
+                    <button onclick="filterCat('cushion', this)" class="filter-btn-sub px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-sm hover:bg-slate-50">緩衝墊材</button>
+                    <button onclick="filterCat('tape', this)" class="filter-btn-sub px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-sm hover:bg-slate-50">印刷膠帶</button>
+                    <button onclick="filterCat('device', this)" class="filter-btn-sub px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-sm hover:bg-slate-50">加工設備</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="material-grid">
+                <div class="material-card shadow-sm" data-cat="cushion" onclick="openInfo('FSC 蜂巢紙', this)">
+                    <div class="text-4xl mb-3">🐝</div><div class="font-black text-slate-700">FSC 蜂巢紙</div>
+                    <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">緩衝墊材</span>
+                </div>
+                <div class="material-card shadow-sm" data-cat="cushion" onclick="openInfo('發泡乖乖', this)">
+                    <div class="text-4xl mb-3">🌱</div><div class="font-black text-slate-700">發泡乖乖</div>
+                    <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">緩衝墊材</span>
+                </div>
+                <div class="material-card shadow-sm" data-cat="cushion" onclick="openInfo('草本墊材', this)">
+                    <div class="text-4xl mb-3">🌾</div><div class="font-black text-slate-700">草本墊材</div>
+                    <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">緩衝墊材</span>
+                </div>
+
+                <div class="material-card shadow-sm" data-cat="bag" onclick="openInfo('循環袋', this)">
+                    <div class="text-4xl mb-3">♻️</div><div class="font-black text-slate-700">循環袋</div>
+                    <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">外包裝袋</span>
+                </div>
+                <div class="material-card shadow-sm" data-cat="bag" onclick="openInfo('PLA 分解袋', this)">
+                    <div class="text-4xl mb-3">🌽</div><div class="font-black text-slate-700">PLA 分解袋</div>
+                    <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">外包裝袋</span>
+                </div>
+
+                <div class="material-card shadow-sm" data-cat="tape" onclick="openInfo('牛皮紙膠帶', this)">
+                    <div class="text-4xl mb-3">🩹</div><div class="font-black text-slate-700">牛皮紙膠帶</div>
+                    <span class="text-[10px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">印刷膠帶</span>
+                </div>
+                <div class="material-card shadow-sm" data-cat="tape" onclick="openInfo('大豆油墨', this)">
+                    <div class="text-4xl mb-3">🎨</div><div class="font-black text-slate-700">大豆油墨</div>
+                    <span class="text-[10px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">印刷膠帶</span>
+                </div>
+
+                <div class="material-card shadow-sm" data-cat="device" onclick="openInfo('紙箱再製機', this)">
+                    <div class="text-4xl mb-3">📠</div><div class="font-black text-slate-700">紙箱再製機</div>
+                    <span class="text-[10px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded-md font-bold mt-2 inline-block">加工設備</span>
+                </div>
+            </div>
+
+            <div id="detail-panel" class="hidden mt-8 bg-slate-900 text-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl animate-fadeIn">
+                <div class="flex flex-col md:flex-row gap-10 items-center">
+                    <div id="detail-icon" class="text-8xl bg-white/10 p-6 rounded-3xl"></div>
+                    <div>
+                        <h3 id="detail-title" class="text-4xl font-black mb-4 text-green-400"></h3>
+                        <p id="detail-desc" class="text-slate-300 text-lg leading-relaxed max-w-2xl mb-6"></p>
+                        <div class="flex gap-4">
+                            <div class="bg-green-900/50 px-6 py-3 rounded-xl border border-green-700">
+                                <span class="block text-xs font-bold text-green-400 uppercase">預估成本</span>
+                                <span id="detail-price" class="text-xl font-black"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- [頁面 3：策略模擬器] -->
+        <section id="page-balance" class="page-content">
+            <div class="grid lg:grid-cols-2 gap-10">
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-black">策略配置模擬器</h2>
+                    <p class="text-slate-500">調整經營傾向，即時觀察包材組合的變化與市場反饋。</p>
+                    <div class="bg-white p-8 rounded-[2rem] shadow-xl space-y-8">
+                        <div class="space-y-4">
+                            <div class="flex justify-between font-black"><span>💰 預算投入</span><span id="val-budget" class="text-green-600">$ 50</span></div>
+                            <input type="range" id="input-budget" class="slider" oninput="simStrategy()">
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex justify-between font-black"><span>🍃 環保堅持</span><span id="val-eco" class="text-green-600">50%</span></div>
+                            <input type="range" id="input-eco" class="slider" oninput="simStrategy()">
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-800 p-8 rounded-[2.5rem] text-white flex flex-col">
+                    <h3 class="text-xl font-bold mb-6 text-green-400">實驗室建議配置</h3>
+                    <div id="sim-result" class="flex-1 space-y-3"></div>
+                    <div class="mt-6 pt-6 border-t border-slate-700">
+                        <span class="text-sm opacity-60">顧客預期滿意度</span>
+                        <div class="w-full h-3 bg-slate-700 rounded-full mt-2 overflow-hidden">
+                            <div id="satisfaction-bar" class="h-full bg-yellow-400 transition-all duration-500" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- [頁面 4：減碳計算] -->
+        <section id="page-carbon" class="page-content">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl font-black text-slate-800">減碳成果可視化計算機</h2>
+                <p class="text-slate-500 mt-2">輸入你的年度出貨量，親眼見證永續包材對地球帶來的具體貢獻！</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-10">
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                    <h3 class="font-black text-lg text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-green-600"></i> 我該填多少？電商出貨量級指南
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-slate-500">
+                            <thead class="text-xs text-slate-700 uppercase bg-slate-50 font-bold">
+                                <tr>
+                                    <th class="px-3 py-2">賣家規模</th>
+                                    <th class="px-3 py-2">每月出貨</th>
+                                    <th class="px-3 py-2 text-green-700 font-black">建議輸入(年)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50/50">
+                                    <td class="px-3 py-3 font-bold text-slate-700">兼職/個人賣家</td>
+                                    <td class="px-3 py-3">約 50 ~ 200 件</td>
+                                    <td class="px-3 py-3 font-black text-green-600">1,200</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50">
+                                    <td class="px-3 py-3 font-bold text-slate-700">獨立品牌/中小電商</td>
+                                    <td class="px-3 py-3">約 500 ~ 2,000 件</td>
+                                    <td class="px-3 py-3 font-black text-green-600">15,000</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50">
+                                    <td class="px-3 py-3 font-bold text-slate-700">大型商城/網購名店</td>
+                                    <td class="px-3 py-3">10,000 件以上</td>
+                                    <td class="px-3 py-3 font-black text-green-600">120,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-green-50/60 p-6 rounded-3xl border border-green-100 flex flex-col justify-center">
+                    <h3 class="font-black text-lg text-green-900 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-green-600"></i> 科學數據是怎麼算的？
+                    </h3>
+                    <p class="text-sm text-green-800 leading-relaxed font-medium">
+                        本計算機採用行政院環境保護標準數據。當店家將傳統「一次性塑膠破壞袋與膠帶」替換為「100% 綠色循環包材」時：<br>
+                        <span class="block mt-2 font-bold text-green-950">每出貨 1 件包材，約可減少 0.12 公斤的碳排放。</span>
+                        <span class="block font-bold text-green-950">而台灣原生樹木平均一年的吸碳量約為 12 公斤。</span>
+                        <span class="block mt-1 text-xs text-green-700 italic">※ 公式：年出貨量 × 0.12 ÷ 12 ＝ 相當於為地球種植的樹木數量。</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border-2 border-green-600/10 flex flex-col md:flex-row gap-10 items-center">
+                <div class="w-full md:w-1/3 text-center md:text-left">
+                    <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-1">請輸入年度總出貨件數</label>
+                    <input type="number" id="carbon-input" value="1200" oninput="visualizeCarbon()" class="w-full text-5xl font-black text-green-600 bg-transparent border-b-2 border-green-200 focus:outline-none focus:border-green-600 py-2 transition-all">
+                    <p class="text-xs text-slate-400 mt-2">💡 試試看輸入上面的建議數值</p>
+                </div>
+                <div class="flex-1 w-full bg-slate-50 p-8 rounded-3xl min-h-[250px] flex flex-col justify-between">
+                    <div class="flex justify-between items-center font-black mb-4 pb-4 border-b border-slate-200">
+                        <span class="text-slate-700">🌲 累積一年減碳貢獻：</span>
+                        <span id="tree-count-num" class="text-3xl text-green-600 font-black">12 棵樹</span>
+                    </div>
+                    <div id="tree-visualizer" class="flex flex-wrap gap-2 text-3xl max-h-[160px] overflow-y-auto p-1"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- [頁面 5：挑戰賽 - 全動態拉線終極版] -->
+        <section id="page-test" class="page-content">
+            <div class="max-w-5xl mx-auto bg-white p-6 md:p-10 rounded-[2.5rem] shadow-xl relative">
+                
+                <!-- 頂部雙關卡頁籤 -->
+                <div class="flex justify-center gap-2 mb-8 bg-slate-100 p-1.5 rounded-2xl max-w-lg mx-auto">
+                    <button onclick="switchPart(1)" id="part-tab-1" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all bg-white text-green-700 shadow-sm">第一關：外包與緩衝材料</button>
+                    <button onclick="switchPart(2)" id="part-tab-2" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all text-slate-500 hover:text-slate-800">第二關：印刷、膠帶與設備</button>
+                </div>
+
+                <div class="text-center mb-4">
+                    <h2 id="part-title" class="text-2xl font-black text-slate-800">第一關：外包與緩衝材料</h2>
+                    <p class="text-sm text-slate-500 mt-1">💡 互動指引：點擊左側圖卡後**移動滑鼠**，並點擊右側相應的正確敘述來完成連線！</p>
+                </div>
+
+                <!-- 連連看互動主舞台 -->
+                <div class="game-container my-8" id="canvas-wrapper" onmousemove="trackMouseMove(event)">
+                    <!-- Canvas 渲染層：置於底層 -->
+                    <canvas id="link-canvas" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+                    
+                    <!-- 內容卡片層：4 對 4 佈局 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-6 relative z-10">
+                        <!-- 左側：核心包材圖卡 -->
+                        <div class="space-y-4 flex flex-col justify-between" id="left-container"></div>
+                        <!-- 右側：深度專業描述 -->
+                        <div class="space-y-4 flex flex-col justify-between" id="right-container"></div>
+                    </div>
+                </div>
+
+                <!-- 底部動態訊息欄與重設 -->
+                <div class="flex flex-col items-center justify-center gap-4 border-t pt-6 mt-8">
+                    <div id="match-msg" class="font-black text-lg text-slate-700 h-6 text-center"></div>
+                    <button onclick="resetCurrentPart()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-6 py-2.5 rounded-xl text-sm transition-all flex items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-arrow-rotate-left"></i> 重置本關卡
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <script>
-        // --- 1. 擴充的系統化包材資料庫 ---
-        const packagingItems = [
-            // 【外包裝 Outer Packaging】
-            {
-                type: "outer",
-                typeLabel: "🚚 外包裝",
-                name: "FSC 認證瓦楞紙箱",
-                emoji: "📦",
-                short: "來自負責任森林的堅固外箱",
-                unit: "1 個 (中型)",
-                carbon: "0.22 kg CO₂e",
-                desc: "物流中最基礎的外包裝。選用具備 FSC 標章的紙箱，確保木材來源不會導致森林濫伐，且本身具備極高的回收再製率。"
+        // 1. 頁面切換控制
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + pageId).classList.add('active');
+            if(pageId === 'balance') simStrategy();
+            if(pageId === 'carbon') visualizeCarbon();
+            if(pageId === 'test') { initGame(); }
+            window.scrollTo(0,0);
+        }
+
+        // 2. 百科資料結構與點擊展開
+        const materialData = {
+            'FSC 蜂巢紙': { icon: '🐝', desc: '利用 100% 可回收紙材製成，拉開後產生的 3D 幾何結構具備極佳緩衝力，可完美取代塑膠氣泡墊。', price: 'NT$ 1.5 - 3 / 米' },
+            '循環袋': { icon: '♻️', desc: '以高強度尼龍或 TPU 製成，搭配逆向物流回收，可重複使用達 50 次以上，大幅降低一次性包裝廢棄量。', price: '單次租賃約 NT$ 5' },
+            'PLA 分解袋': { icon: '🌽', desc: '生物基澱粉製作，外觀與傳統塑膠袋無異，但在工業堆肥環境下可完全分解，不留微塑膠。', price: 'NT$ 0.8 - 1.5' },
+            '發泡乖乖': { icon: '🌱', desc: '利用植物澱粉發泡而成，重量極輕，填充性能優異且「遇水即溶」，是對環境壓力最小的填充材。', price: 'NT$ 0.1 / 份' },
+            '牛皮紙膠帶': { icon: '🩹', desc: '水性澱粉膠設計，可隨著紙箱直接進入回收渠道，無需費力撕除，簡化回收流程。', price: 'NT$ 20 / 卷' },
+            '大豆油墨': { icon: '🎨', desc: '取代傳統石化油墨，減少揮發性有機物 (VOC) 排放，色彩飽和且利於再生纖維回收。', price: '+1% 總成本' },
+            '草本墊材': { icon: '🌾', desc: '利用稻殼、麥稈等農業廢棄物製成，提供天然纖維香氣與自然質感，營造品牌永續風格。', price: 'NT$ 0.5 - 1' },
+            '紙箱再製機': { icon: '📠', desc: '將店內廢舊紙箱切碎，轉化為網格狀緩衝材。投資設備後，耗材支出可完全歸零。', price: '機器投入後 $0' }
+        };
+
+        function openInfo(name, el) {
+            const d = materialData[name];
+            document.querySelectorAll('.material-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            const panel = document.getElementById('detail-panel');
+            panel.classList.remove('hidden');
+            document.getElementById('detail-title').innerText = name;
+            document.getElementById('detail-icon').innerText = d.icon;
+            document.getElementById('detail-desc').innerText = d.desc;
+            document.getElementById('detail-price').innerText = d.price;
+        }
+
+        function filterCat(cat, el) {
+            document.querySelectorAll('.filter-btn-sub').forEach(b => {
+                b.classList.remove('active');
+                if(b !== el) b.classList.add('bg-white', 'border-slate-200');
+            });
+            el.classList.add('active');
+            el.classList.remove('bg-white', 'border-slate-200');
+
+            document.querySelectorAll('.material-card').forEach(c => {
+                c.style.display = (cat === 'all' || c.getAttribute('data-cat') === cat) ? 'block' : 'none';
+            });
+        }
+
+        // 3. 策略配置引擎
+        function simStrategy() {
+            const budget = document.getElementById('input-budget').value;
+            const eco = document.getElementById('input-eco').value;
+            document.getElementById('val-budget').innerText = `$ ${budget}`;
+            document.getElementById('val-eco').innerText = `${eco}%`;
+
+            let res = ""; let sat = 50;
+            if(eco > 70) {
+                res = "🟢 <b>循環袋方案</b><br>配合店鋪回收點，減碳效率極大化。"; sat = 85;
+            } else if(budget > 70) {
+                res = "🟡 <b>FSC 蜂巢紙 + 大豆印刷</b><br>高端開箱體驗，適合精品。"; sat = 95;
+            } else {
+                res = "⚪ <b>二手紙箱 + 發泡乖乖</b><br>極致省錢，適合文青雜貨。"; sat = 60;
+            }
+            document.getElementById('sim-result').innerHTML = `<div class="p-4 bg-white/10 rounded-2xl border border-white/20">${res}</div>`;
+            document.getElementById('satisfaction-bar').style.width = sat + "%";
+        }
+
+        // 4. 減碳數據可視化計算
+        function visualizeCarbon() {
+            const input = document.getElementById('carbon-input').value;
+            const treeCount = Math.floor(input / 100);
+            document.getElementById('tree-count-num').innerText = `${treeCount.toLocaleString()} 棵樹`;
+            
+            let trees = "";
+            const displayCount = Math.min(treeCount, 80);
+            for(let i=0; i<displayCount; i++) {
+                trees += `<span class="tree-unit">🌳</span>`;
+            }
+            if (treeCount > 80) {
+                trees += `<span class="text-xs text-slate-400 font-bold self-end ml-1">...及其他 ${treeCount - 80} 棵樹</span>`;
+            }
+            document.getElementById('tree-visualizer').innerHTML = trees;
+        }
+
+        // 5. 終極全動態拉線連連看引擎
+        let currentPart = 1;
+        let selectedLeftId = null;
+        let selectedLeftEl = null;
+        let correctMatches = []; // 存放已答對的數據組合 [{leftId, rightId}]
+        let currentMouseX = 0;
+        let currentMouseY = 0;
+
+        const quizData = {
+            part1: {
+                title: "第一關：外包與緩衝材料",
+                left: [
+                    { id: "m1_1", icon: "🐝", name: "FSC 蜂巢紙", type: "緩衝墊材" },
+                    { id: "m1_2", icon: "♻️", name: "循環袋", type: "外包裝袋" },
+                    { id: "m1_3", icon: "🌱", name: "發泡乖乖", type: "緩衝墊材" },
+                    { id: "m1_4", icon: "🌽", name: "PLA 分解袋", type: "外包裝袋" }
+                ],
+                right: [
+                    { id: "m1_2", text: "<b>外包裝袋應用</b>：採用高強度尼龍或 TPU 製作。需要配合逆向回收物流系統，雖然單次製作成本高，但可重複循環使用高達 50 次以上。" },
+                    { id: "m1_4", text: "<b>生物可降解包裝</b>：雖然外觀與傳統塑膠袋極為相似，但它是利用植物澱粉基底製造，在特定的工業高溫堆肥環境下可完全降解，無化學微塑膠殘留。" },
+                    { id: "m1_1", text: "<b>立體幾何緩衝</b>：使用 100% 可回收紙質製成，平鋪時節省儲存空間；一經拉伸即展現獨特的 3D 蜂巢網格結構，防震力極佳，可用來完美取代傳統氣泡紙。" },
+                    { id: "m1_3", text: "<b>全降解填充物</b>：由純植物澱粉經過加壓發泡製成，重量趨近於零，能迅速填滿外箱碎小縫隙。其最大特色為「遇水即溶」，可直接沖入水槽，落實零廢棄。" }
+                ]
             },
-            {
-                type: "outer",
-                typeLabel: "🚚 外包裝",
-                name: "綠色循環袋",
-                emoji: "♻️",
-                short: "可重複使用的物流破壞袋",
-                unit: "1 個 (壽命約 50 次)",
-                carbon: "單次分攤 0.02 kg CO₂e",
-                desc: "透過門市退回或逆向物流歸還。雖然製作成本與初始碳排較高，但在商業系統中重複使用能將單趟環境成本降到最低。"
-            },
-            {
-                type: "outer",
-                typeLabel: "🚚 外包裝",
-                name: "100% 再生破壞袋",
-                emoji: "袋",
-                short: "使用回收塑料製成的防潑水袋",
-                unit: "1 個",
-                carbon: "0.08 kg CO₂e",
-                desc: "相較於全新塑膠粒，使用 100% PCR (消費後回收塑料) 製成，減少依賴石化原料，適合服飾等不怕摔的商品外包裝。"
-            },
-            {
-                type: "outer",
-                typeLabel: "🚚 外包裝
+            part2: {
+                title: "第二關：印刷、膠帶與設備",
+                left: [
+                    { id: "m2_1", icon: "🩹", name: "牛皮紙膠帶", type: "印刷膠帶" },
+                    { id: "m2_2", icon: "🎨", name: "大豆油墨", type: "印刷膠帶" },
+                    { id: "m2_3", icon: "📠", name: "紙箱再製機", type: "加工設備" },
+                    { id: "m2_4", icon: "🌾", name: "草本墊材", type: "緩衝墊材" }
+                ],
+                right: [
+                    { id: "m2_3", text: "<b>循環加工生產</b>：能將店內堆積、回收而來的廢舊二手紙箱直接切碎，全自動轉化為網格狀的蓬鬆緩衝包材。雖然初始設備投資高，但能讓後續耗材採購成本歸零。" },
+                    { id: "m2_1", text: "<b>同質化回收膠帶</b>：塗層使用天然水性澱粉黏膠。最大的核心優勢在於能跟紙箱「同時丟入紙類回收桶」，不需費時拆解撕除，大幅精簡後端造紙製程。" },
+                    { id: "m2_4", text: "<b>農業廢棄物重生</b>：大膽提取稻殼、麥稈等在地農業廢棄物纖維。除了提供基本的抗震填充功能外，還能散發獨特天然植物香氣，極大幅度強化品牌的文青美學質感。" },
+                    { id: "m2_2", text: "<b>環保低污染印刷</b>：全面取代傳統的石化基有毒溶劑油墨，能有效減少揮發性有機物 (VOCs) 逸散。不僅色彩印刷飽和度高，且在廢紙造紙過程中更容易進行脫墨處理。" }
+                ]
+            }
+        };
+
+        function initGame() {
+            renderQuiz();
+            setTimeout(resizeCanvas, 150);
+            window.addEventListener('resize', resizeCanvas);
+            // 啟動 Canvas 每秒 60 幀渲染迴圈，實現滑鼠跟隨線條
+            requestAnimationFrame(gameLoop);
+        }
+
+        function switchPart(partNum) {
+            currentPart = partNum;
+            selectedLeftId = null;
+            selectedLeftEl = null;
+            correctMatches = [];
+            
+            document.getElementById('part-tab-1').className = partNum === 1 ? "flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all bg-white text-green-700 shadow-sm" : "flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all text-slate-500 hover:text-slate-800";
+            document.getElementById('part-tab-2').className = partNum === 2 ? "flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all bg-white text-green-700 shadow-sm" : "flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all text-slate-500 hover:text-slate-800";
+            
+            renderQuiz();
+            document.getElementById('match-msg').innerText = "";
+            document.getElementById('match-msg').className = "font-black text-lg text-slate-700 h-6 text-center";
+            
+            setTimeout(resizeCanvas, 50);
+        }
+
+        function renderQuiz() {
+            const data = currentPart === 1 ? quizData.part1 : quizData.part2;
+            document.getElementById('part-title').innerText = data.title;
+
+            let leftHTML = "";
+            data.left.forEach(item => {
+                leftHTML += `
+                    <div id="${item.id}" onclick="clickLeft('${item.id}', this)" class="match-card shadow-sm">
+                        <div class="text-3xl mr-4">${item.icon}</div>
+                        <div>
+                            <div class="font-black text-slate-700 text-base">${item.name}</div>
+                            <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded font-bold mt-1 inline-block">${item.type}</span>
+                        </div>
+                        <div class="node-dot node-left"></div>
+                    </div>
+                `;
+            });
+            document.getElementById('left-container').innerHTML = leftHTML;
+
+            let rightHTML = "";
+            data.right.forEach(item => {
+                rightHTML += `
+                    <div id="right_${item.id}" onclick="clickRight('${item.id}', this)" class="match-card text-xs md:text-sm text-slate-600 leading-relaxed pl-6 pr-4">
+                        <div class="node-dot node-right"></div>
+                        <div>${item.text}</div>
+                    </div>
+                `;
+            });
+            document.getElementById('right-container').innerHTML = rightHTML;
+        }
+
+        function clickLeft(id, el) {
+            if(el.classList.contains('correct')) return;
+            selectedLeftId = id;
+            selectedLeftEl = el;
+            document.querySelectorAll('#left-container .match-card').forEach(m => m.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('match-msg').innerText = "⚡ 請移動滑鼠並點擊右側相對應的正確敘述圖卡...";
+            document.getElementById('match-msg').className = "font-black text-lg text-green-600 h-6 text-center";
+        }
+
+        function clickRight(id, el) {
+            if(!selectedLeftId || el.classList.contains('correct')) return;
+
+            if(selectedLeftId === id) {
+                // 配對正確
+                selectedLeftEl.classList.remove('selected');
+                selectedLeftEl.classList.add('correct');
+                el.classList.add('correct');
+
+                correctMatches.push({ leftId: selectedLeftId, rightId: `right_${id}` });
+
+                document.getElementById('match-msg').innerText = "🎉 太棒了！核心觀念完全正確！";
+                document.getElementById('match-msg').className = "font-black text-lg text-emerald-600 h-6 text-center animate-bounce";
+                
+                selectedLeftId = null;
+                selectedLeftEl = null;
+
+                // 檢查過關機制
+                const data = currentPart === 1 ? quizData.part1 : quizData.part2;
+                if(correctMatches.length === data.left.length) {
+                    document.getElementById('match-msg').innerText = currentPart === 1 ? "🏆 精彩！第一關完美通關！請點擊上方按鈕進入「第二關」挑戰！" : "👑 終極恭喜！你已百分之百通過兩大永續物流核心檢定！";
+                    document.getElementById('match-msg').className = "font-black text-xl text-blue-600 h-6 text-center";
+                }
+            } else {
+                // 配對錯誤
+                document.getElementById('match-msg').innerText = "❌ 屬性對應錯囉！再仔細讀讀看敘述邏輯！";
+                document.getElementById('match-msg').className = "font-black text-lg text-rose-500 h-6 text-center";
+                flashErrorLine(selectedLeftId, `right_${id}`);
+            }
+        }
+
+        // 滑鼠移動追蹤
+        function trackMouseMove(e) {
+            if (!selectedLeftId) return;
+            const wrapper = document.getElementById('canvas-wrapper');
+            const rect = wrapper.getBoundingClientRect();
+            currentMouseX = e.clientX - rect.left;
+            currentMouseY = e.clientY - rect.top;
+        }
+
+        // Canvas 畫布尺寸更新
+        function resizeCanvas() {
+            const canvas = document.getElementById('link-canvas');
+            if(!canvas) return;
+            const wrapper = document.getElementById('canvas-wrapper');
+            canvas.width = wrapper.clientWidth;
+            canvas.height = wrapper.clientHeight;
+        }
+
+        // 每秒 60 影格的主渲染迴圈 (處理動態即時拉線)
+        function gameLoop() {
+            drawAllLines();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function drawAllLines() {
+            const canvas = document.getElementById('link-canvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const wrapper = document.getElementById('canvas-wrapper');
+            const wrapperRect = wrapper.getBoundingClientRect();
+
+            // 1. 先繪製已經答對、固定住的綠色曲線
+            correctMatches.forEach(match => {
+                const lDot = document.getElementById(match.leftId).querySelector('.node-left');
+                const rDot = document.getElementById(match.rightId).querySelector('.node-right');
+                if(lDot && rDot) {
+                    const lRect = lDot.getBoundingClientRect();
+                    const rRect = rDot.getBoundingClientRect();
+                    const x1 = lRect.left - wrapperRect.left + 7;
+                    const y1 = lRect.top - wrapperRect.top + 7;
+                    const x2 = rRect.left - wrapperRect.left + 7;
+                    const y2 = rRect.top - wrapperRect.top + 7;
+
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.bezierCurveTo(x1 + 60, y1, x2 - 60, y2, x2, y2);
+                    ctx.lineWidth = 4;
+                    ctx.strokeStyle = "#10b981"; // 永續綠
+                    ctx.lineCap = "round";
+                    ctx.stroke();
+                }
+            });
+
+            // 2. 繪製正在拖曳、尚未定案的動態藍綠色導引線
+            if (selectedLeftId) {
+                const lDot = document.getElementById(selectedLeftId).querySelector('.node-left');
+                if(lDot) {
+                    const lRect = lDot.getBoundingClientRect();
+                    const x1 = lRect.left - wrapperRect.left + 7;
+                    const y1 = lRect.top - wrapperRect.top + 7;
+
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.bezierCurveTo(x1 + 60, y1, currentMouseX - 30, currentMouseY, currentMouseX, currentMouseY);
+                    ctx.lineWidth = 3;
+                    ctx.strokeStyle = "#3b82f6"; // 動態藍
+                    ctx.setLineDash([6, 4]); // 虛線效果增加互動科技感
+                    ctx.lineCap = "round";
+                    ctx.stroke();
+                    ctx.setLineDash([]); // 恢復實線
+                }
+            }
+        }
+
+        // 答錯時的紅色閃爍特效線
+        function flashErrorLine(lId, rBoxId) {
+            const canvas = document.getElementById('link-canvas');
+            const ctx = canvas.getContext('2d');
+            const wrapper = document.getElementById('canvas-wrapper');
+            const wrapperRect = wrapper.getBoundingClientRect();
+            
+            const lDot = document.getElementById(lId).querySelector('.node-left');
+            const rDot = document.getElementById(rBoxId).querySelector('.node-right');
+            
+            if(lDot && rDot) {
+                const lRect = lDot.getBoundingClientRect();
+                const rRect = rDot.getBoundingClientRect();
+                const x1 = lRect.left - wrapperRect.left + 7;
+                const y1 = lRect.top - wrapperRect.top + 7;
+                const x2 = rRect.left - wrapperRect.left + 7;
+                const y2 = rRect.top - wrapperRect.top + 7;
+
+                let count = 0;
+                // 藉由短暫阻斷 selectedId 來製造閃爍紅線
+                const savedLeftId = selectedLeftId;
+                selectedLeftId = null; 
+                document.querySelectorAll('#left-container .match-card').forEach(m => m.classList.remove('selected'));
+
+                const interval = setInterval(() => {
+                    if(count % 2 === 0) {
+                        ctx.beginPath();
+                        ctx.moveTo(x1, y1);
+                        ctx.bezierCurveTo(x1 + 60, y1, x2 - 60, y2, x2, y2);
+                        ctx.lineWidth = 4;
+                        ctx.strokeStyle = "#f43f5e"; // 警示紅
+                        ctx.stroke();
+                    }
+                    count++;
+                    if(count > 5) {
+                        clearInterval(interval);
+                    }
+                }, 120);
+            }
+        }
+
+        function resetCurrentPart() {
+            switchPart(currentPart);
+        }
+
+        window.onload = () => { visualizeCarbon(); };
+    </script>
+</body>
+</html>
