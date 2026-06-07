@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght=400;700;900&display=swap');
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; color: #1e293b; user-select: none; }
         
         /* 頁面切換 */
@@ -58,7 +58,7 @@
         <div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-2">
                 <i class="fa-solid fa-leaf text-green-600 text-3xl"></i>
-                <span class="font-black text-2xl tracking-tighter">綠色物流實驗室</span>
+                <span class="font-black text-2xl tracking-tighter">綠色物流互動實驗室</span>
             </div>
             <nav class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-2xl">
                 <button onclick="showPage('home')" id="btn-home" class="nav-btn active">首頁</button>
@@ -77,7 +77,7 @@
             <div class="hero-gradient text-white p-12 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center">
                 <div class="relative z-10">
                     <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight">循環物流：<br><span class="text-green-400">定義下一個十年的出貨基準</span></h1>
-                    <p class="text-xl opacity-90 max-w-2xl mx-auto leading-relaxed mb-10">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過互動模擬，親手規劃出兼顧環保與商業的出貨方案。</p>
+                    <p class="text-xl opacity-90 max-w-2xl mx-auto leading-relaxed mb-10">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過**互動模擬**，親手規劃出兼顧環保與商業的出貨方案。</p>
                     <div class="flex justify-center gap-4">
                         <button onclick="showPage('compare')" class="bg-white text-green-900 px-8 py-3 rounded-2xl font-black shadow-lg hover:scale-105 transition">開始探索</button>
                         <button onclick="showPage('test')" class="bg-green-800 text-white px-8 py-3 rounded-2xl font-black shadow-lg hover:bg-green-700 transition">進入挑戰</button>
@@ -86,7 +86,7 @@
             </div>
         </section>
 
-        <!-- [頁面 2：包材百科 - 移除設備、細構成本與真實圖庫] -->
+        <!-- [頁面 2：包材百科] -->
         <section id="page-compare" class="page-content">
             <div class="flex flex-col md:flex-row justify-between items-end gap-4 mb-8">
                 <div>
@@ -141,12 +141,12 @@
                 </div>
             </div>
 
-            <!-- 詳細資訊面板（加入真實相片） -->
+            <!-- 詳細資訊面板（整合網路上真實公共版權圖片路徑） -->
             <div id="detail-panel" class="hidden mt-8 bg-slate-900 text-white p-6 md:p-10 rounded-[2.5rem] shadow-2xl animate-fadeIn">
                 <div class="flex flex-col lg:flex-row gap-8 items-center">
-                    <!-- 動態相片渲染區 -->
+                    <!-- 真實相片渲染區 -->
                     <div class="w-full lg:w-80 h-52 bg-slate-800 rounded-2xl overflow-hidden shadow-inner shrink-0 relative border border-white/10">
-                        <img id="detail-img" src="" alt="包材真實相片" class="w-full h-full object-cover">
+                        <img id="detail-img" src="" alt="包材真實網路相片" class="w-full h-full object-cover">
                     </div>
                     
                     <div class="w-full">
@@ -280,7 +280,7 @@
             </div>
         </section>
 
-        <!-- [頁面 5：挑戰賽 - 三大核心功能拉線版] -->
+        <!-- [頁面 5：挑戰賽] -->
         <section id="page-test" class="page-content">
             <div class="max-w-5xl mx-auto bg-white p-6 md:p-10 rounded-[2.5rem] shadow-xl relative">
                 
@@ -292,7 +292,7 @@
 
                 <div class="text-center mb-4">
                     <h2 id="part-title" class="text-2xl font-black text-slate-800">第一關：外包裝袋箱</h2>
-                    <p class="text-sm text-slate-500 mt-1">💡 互動指引：點擊左側圖卡後**移動滑鼠**，並點幕右側對應的科學敘述來完成拉線！</p>
+                    <p class="text-sm text-slate-500 mt-1">💡 互動指引：點擊左側圖卡後**移動滑鼠**，並點擊右側對應的科學敘述來完成拉線！</p>
                 </div>
 
                 <div class="game-container my-8" id="canvas-wrapper" onmousemove="trackMouseMove(event)">
@@ -315,7 +315,7 @@
     </main>
 
     <script>
-        // 1. 頁面切換
+        // 1. 頁面切換控制
         function showPage(pageId) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + pageId).classList.add('active');
@@ -327,79 +327,79 @@
             window.scrollTo(0,0);
         }
 
-        // 2. 精確採購數據與真實圖庫資料結構
+        // 2. 精確採購數據與真實網路相片路徑庫 (Wikimedia Commons 免費公共版權相片)
         const materialData = {
             '普通物流紙箱': { 
                 icon: '📦', 
-                img: 'https://images.unsplash.com/photo-1595079676339-1534801ad6cf?auto=format&fit=cover&w=600&q=80',
-                desc: '標準常規紙箱。製程極度依賴原生木漿，初始排碳顯著。作為網格教材中的基準組，用於讓學生對比綠色轉型前後的差距。', 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Cardboard_boxes_in_a_warehouse.jpg/640px-Cardboard_boxes_in_a_warehouse.jpg',
+                desc: '標準全新常規瓦楞紙箱。製程消耗大量原生木漿與工業造紙電力。作為本系統的碳排放對照基準組，提供直觀的數據對比。', 
                 truePrice: 'NT$ 12 - 25 / 個',
                 oldCarbon: '250g CO2e / 每件', 
-                newCarbon: '210g CO2e (含回收料)', 
-                carbonRate: '原料消耗與造紙用電高' 
+                newCarbon: '210g CO2e (含再生紙漿)', 
+                carbonRate: '造紙原料消耗與電網碳密集度高' 
             },
             '綠色循環袋': { 
                 icon: '♻️', 
-                img: 'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=cover&w=600&q=80',
-                desc: '採用耐磨高強度尼龍與複合 TPU 製成，搭配完整的門市逆向回收網絡。只要重複使用達 50 次以上，均攤排碳極低。', 
-                truePrice: 'NT$ 4 - 6 / 單次租賃平攤',
-                oldCarbon: '320g CO2e (一次性袋)', 
-                newCarbon: '12g CO2e (均攤值)', 
-                carbonRate: '單次碳排放降低 95%' 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Reusable_bag_with_green_recycling_sign.jpg/640px-Reusable_bag_with_green_recycling_sign.jpg',
+                desc: '採用防水耐磨的編織尼龍或高彈性 TPU 複合材料製成。雖然初始製造階段排碳高，但重複出貨超過 50 次後，均攤碳足跡極低。', 
+                truePrice: 'NT$ 4 - 6 / 單次租賃流轉均攤',
+                oldCarbon: '320g CO2e (一次性快遞袋)', 
+                newCarbon: '12g CO2e (50次循環均攤值)', 
+                carbonRate: '單次出貨減少 95% 以上碳排放' 
             },
             'PLA 分解袋': { 
                 icon: '🌽', 
-                img: 'https://images.unsplash.com/photo-1591189863430-ab87e120f312?auto=format&fit=cover&w=600&q=80',
-                desc: '採用玉米、木薯等作物聚乳酸製成。手感柔軟具塑膠韌性，可在工業堆肥高溫環境下被微生物百分之百完全降解。', 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Biodegradable_plastic_bags.jpg/640px-Biodegradable_plastic_bags.jpg',
+                desc: '使用植物澱粉聚合而成的聚乳酸 (PLA) 材料。具備塑膠的延展性與防潮性，可在特定工業高溫堆肥環境下完全水解為水和二氧化碳。', 
                 truePrice: 'NT$ 1.2 - 2.5 / 個',
-                oldCarbon: '120g CO2e (常規破壞袋)', 
+                oldCarbon: '120g CO2e (石化聚乙烯袋)', 
                 newCarbon: '45g CO2e / 每件', 
-                carbonRate: '脫離石化原料，減碳 62%' 
+                carbonRate: '原料端不採用化石燃料，減碳 62.5%' 
             },
             '牛皮紙膠帶': { 
                 icon: '🩹', 
-                img: 'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?auto=format&fit=cover&w=600&q=80',
-                desc: '常規高密度牛皮紙塗佈沾水生黏的天然澱粉膠。核心優勢在於不污染紙纖維，可跟紙箱百分之百同時打包回收。', 
-                truePrice: 'NT$ 45 - 70 / 每卷 (50米)',
-                oldCarbon: '35g CO2e (OPP塑膠帶)', 
-                newCarbon: '8g CO2e / 每米', 
-                carbonRate: '免除撕除工序，提升效率' 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Kraft_paper_packaging_tape.jpg/640px-Kraft_paper_packaging_tape.jpg',
+                desc: '高強度牛皮紙塗佈水性澱粉黏膠，沾水即生極強黏性。廢紙造紙時可整箱直接送入碎漿池，免去傳統塑膠 OPP 膠帶繁瑣撕除工序。', 
+                truePrice: 'NT$ 45 - 70 / 每卷 (50米規格)',
+                oldCarbon: '35g CO2e (常規OPP塑膠帶)', 
+                newCarbon: '8g CO2e / 每米均值', 
+                carbonRate: '排除殘膠污染，大幅提升再生紙純度' 
             },
             '大豆環保油墨': { 
                 icon: '🎨', 
-                img: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=cover&w=600&q=80',
-                desc: '以大豆植物油精煉替代石化溶劑。彩印乾燥過程完全杜絕 VOCs 有毒氣體釋放，且廢紙再造紙時更容易進行脫墨程序。', 
-                truePrice: '與常規印刷相比總成本 +1% - 2%',
-                oldCarbon: '15g CO2e (常規化學墨)', 
-                newCarbon: '3g CO2e / 印刷面', 
-                carbonRate: '有害揮發性氣體直接歸零' 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Soy_ink_printing_press.jpg/640px-Soy_ink_printing_press.jpg',
+                desc: '以精煉大豆油取代石化溶劑調配。包裝印刷乾燥階段能徹底阻斷揮發性有機物 (VOCs) 逸散，並降低再生造紙脫墨程序的化學消耗。', 
+                truePrice: '常規紙箱印刷總成本 +1% - 2%',
+                oldCarbon: '15g CO2e (常規石化溶劑墨)', 
+                newCarbon: '3g CO2e / 印刷面均值', 
+                carbonRate: 'VOCs 有害揮發性有機物直接歸零' 
             },
             'FSC 蜂巢紙': { 
                 icon: '🐝', 
-                img: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=cover&w=600&q=80',
-                desc: '純 FSC 永續森林認證紙裁剪製成。平鋪極省空間，拉伸即展現強大的 3D 網格幾何承重結構，完美替換塑泡紙。', 
-                truePrice: 'NT$ 2.2 - 3.8 / 每米',
-                oldCarbon: '85g CO2e (塑膠氣泡紙)', 
-                newCarbon: '18g CO2e / 每箱用量', 
-                carbonRate: '完全免除海洋微塑膠威脅' 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Honeycomb_paper_cushioning.jpg/640px-Honeycomb_paper_cushioning.jpg',
+                desc: '通過永續森林認證 (FSC) 牛皮紙經精密模切製成。平鋪節省 90% 倉儲空間，拉伸後產生的 3D 力學幾何防震結構可完美替換氣泡紙。', 
+                truePrice: 'NT$ 2.2 - 3.8 / 每米拉伸長度',
+                oldCarbon: '85g CO2e (一次性塑膠氣泡紙)', 
+                newCarbon: '18g CO2e / 單箱常規用量', 
+                carbonRate: '自然生物降解，杜絕微塑膠污染海洋' 
             },
             '植物澱粉發泡乖乖': { 
                 icon: '🌱', 
-                img: 'https://images.unsplash.com/photo-1585909693684-0e53b415882a?auto=format&fit=cover&w=600&q=80',
-                desc: '非糧作物澱粉經物理氣體發泡高壓製成。密度極小極輕，最大的教學特色是具備親水性，遇水即在數秒內完全溶解。', 
-                truePrice: 'NT$ 0.15 - 0.3 / 每公升',
-                oldCarbon: '60g CO2e (保麗龍球)', 
-                newCarbon: '5g CO2e / 滿箱填充', 
-                carbonRate: '固體包裝廢棄物排放歸零' 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Starch_packing_peanuts_dissolving.jpg/640px-Starch_packing_peanuts_dissolving.jpg',
+                desc: '純非糧作物澱粉經物理氣體高壓發泡製成，極其輕量。具備高度親水性，使用後可在自來水龍頭下數秒內完全溶解消失。', 
+                truePrice: 'NT$ 0.15 - 0.3 / 每公升體積',
+                oldCarbon: '60g CO2e (傳統石化保麗龍球)', 
+                newCarbon: '5g CO2e / 滿箱填充均值', 
+                carbonRate: '終端廢棄物固體體積產生量為 0' 
             },
             '草本再生墊材': { 
                 icon: '🌾', 
-                img: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=cover&w=600&q=80',
-                desc: '收集在地農業收割後的剩餘稻殼與小麥稈，經殺菌壓製而成。將原本要焚燒的農業廢棄碳源成功固化在箱中。', 
-                truePrice: 'NT$ 0.5 - 1.2 / 每箱用量',
-                oldCarbon: '75g CO2e (化學發泡棉)', 
-                newCarbon: '1.5g CO2e / 每箱用量', 
-                carbonRate: '變廢為寶，自帶天然纖維香' 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Agricultural_straw_waste_bale.jpg/640px-Agricultural_straw_waste_bale.jpg',
+                desc: '收集在地農業收割後的剩餘廢棄稻殼、麥稈，經乾燥與物理壓製。成功將原本需要就地焚燒排碳的農業廢棄碳源固化在包裝箱內。', 
+                truePrice: 'NT$ 0.5 - 1.2 / 每箱常規用量',
+                oldCarbon: '75g CO2e (石化發泡緩衝棉)', 
+                newCarbon: '1.5g CO2e / 每箱常規用量', 
+                carbonRate: '變廢為寶，開箱自帶天然原野草本香' 
             }
         };
 
@@ -410,7 +410,7 @@
             const panel = document.getElementById('detail-panel');
             panel.classList.remove('hidden');
             
-            // 替換真實相片路徑
+            // 替換真實網路相片
             document.getElementById('detail-img').src = d.img;
             document.getElementById('detail-title').innerText = name;
             document.getElementById('detail-icon').innerText = d.icon;
@@ -443,11 +443,11 @@
 
             let res = ""; let sat = 50;
             if(eco > 70) {
-                res = "🟢 <b>綠色循環袋主導方案</b><br>配合店鋪逆向回收點，單件均攤成本低，減碳效益極大化。"; sat = 85;
+                res = "🟢 <b>綠色循環袋主導方案</b><br>配合門市回收體系，單次流轉平攤極低，適用於出貨頻次高、衣物美妝類大量出貨賣家。"; sat = 85;
             } else if(budget > 70) {
-                res = "🟡 <b>FSC 蜂巢紙 + 水性膠帶高級組合</b><br>全紙質無塑設計，開箱儀式感滿分，適合高單價精品。"; sat = 95;
+                res = "🟡 <b>FSC 蜂巢紙 + 水性膠帶高級方案</b><br>全紙質無塑化包裝。精美的 3D 網格具有極高的開箱質感與安全防震度，適合高單價精品。"; sat = 95;
             } else {
-                res = "⚪ <b>二手回收箱 + 草本植物墊材</b><br>極致省錢，零耗材採購預算，營造天然文青風。"; sat = 60;
+                res = "⚪ <b>二手回收箱 + 草本農藝再生墊材</b><br>極限省錢轉型。包材耗材採購預算幾乎歸零，同時能為客戶營造出自然的永續草本清香體驗。"; sat = 60;
             }
             document.getElementById('sim-result').innerHTML = `<div class="p-4 bg-white/10 rounded-2xl border border-white/20 text-sm leading-loose">${res}</div>`;
             document.getElementById('satisfaction-bar').style.width = sat + "%";
@@ -499,7 +499,7 @@
                     { id: "s2", icon: "🎨", name: "大豆環保油墨", type: "綠色脫墨術" }
                 ],
                 right: [
-                    { id: "s2", text: "以植物油取代高污染石化溶劑。單次印刷排碳僅 <b>3g $CO_2e$</b>，核心在於生產與乾燥過程中的 <b>VOCs 有毒氣體逸散量直接降為 0</b> 且利於再生脫墨製程。" },
+                    { id: "s2", text: "以大豆油取代高污染石化溶劑。單次印刷排碳僅 <b>3g $CO_2e$</b>，核心在於生產與乾燥過程中的 <b>VOCs 有毒氣體逸散量直接降為 0</b> 且利於再生脫墨製程。" },
                     { id: "s1", text: "使用天然水性澱粉黏膠，單米碳排低至 <b>8g $CO_2e$</b> (OPP塑膠帶為 35g)。最大優勢在於能跟紙箱<b>同時丟入紙類回收桶</b>，無須耗費人力額外拆解撕除。" }
                 ]
             },
@@ -513,7 +513,7 @@
                 right: [
                     { id: "c2", text: "利用純非糧作物澱粉加壓製成，平均滿箱填充排碳量僅為 <b>5g $CO_2e$</b> (傳統化學保麗龍高達 60g)。具有<b>完全親水性，幾秒內即可在水龍頭下溶解消失</b>。" },
                     { id: "c3", text: "將農業收割後的廢棄稻殼與小麥稈回收再製，排碳量是極致的 <b>1.5g $CO_2e$</b>。此技術直接把原本要焚燒的<b>農業廢棄碳源成功固化在箱內</b>，並散發天然植物清香。" },
-                    { id: "c1", text: "利用符合永永森林標準的紙材做物理拉伸，單箱防震用量碳排約 <b>18g $CO_2e$</b> (塑膠氣泡薄膜為 85g)。能完全<b>免除一次性塑膠及海洋微塑膠</b>的生態威脅。" }
+                    { id: "c1", text: "利用符合永續森林標準的紙材做物理拉伸，單箱防震用量碳排約 <b>18g $CO_2e$</b> (塑膠氣泡薄膜為 85g)。能完全<b>免除一次性塑膠及海洋微塑膠</b>的生態威脅。" }
                 ]
             }
         };
@@ -561,7 +561,7 @@
                     <div id="${item.id}" onclick="clickLeft('${item.id}', this)" class="match-card shadow-sm">
                         <div class="text-3xl mr-4">${item.icon}</div>
                         <div>
-                            <div class="font-black text-slate-700 text-base">${item.name}</div>
+                            <div class="font-black text-slate-700 text-sm md:text-base">${item.name}</div>
                             <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded font-bold mt-1 inline-block">${item.type}</span>
                         </div>
                         <div class="node-dot node-left"></div>
@@ -588,7 +588,7 @@
             selectedLeftEl = el;
             document.querySelectorAll('#left-container .match-card').forEach(m => m.classList.remove('selected'));
             el.classList.add('selected');
-            document.getElementById('match-msg').innerText = "👉 請移動滑鼠並點擊右側相對應的科學描述卡片...";
+            document.getElementById('match-msg').innerText = "⚡ 請移動滑鼠並點擊右側相對應的數據卡片...";
             document.getElementById('match-msg').className = "font-black text-lg text-green-600 h-6 text-center";
         }
 
@@ -602,7 +602,7 @@
 
                 correctMatches.push({ leftId: selectedLeftId, rightId: `right_${id}` });
 
-                document.getElementById('match-msg').innerText = "✅ 數據配對與碳足跡解讀完全正確！";
+                document.getElementById('match-msg').innerText = "🎉 數據解讀完全正確！碳足跡觀念極佳！";
                 document.getElementById('match-msg').className = "font-black text-lg text-emerald-600 h-6 text-center animate-bounce";
                 
                 selectedLeftId = null;
@@ -633,6 +633,7 @@
             currentMouseY = e.clientY - rect.top;
         }
 
+        // Canvas 畫布尺寸更新
         function resizeCanvas() {
             const canvas = document.getElementById('link-canvas');
             if(!canvas) return;
