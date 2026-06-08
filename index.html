@@ -17,20 +17,32 @@
 
         /* 導覽列 */
         .nav-btn { cursor: pointer; transition: 0.3s; padding: 10px 18px; border-radius: 12px; font-weight: bold; color: #64748b; }
-        .nav-btn.active { background-color: #059669; color: white; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.2); }
+        .nav-btn.active { background-color: #10b981; color: white; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
 
         /* 百科卡片與首頁領域卡片 */
-        .material-card, .feature-card { background: white; border-radius: 20px; padding: 25px; border: 2px solid transparent; transition: 0.3s; cursor: pointer; }
-        .material-card:hover, .feature-card:hover { border-color: #10b981; transform: translateY(-5px); box-shadow: 0 12px 25px rgba(5, 150, 105, 0.05); }
-        .material-card.active { border-color: #059669; background-color: #f0fdf4; }
+        .material-card, .feature-card { background: white; border-radius: 20px; padding: 25px; border: 2px solid transparent; transition: 0.3s; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .material-card:hover, .feature-card:hover { border-color: #10b981; transform: translateY(-5px); box-shadow: 0 12px 25px rgba(16, 185, 129, 0.1); }
+        .material-card.active { border-color: #10b981; background-color: #f0fdf4; }
 
         /* 篩選標籤按鈕 */
         .filter-btn-sub { cursor: pointer; transition: 0.2s; }
         .filter-btn-sub.active { background-color: #1e293b; color: white; border-color: #1e293b; }
 
-        /* 滑桿與選單 */
+        /* 滑桿樣式 */
         .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #e2e8f0; outline: none; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #059669; cursor: pointer; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #10b981; cursor: pointer; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+
+        /* 挑戰賽單選題按鈕 */
+        .quiz-option-btn { width: 100%; text-align: left; padding: 16px; background-color: #f8fafc; border: 2px solid #e2e8f0; border-radius: 16px; font-weight: 700; font-size: 14px; transition: 0.2s; cursor: pointer; }
+        .quiz-option-btn:hover { border-color: #10b981; background-color: #f0fdf4; transform: scale(1.01); }
+        .quiz-option-btn.selected-correct { border-color: #10b981; background-color: #f0fdf4; color: #166534; box-shadow: 0 0 0 4px rgba(16,185,129,0.15); }
+        .quiz-option-btn.selected-wrong { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+
+        .tree-unit { display: inline-block; animation: grow 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes grow { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* 頂部高質感明亮翠綠漸層封面 */
+        .hero-gradient { background: linear-gradient(135deg, #0f766e 0%, #10b981 50%, #065f46 100%); }
 
         /* 跑馬燈動畫 */
         @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
@@ -40,11 +52,11 @@
 </head>
 <body>
 
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 py-4 border-b">
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 py-4 border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-leaf text-green-600 text-3xl"></i>
-                <span class="font-black text-2xl tracking-tighter">綠色物流互動實驗室</span>
+                <i class="fa-solid fa-leaf text-emerald-500 text-3xl"></i>
+                <span class="font-black text-2xl tracking-tighter text-slate-800">綠色物流互動實驗室</span>
             </div>
             <nav class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-2xl">
                 <button onclick="showPage('home')" id="btn-home" class="nav-btn active">首頁</button>
@@ -59,35 +71,35 @@
     <main class="max-w-6xl mx-auto px-4 py-10">
 
         <section id="page-home" class="page-content active space-y-12">
-            <div class="hero-gradient text-white p-12 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden text-center">
+            <div class="hero-gradient text-white p-12 md:p-16 rounded-[3rem] shadow-xl relative overflow-hidden text-center">
                 <div class="relative z-10 max-w-3xl mx-auto">
-                    <span class="bg-emerald-500/30 text-emerald-300 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-emerald-500/20 inline-block mb-4">歡迎來到網購永續轉型沙盒</span>
-                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">循環物流：<br><span class="text-green-400">定義下一個十年的出貨基準</span></h1>
-                    <p class="text-base md:text-lg opacity-80 leading-relaxed mb-8">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過**數據百科、計算器與未來時空對決**，親手規劃出兼顧商務成本與大自然環境的最佳出貨方案。</p>
+                    <span class="bg-white/20 text-white text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full backdrop-blur-sm inline-block mb-4">歡迎來到網購永續轉型沙盒</span>
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tight">循環物流：<br><span class="text-yellow-300">定義下一個十年的出貨基準</span></h1>
+                    <p class="text-base md:text-lg opacity-90 leading-relaxed mb-8 font-medium">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過**數據百科、計算器與未來時空戰略對決**，親手規劃出兼顧商務成本與大自然環境的最佳出貨方案。</p>
                     <div class="flex justify-center gap-4">
-                        <button onclick="showPage('compare')" class="bg-white text-green-900 px-8 py-3.5 rounded-2xl font-black shadow-lg hover:scale-105 transition-all text-sm">開始探索包材</button>
-                        <button onclick="showPage('test')" class="bg-green-800 text-white px-8 py-3.5 rounded-2xl font-black shadow-lg hover:bg-green-700 border border-green-600/30 transition-all text-sm">進入未來挑戰賽</button>
+                        <button onclick="showPage('compare')" class="bg-white text-teal-900 px-8 py-3.5 rounded-2xl font-black shadow-md hover:scale-105 transition-all text-sm">開始探索包材</button>
+                        <button onclick="showPage('test')" class="bg-teal-950 text-white px-8 py-3.5 rounded-2xl font-black shadow-md hover:bg-teal-900 transition-all text-sm">進入未來挑戰賽</button>
                     </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-5">
-                    <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 text-2xl shrink-0"><i class="fa-solid fa-dumpster"></i></div>
+                    <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl shrink-0"><i class="fa-solid fa-dumpster"></i></div>
                     <div>
                         <span class="block text-xs font-bold text-slate-400 uppercase">全台網購包裹年廢棄量</span>
                         <span class="text-2xl font-black text-slate-800 block mt-0.5">約 5,000 萬個</span>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-5">
-                    <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 text-2xl shrink-0"><i class="fa-solid fa-cloud-showers-water"></i></div>
+                    <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 text-2xl shrink-0"><i class="fa-solid fa-cloud-showers-water"></i></div>
                     <div>
                         <span class="block text-xs font-bold text-slate-400 uppercase">傳統耗材平均單件排碳</span>
                         <span class="text-2xl font-black text-slate-800 block mt-0.5">約 180 ~ 320g</span>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-5">
-                    <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 text-2xl shrink-0"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-500 text-2xl shrink-0"><i class="fa-solid fa-circle-check"></i></div>
                     <div>
                         <span class="block text-xs font-bold text-slate-400 uppercase">本專案全綠色轉型目標</span>
                         <span class="text-2xl font-black text-emerald-600 block mt-0.5">最高減碳達 95%</span>
@@ -103,33 +115,32 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div onclick="showPage('compare'); filterCat('outer', document.querySelectorAll('.filter-btn-sub')[1]);" class="feature-card shadow-sm group">
                         <div class="text-3xl mb-3">📦</div>
-                        <h4 class="font-black text-lg text-slate-800 group-hover:text-green-600 transition-colors">1. 外包裝袋箱</h4>
+                        <h4 class="font-black text-lg text-slate-800 group-hover:text-emerald-500 transition-colors">1. 外包裝袋箱</h4>
                         <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">研究受控管森林的 FSC 紙箱、高強度 PCR 消費後再生破壞袋，從最外層阻絕原生資源浪費與塑料開採。</p>
-                        <span class="text-xs text-green-600 font-bold mt-4 inline-block">點擊快速檢索範疇 ➔</span>
+                        <span class="text-xs text-emerald-600 font-bold mt-4 inline-block">點擊快速檢索範疇 ➔</span>
                     </div>
                     <div onclick="showPage('compare'); filterCat('cushion', document.querySelectorAll('.filter-btn-sub')[2]);" class="feature-card shadow-sm group">
                         <div class="text-3xl mb-3">🐝</div>
-                        <h4 class="font-black text-lg text-slate-800 group-hover:text-green-600 transition-colors">2. 緩衝保護材料</h4>
+                        <h4 class="font-black text-lg text-slate-800 group-hover:text-emerald-500 transition-colors">2. 緩衝保護材料</h4>
                         <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">深入探索 3D 幾何力學牛皮蜂巢紙、親水性遇水即溶玉米防撞粒，全面消滅不可降解的塑膠氣泡薄膜與保麗龍。</p>
-                        <span class="text-xs text-green-600 font-bold mt-4 inline-block">點擊快速檢索範疇 ➔</span>
+                        <span class="text-xs text-emerald-600 font-bold mt-4 inline-block">點擊快速檢索範疇 ➔</span>
                     </div>
                     <div onclick="showPage('compare'); filterCat('inner', document.querySelectorAll('.filter-btn-sub')[3]);" class="feature-card shadow-sm group">
                         <div class="text-3xl mb-3">🩹</div>
-                        <h4 class="font-black text-lg text-slate-800 group-hover:text-green-600 transition-colors">3. 內包裝與封膠</h4>
+                        <h4 class="font-black text-lg text-slate-800 group-hover:text-emerald-500 transition-colors">3. 內包裝與封膠</h4>
                         <p class="text-xs text-slate-400 mt-2 font-medium leading-relaxed">解析自帶天然植物膠的水性紙膠帶、100%無塑防油格拉辛紙，解決傳統出貨回收時殘膠污染再生纖維的痛點。</p>
-                        <span class="text-xs text-green-600 font-bold mt-4 inline-block">點擊快速檢索範疇 ➔</span>
+                        <span class="text-xs text-emerald-600 font-bold mt-4 inline-block">點擊快速檢索範疇 ➔</span>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-slate-900 rounded-2xl py-4 overflow-hidden shadow-inner border border-white/5 relative">
+            <div class="bg-slate-900 rounded-2xl py-4 overflow-hidden shadow-inner relative">
                 <div class="absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-slate-900 to-transparent z-10"></div>
                 <div class="absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-slate-900 to-transparent z-10"></div>
                 <div class="marquee-inner gap-8 items-center text-xs font-bold text-slate-400">
                     <span class="flex items-center gap-2 text-green-400"><i class="fa-solid fa-circle-check text-[8px] animate-pulse"></i> 台北某服飾店 剛剛選用「PCR再生塑料破壞袋」出貨 ➔ 碳排放即時減少 25g！</span>
                     <span class="flex items-center gap-2 text-green-400"><i class="fa-solid fa-circle-check text-[8px] animate-pulse"></i> 台中某精品店 剛剛更換為「3D牛皮蜂巢紙」包裹 ➔ 完美免除氣泡紙污染！</span>
                     <span class="flex items-center gap-2 text-green-400"><i class="fa-solid fa-circle-check text-[8px] animate-pulse"></i> 高雄文青陶藝 剛剛透過「廢紙壓邊緩衝材」出貨 ➔ 包材耗材採購預算歸零！</span>
-                    <span class="flex items-center gap-2 text-green-400"><i class="fa-solid fa-circle-check text-[8px] animate-pulse"></i> 台北某服飾店 剛剛選用「PCR再生塑料破壞袋」出貨 ➔ 碳排放即時減少 25g！</span>
                 </div>
             </div>
         </section>
@@ -350,66 +361,71 @@
         <section id="page-test" class="page-content">
             <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-[3rem] shadow-xl border border-slate-100 space-y-8">
                 
-                <div class="text-center">
-                    <span class="bg-rose-50 text-rose-700 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-rose-100 inline-block mb-2">真實營運戰略沙盒</span>
-                    <h2 class="text-3xl font-black text-slate-800">十年商務生存戰：時光沙盒模擬</h2>
-                    <p class="text-sm text-slate-400 mt-2 font-medium">拖曳下方年份滑桿，親眼見證社群演算、公關風暴與法規碳定價如何翻轉包材成本曲線！</p>
+                <div class="text-center border-b pb-6">
+                    <span class="bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-emerald-100 inline-block mb-2">真實營運戰略沙盒</span>
+                    <h2 class="text-3xl font-black text-slate-800">十年商務生存戰：時光模擬考驗</h2>
+                    <p class="text-sm text-slate-400 mt-1 font-bold">拖曳下方年份滑桿切換世界線，並在各年份「做出最正確的包材採購決定」突破生存考驗！</p>
                 </div>
 
-                <div class="bg-slate-50 p-6 md:p-8 rounded-3xl border border-slate-200 shadow-inner space-y-6">
+                <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
                     <div class="flex justify-between text-xs font-black text-slate-400 px-2">
-                        <span class="text-slate-800 font-black text-sm">2026 年（現在）</span>
-                        <span class="text-slate-500 font-black text-sm">2028 年（社群風暴）</span>
-                        <span class="text-slate-500 font-black text-sm">2030 年（碳稅時代）</span>
+                        <span class="text-slate-800 font-black">2026 年（現在）</span>
+                        <span class="text-slate-500 font-black">2028 年（社群風暴）</span>
+                        <span class="text-slate-500 font-black">2030 年（碳稅時代）</span>
                     </div>
-                    
                     <input type="range" id="time-slider-core" min="1" max="3" value="1" step="1" oninput="runTimeSliderEngine()" class="w-full slider">
-                    
-                    <div class="text-center">
-                        <span id="lbl-time-year" class="text-5xl font-black tracking-tighter text-slate-800 bg-white px-6 py-2 rounded-2xl border shadow-sm inline-block">2026</span>
+                    <div class="text-center mt-2">
+                        <span id="lbl-time-year" class="text-4xl font-black text-emerald-600 bg-white px-6 py-2 rounded-2xl border shadow-sm inline-block">2026</span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-slate-900 text-white p-6 rounded-2xl space-y-3">
-                        <span class="text-green-400 font-black text-xs uppercase tracking-widest block"><i class="fa-solid fa-globe"></i> 社會與演算法情境</span>
-                        <p id="lbl-time-social" class="text-sm text-slate-300 leading-relaxed font-medium">載入中...</p>
+                    <div class="bg-slate-900 text-white p-6 rounded-2xl space-y-2">
+                        <span class="text-emerald-400 font-black text-xs block"><i class="fa-solid fa-globe"></i> 社會與演算法情境</span>
+                        <p id="lbl-time-social" class="text-xs md:text-sm text-slate-300 leading-relaxed font-semibold"></p>
                     </div>
-                    <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl space-y-2 flex flex-col justify-center">
-                        <span class="text-emerald-800 font-black text-xs uppercase tracking-widest block"><i class="fa-solid fa-comment-dots"></i> 賣家真實第一視角</span>
-                        <blockquote id="lbl-time-seller" class="text-base font-black text-emerald-950 italic">載入中...</blockquote>
+                    <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl flex flex-col justify-center">
+                        <span class="text-emerald-800 font-black text-xs block mb-1"><i class="fa-solid fa-user-tie"></i> 賣家此時的第一視角</span>
+                        <blockquote id="lbl-time-seller" class="text-sm md:text-base font-black text-emerald-950 italic"></blockquote>
                     </div>
                 </div>
 
                 <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
-                    <span class="text-xs font-black text-slate-400 uppercase tracking-wider block">📊 即時動態數據看板：出貨單件「總營運成本」交叉對比</span>
-                    
-                    <div class="space-y-4">
-                        <div class="space-y-1.5">
+                    <span class="text-xs font-black text-slate-400 block uppercase">📊 包裹單件「總營運成本」即時變化對比</span>
+                    <div class="space-y-3">
+                        <div class="space-y-1">
                             <div class="flex justify-between text-xs font-bold text-slate-600">
-                                <span class="font-black"><i class="fa-solid fa-box text-rose-500"></i> 傳統包裝方案成本（含隱性/處理費/碳稅附加）</span>
-                                <span id="lbl-cost-trad-num" class="font-black text-rose-600">NT$ 14.5</span>
+                                <span><i class="fa-solid fa-box text-rose-500"></i> 傳統包裝成本（含隱性廣告費/碳稅）</span>
+                                <span id="lbl-cost-trad-num" class="font-black text-rose-600"></span>
                             </div>
-                            <div class="w-full h-5 bg-slate-200 rounded-full overflow-hidden">
-                                <div id="bar-cost-trad" class="h-full bg-rose-500 transition-all duration-500" style="width: 40%"></div>
+                            <div class="w-full h-4 bg-slate-200 rounded-full overflow-hidden">
+                                <div id="bar-cost-trad" class="h-full bg-rose-500 transition-all duration-500"></div>
                             </div>
                         </div>
-
-                        <div class="space-y-1.5">
+                        <div class="space-y-1">
                             <div class="flex justify-between text-xs font-bold text-slate-600">
-                                <span class="font-bold text-green-700"><i class="fa-solid fa-leaf"></i> 綠色永續包材方案成本（享演算法紅利與規模經濟）</span>
-                                <span id="lbl-cost-green-num" class="font-black text-green-600">NT$ 19.5</span>
+                                <span><i class="fa-solid fa-leaf text-green-600"></i> 綠色永續包材成本（享演算法紅利）</span>
+                                <span id="lbl-cost-green-num" class="font-black text-green-600"></span>
                             </div>
-                            <div class="w-full h-5 bg-slate-200 rounded-full overflow-hidden">
-                                <div id="bar-cost-green" class="h-full bg-green-600 transition-all duration-500" style="width: 55%"></div>
+                            <div class="w-full h-4 bg-slate-200 rounded-full overflow-hidden">
+                                <div id="bar-cost-green" class="h-full bg-green-600 transition-all duration-500"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="p-5 rounded-2xl text-center font-black text-base transition-all duration-300" id="box-time-msg">
-                    載入中...
+                <div class="bg-white p-6 border-2 border-slate-100 rounded-3xl space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-black text-slate-400 tracking-wider uppercase"><i class="fa-solid fa-circle-question"></i> 當前時空營運抉擇難題</span>
+                        <span id="lbl-score-board" class="text-sm font-black bg-emerald-600 text-white px-3 py-1 rounded-full">得分：0</span>
+                    </div>
+                    <h3 id="lbl-quiz-question" class="text-lg font-black text-slate-800"></h3>
+                    
+                    <div class="grid grid-cols-1 gap-3 pt-2" id="quiz-options-container">
+                        </div>
                 </div>
+
+                <div class="p-4 rounded-xl text-center font-bold text-sm" id="box-time-msg"></div>
 
             </div>
         </section>
@@ -417,7 +433,7 @@
     </main>
 
     <script>
-        // 1. 頁面控制
+        // 頁面切換控制
         function showPage(pageId) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + pageId).className = 'page-content active';
@@ -429,7 +445,7 @@
             window.scrollTo(0,0);
         }
 
-        // 2. 百科精確數據庫
+        // 百科精確數據庫
         const materialData = {
             'FSC 認證環保紙箱': { icon: '📦', img: 'img5.png', desc: '符合高標準生態管理體系。木材來源受到嚴格管控，確保森林永續，是賣家最基礎且最完美的無痛替換綠色選項。', base: '傳統全新瓦楞紙箱（約 NT$10/個）', truePrice: '約 NT$ 12 / 個', oldCarbon: '250g CO2e / 每個', newCarbon: '每個減少 30 公克碳排', carbonRate: '服飾與鞋盒尺寸優化結構' },
             'PCR 再生塑料破壞袋': { icon: '♻️', img: 'img6.png', desc: 'Post-Consumer Recycled 核心應用。100% 完全使用消費後回收塑料循環製成，材質堅韌防水，極適合投放不怕壓的軟性衣物。', base: '傳統塑膠破壞袋（約 NT$3/個）', truePrice: '約 NT$ 4.5 / 個', oldCarbon: '120g CO2e / 每個', newCarbon: '每個減少 25 公克碳排', carbonRate: '降低石化原生塑料開採損耗' },
@@ -514,7 +530,6 @@
             document.getElementById('total-calc-carbon').innerText = `${totalCarbon} g`;
         }
 
-        // --- 減碳成果連動計算 ---
         function calcEnvironmentalImpact() {
             const outCarbon = parseInt(document.querySelector('input[name="carbon-outer"]:checked').value);
             const cushCarbon = parseInt(document.querySelector('input[name="carbon-cushion"]:checked').value);
@@ -539,69 +554,153 @@
         }
 
         // ================================================================
-        // 5. 商業戰略導向：全新時時時光滑桿預言挑戰賽引擎
+        // 5. 史詩級時空戰略決策挑戰賽核心引擎 (徹底告別無趣，加入實戰難題)
         // ================================================================
-        const timeTimelineData = {
+        let playerWalletScore = 0;
+        let stepAnswersStatus = { 1: false, 2: false, 3: false };
+
+        const testTimelineData = {
             1: {
-                year: "2026 年（現在）",
-                subtitle: "選擇的十字路口",
-                social: "綠色永續意識正在民間抬頭，但目前政府法規尚未成為硬性強制規定。傳統石化包材在最基本的「表面採購成本」上，依然佔有些微的價格優勢。",
-                seller: "「現在換綠色包材，一箱平均多出 2 到 4 塊錢成本，真的值得嗎？消費者真的會因為這樣多買我的東西嗎？」",
-                costTrad: 14.5, // 包裹出貨基礎總和
-                costGreen: 19.5,
-                msg: "💡 戰略意涵：此時的綠色包材是品牌的『加分投資』。提早選用，能為店鋪在同質化競爭中創造高質感的『綠色品牌好感度差異化』！",
-                style: "bg-blue-50 text-blue-950 border border-blue-200"
+                year: "2026 年（現在）", subtitle: "選擇的十字路口",
+                social: "綠色意識抬頭，但尚未成為強制規定。傳統包材表面採購成本較低。提早升級可創造品牌溢價好好感度差異化。",
+                seller: "「換成綠色環保紙箱每個要多花 2 塊錢，目前的消費者真的會買單、值得我現在投資嗎？」",
+                costTrad: 14.5, costGreen: 19.5,
+                question: "【戰略決策】2026年，面對表面成本稍高的環保耗材，此時最佳的商業競爭決策是什麼？",
+                options: [
+                    { text: "A. 完全不換，繼續用最便宜的塑料膠帶和全新傳統紙箱，能省則省。", correct: false, feedback: "❌ 錯失先機！這會讓你的品牌毫無特色，在未來洪流中完全失去第一波忠誠消費者好感度。" },
+                    { text: "B. 提早引進「FSC環保箱 + 牛皮蜂巢紙」，透過包裝提升客單價並打出環保品牌好感度。", correct: true, feedback: "🎉 答對了！此時的綠色包材是頂級的品牌投資，能幫你圈粉第一批核心環保客群並創造品牌溢價！" },
+                    { text: "C. 等到2030年政府罰款了再換，反正現在法規還管不到我的網店。", correct: false, feedback: "❌ 經營近視！等2030年碳稅全面開徵時，你將面臨高昂的轉型塞車成本和供應商大溢價。" },
+                    { text: "D. 全店直接改用最貴的無膠帶卡扣箱，完全不在乎初期微薄的利潤是否撐得過去。", correct: false, feedback: "❌ 太過激進！完全不看初期的財務預算，店鋪容易在形成規模經濟前資金斷裂破產。" }
+                ]
             },
             2: {
-                year: "2028 年",
-                subtitle: "透明魚缸效應爆發",
-                social: "社群媒體上爆發群體性的『無塑開箱挑戰（Zero-Plastic Unboxing）』，各大主流網購演算法開始全面優先推送具備永續標籤的短影音內容。失去消費者好感度導致傳統包裝廣告轉換率劇烈下滑，隱性獲客成本大增。",
-                seller: "「完蛋，出貨用傳統氣泡紙和化石破壞袋的包裝被拍成黑評爆料了！演算法一直在降低我的流量，廣告費花出去根本沒有轉換！」",
-                costTrad: 28.0, // 加上隱性高昂獲客廣告費
-                costGreen: 18.0, // 享受演算法紅利降低獲客成本
-                msg: "🔥 戰略意涵：綠色包材不再只是環保，它已經演變成品牌在透明社群魚缸中生存的『公關防護罩』與『天然免費流量密碼』！",
-                style: "bg-amber-50 text-amber-950 border border-amber-200"
+                year: "2028 年", subtitle: "透明魚缸效應（社群海嘯）",
+                social: "社群平台爆發「無塑開箱」挑戰。那些仍在使用塑膠氣泡紙的品牌，極易遭遇公關網暴危機或被演算法全面降流。綠色包裝反而享受免費 UGC UGC 流量紅利。",
+                seller: "「天啊！消費者拍片痛罵我們店鋪用大量氣泡紙是環保殺手，貼文破萬讚！流量被演算法全面降底，獲客成本飆升！」",
+                costTrad: 28.5, costGreen: 18.0, // 傳統獲客成本暴漲 / 綠色包裝享受自然紅利
+                question: "【營運危機】2028年，全網都在嚴格審查包裹。此時你該採取什麼「成本與公關最平衡」的防護方案？",
+                options: [
+                    { text: "A. 花錢找水軍在留言區洗白，堅持傳統破壞袋比較防水防摔、死不認錯。", correct: false, feedback: "❌ 公關災難！在去塑海嘯中與消費者硬碰硬，只會導致全店名譽徹底掃地，廣告轉換率直接歸零。" },
+                    { text: "B. 外包裝改用「PCR 100%再生破壞袋」，內層搭配「牛皮蜂巢紙」，並發布減碳永續出貨公告。", correct: true, feedback: "🎉 完美危機處理！PCR再生袋既保留防潮彈性，蜂巢紙又滿足消費者拍片視覺好感，直接將公關危機轉化為百萬自然流量密碼！" },
+                    { text: "C. 為了省預算完全不用任何緩衝材料，讓商品裸箱出貨。", correct: false, feedback: "❌ 營運大倒退！不放缓冲會使商品退貨碎裂率飆到 40%，產生的成本遠高於環保耗材！" },
+                    { text: "D. 換回紙箱但偷偷用最便宜的塑料透明膠帶纏繞十幾圈封死。", correct: false, feedback: "❌ 被抓包更慘！消費者在回收時無法分離殘膠，在魚缸效應下會引發更恐怖的『綠漂欺騙』公關風暴。" }
+                ]
             },
             3: {
-                year: "2030 年",
-                subtitle: "碳定價與法規硬著陸時代",
-                social: "國家碳費與碳稅全面足額開徵，並無死角深入物流與電商供應鏈！包裝固體廢棄物處理費大幅暴漲。由於規模經濟高度成熟、免繳高額碳稅，綠色包材成為市場最便宜的基線選擇！傳統包材迎來成本死亡交叉！",
-                seller: "「天啊！傳統膠帶和保麗龍現在要加徵3倍的廢棄碳稅，價格直線飆升！現在所有人都在搶環保紙箱和蜂巢紙，供應商全面大塞車，轉換成本高到要命！」",
-                costTrad: 42.5, // 石化包材加上巨額廢物稅與碳稅
-                costGreen: 16.0, // 規模經濟爆發，大量投產價格不增反降
-                msg: "👑 戰略意涵：迎來『成本死亡交叉』！提早佈局綠色物流不是為了做公益，而是為了保障企業未來的『生存保衛戰』！",
-                style: "bg-emerald-50 text-emerald-950 border border-emerald-200"
+                year: "2030 年", subtitle: "碳定價與綜合法規時代",
+                social: "碳費與供應鏈廢棄物處理費暴漲 3 倍。石化塑料包材因為高額碳定價附加而價格直线失控。此時，綠色包材由於規模經濟，反倒成為市場最划算的基線選擇。",
+                seller: "「傳統透明膠帶和塑料袋的碳稅附加費比包材本身還貴！現在才想更換綠色包材，供應商大塞車，轉換成本貴到要命！」",
+                costTrad: 42.5, costGreen: 16.0, // 死亡交叉徹底完成
+                question: "【死亡交叉點】2030年碳稅時代全面來臨，為了長久生存，以下哪一個採購轉型策略是最符合經濟效益的基線選擇？",
+                options: [
+                    { text: "A. 頂著高額廢棄碳稅繼續買石化破壞袋，並把增加的3倍包材稅額完全轉嫁到商品售價上。", correct: false, feedback: "❌ 失去市場競爭力！這會導致你的商品售價變高，消費者會直接倒向其他提早佈局、免繳碳稅的綠色競爭對手。" },
+                    { text: "B. 認輸改用「無膠帶卡扣式環保紙箱」，緩衝完全改用遇水即溶的「水溶性防撞粒」，徹底消滅碳稅利息。", correct: true, feedback: "👑 經營大獲全勝！卡扣箱免除膠帶稅，玉米防撞粒零固體廢棄物。你成功在碳定價時代活了下來，甚至利用成本交叉優勢擊敗了對手！" },
+                    { text: "C. 減少出貨包材用量，改用紙張隨便包一包就寄出去。", correct: false, feedback: "❌ 防護不足！陶瓷或精品在物流過程中會全數撞毀，商譽和財務雙重破產。" },
+                    { text: "D. 關閉網店，全面退出電商市場。", correct: false, feedback: "❌ 這是消極逃避！只要在2026年跟著實驗室引導逐步轉換，2030年你就是掌握成本優勢的市場贏家！" }
+                ]
             }
         };
 
         function runTimeSliderEngine() {
             const step = document.getElementById('time-slider-core').value;
-            const data = timeTimelineData[step];
+            const data = testTimelineData[step];
 
-            // 1. 渲染時空社會背景與心聲
-            document.getElementById('lbl-time-year').innerHTML = `${data.year} <br><span class="text-xs block font-bold text-green-600 mt-1">${data.subtitle}</span>`;
+            // 1. 渲染頂部標籤與背景故事
+            document.getElementById('lbl-time-year').innerText = data.year;
             document.getElementById('lbl-time-social').innerHTML = data.social;
             document.getElementById('lbl-time-seller').innerText = data.seller;
 
-            // 2. 渲染兩條成本曲線的交叉長條圖變動
-            document.getElementById('lbl-cost-trad-num').innerText = `綜合成本 NT$ ${data.costTrad.toFixed(1)}`;
-            document.getElementById('lbl-cost-green-num').innerText = `綜合成本 NT$ ${data.costGreen.toFixed(1)}`;
+            // 2. 歷史成本死亡交叉柱狀圖即時連動
+            document.getElementById('lbl-cost-trad-num').innerText = `單件成本 NT$ ${data.costTrad.toFixed(1)}`;
+            document.getElementById('lbl-cost-green-num').innerText = `單件成本 NT$ ${data.costGreen.toFixed(1)}`;
+            document.getElementById('bar-cost-trad').style.width = (data.costTrad * 2.2) + "%";
+            document.getElementById('bar-cost-green').style.width = (data.costGreen * 2.2) + "%";
 
-            // 換算成百分比以利長條圖顯示 (基底放大乘 2.2 方便視覺對比)
-            document.getElementById('bar-cost-trad').style.width = Math.min(100, data.costTrad * 2.2) + "%";
-            document.getElementById('bar-cost-green').style.width = Math.min(100, data.costGreen * 2.2) + "%";
+            // 3. 渲染這一關真正的「戰略問題與四個選項」
+            document.getElementById('lbl-quiz-question').innerText = data.question;
+            
+            let optionsHTML = "";
+            data.options.forEach((opt, idx) => {
+                optionsHTML += `
+                    <button onclick="checkPlayerChoice(${step}, ${idx}, ${opt.correct}, this)" class="quiz-option-btn" id="q-btn-${step}-${idx}">
+                        ${opt.text}
+                    </button>
+                `;
+            });
+            document.getElementById('quiz-options-container').innerHTML = optionsHTML;
+            document.getElementById('box-time-msg').innerText = "💡 提示：分析當前年份的社會與成本趨勢，點擊你認為最佳的商業採購決定！";
+            document.getElementById('box-time-msg').className = "p-4 rounded-xl text-center font-bold text-sm bg-slate-100 text-slate-600";
+        }
 
-            // 3. 渲染核心經營反思訊息與樣式
+        function checkPlayerChoice(step, idx, isCorrect, btnEl) {
+            const data = testTimelineData[step];
+            
+            // 恢復同一題其他按鈕外觀
+            document.querySelectorAll('#quiz-options-container .quiz-option-btn').forEach(b => {
+                b.className = "quiz-option-btn";
+            });
+
             const msgBox = document.getElementById('box-time-msg');
-            msgBox.innerHTML = data.msg;
-            msgBox.className = `p-5 rounded-2xl text-center font-black text-sm md:text-base transition-all duration-300 ${data.style}`;
+
+            if(isCorrect) {
+                btnEl.className = "quiz-option-btn selected-correct";
+                msgBox.innerText = data.options[idx].feedback;
+                msgBox.className = "p-4 rounded-xl text-center font-black text-sm bg-emerald-50 text-emerald-800 border border-emerald-200 animate-bounce";
+                
+                // 答對了才給分（不可重複刷分）
+                if(!stepAnswersStatus[step]) {
+                    playerWalletScore += 100;
+                    stepAnswersStatus[step] = true;
+                    document.getElementById('lbl-score-board').innerText = `總得分：${playerWalletScore}`;
+                }
+                
+                // 終極大通關檢查
+                if(stepAnswersStatus[1] && stepAnswersStatus[2] && stepAnswersStatus[3]) {
+                    document.getElementById('lbl-score-board').innerText = `滿分通關：${playerWalletScore}！`;
+                    document.getElementById('lbl-score-board').className = "text-sm font-black bg-indigo-600 text-white px-3 py-1 rounded-full animate-pulse";
+                }
+            } else {
+                btnEl.className = "quiz-option-btn selected-wrong";
+                msgBox.innerText = data.options[idx].feedback;
+                msgBox.className = "p-4 rounded-xl text-center font-black text-sm bg-rose-50 text-rose-800 border border-rose-200";
+            }
         }
 
         function resetCurrentPart() {
+            playerWalletScore = 0;
+            stepAnswersStatus = { 1: false, 2: false, 3: false };
+            document.getElementById('lbl-score-board').innerText = "總得分：0";
+            document.getElementById('lbl-score-board').className = "text-sm font-black bg-emerald-600 text-white px-3 py-1 rounded-full";
             document.getElementById('time-slider-core').value = 1;
             runTimeSliderEngine();
         }
 
+        // 舊網頁相容性函數
+        function resetCurrentPart_old() { resetCurrentPart(); }
+        
+        // 策略模擬加總函數
+        function runCalculatorSim() {
+            const outKey = document.getElementById('select-outer').value;
+            const cushKey = document.getElementById('select-cushion').value;
+            const innKey = document.getElementById('select-inner').value;
+            const outItem = calcData.outer[outKey], cushItem = calcData.cushion[cushKey], innItem = calcData.inner[innKey];
+
+            document.getElementById('label-outer-name').innerText = outItem.name;
+            document.getElementById('label-outer-cost').innerText = `NT$ ${outItem.cost.toFixed(1)}`;
+            document.getElementById('label-outer-carbon').innerText = `${outItem.carbon} g`;
+            document.getElementById('label-cushion-name').innerText = cushItem.name;
+            document.getElementById('label-cushion-cost').innerText = `NT$ ${cushItem.cost.toFixed(1)}`;
+            document.getElementById('label-cushion-carbon').innerText = `${cushItem.carbon} g`;
+            document.getElementById('label-inner-name').innerText = innItem.name;
+            document.getElementById('label-inner-cost').innerText = `NT$ ${innItem.cost.toFixed(1)}`;
+            document.getElementById('label-inner-carbon').innerText = `${innItem.carbon} g`;
+
+            const totalCost = outItem.cost + cushItem.cost + innItem.cost;
+            const totalCarbon = outItem.carbon + cushItem.carbon + innItem.carbon;
+            document.getElementById('total-calc-cost').innerText = totalCost.toFixed(1);
+            document.getElementById('total-calc-carbon').innerText = `${totalCarbon} g`;
+        }
+        
         window.onload = () => { runCalculatorSim(); calcEnvironmentalImpact(); };
     </script>
 </body>
