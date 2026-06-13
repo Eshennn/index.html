@@ -75,7 +75,7 @@
                 <div class="relative z-10 max-w-3xl mx-auto">
                     <span class="bg-white/20 text-white text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full backdrop-blur-sm inline-block mb-4">歡迎來到網購永續轉型沙盒</span>
                     <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tight">循環物流：<br><span class="text-yellow-300">定義下一個十年的出貨基準</span></h1>
-                    <p class="text-base md:text-lg opacity-90 leading-relaxed mb-8 font-medium">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過數據百科、計算器與智慧互動連連看，親手規劃出兼顧商務成本與大自然環境的最佳出貨方案。</p>
+                    <p class="text-base md:text-lg opacity-90 leading-relaxed mb-8 font-medium">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過數據百科、計算器與實戰出貨連連看，親手規劃出兼顧商務成本與大自然環境的最佳出貨方案。</p>
                     <div class="flex justify-center gap-4">
                         <button onclick="showPage('compare')" class="bg-white text-teal-900 px-8 py-3.5 rounded-2xl font-black shadow-md hover:scale-105 transition-all text-sm">開始探索包材</button>
                         <button onclick="showPage('test')" class="bg-teal-950 text-white px-8 py-3.5 rounded-2xl font-black shadow-md hover:bg-teal-900 transition-all text-sm">進入包材連連看</button>
@@ -135,6 +135,7 @@
             </div>
         </section>
 
+        <!-- 包材百科 -->
         <section id="page-compare" class="page-content">
             <div class="flex flex-col md:flex-row justify-between items-end gap-4 mb-8">
                 <div>
@@ -155,7 +156,7 @@
                     <span class="text-[10px] bg-amber-50 text-amber-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">外包裝 (9公升規格箱)</span>
                 </div>
                 <div class="material-card shadow-sm" data-cat="outer" onclick="openInfo('PCR 再生塑料破壞袋', this)">
-                    <div class="text-4xl mb-2">✉️</div><div class="font-black text-slate-700 text-xs md:text-sm">PCR 再生破壞袋</div>
+                    <div class="text-4xl mb-2">♻️</div><div class="font-black text-slate-700 text-xs md:text-sm">PCR 再生破壞袋</div>
                     <span class="text-[10px] bg-amber-50 text-amber-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">外包裝 (30×40 cm規格袋)</span>
                 </div>
                 <div class="material-card shadow-sm" data-cat="outer" onclick="openInfo('無膠帶卡扣式環保紙箱', this)">
@@ -196,19 +197,19 @@
                     <div class="w-full">
                         <div class="flex items-center gap-3 mb-2">
                             <span id="detail-icon" class="text-3xl"></span>
-                            <h3 id="detail-title" class="text-3xl font-black text-green-400"></h3>
+                            <h3 id="detail-title" class="text-2xl font-black text-green-400"></h3>
                         </div>
-                        <p id="detail-desc" class="text-slate-300 text-sm md:text-base leading-relaxed max-w-3xl mb-4"></p>
+                        <p id="detail-desc" class="text-slate-300 text-xs md:text-sm leading-relaxed max-w-3xl mb-4"></p>
                         <p class="text-xs text-slate-400 mb-6 font-bold" id="detail-base-info"></p>
                        
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="bg-white/5 p-4 rounded-xl border border-white/10 text-center">
                                 <span class="block text-[11px] font-bold text-slate-400">真實市場採購成本</span>
-                                <span id="detail-true-price" class="text-xl font-black text-yellow-400 block mt-1"></span>
+                                <span id="detail-true-price" class="text-lg font-black text-yellow-400 block mt-1"></span>
                             </div>
                             <div class="bg-green-950/40 p-4 rounded-xl border border-green-700/50 text-center">
                                 <span class="block text-[11px] font-bold text-green-400">綠色包材環保效益</span>
-                                <span id="detail-new-carbon" class="text-xl font-black text-green-400 block mt-1"></span>
+                                <span id="detail-new-carbon" class="text-lg font-black text-green-400 block mt-1"></span>
                             </div>
                             <div class="bg-white/5 p-4 rounded-xl border border-white/10 text-center">
                                 <span class="block text-[11px] font-bold text-slate-400">核心設計優勢與規格</span>
@@ -220,6 +221,7 @@
             </div>
         </section>
 
+        <!-- 策略模擬 -->
         <section id="page-balance" class="page-content">
             <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-[2.5rem] shadow-xl border border-slate-100">
                 <h2 class="text-2xl md:text-3xl font-black text-slate-800 mb-4 tracking-tight">綠色包材減碳計算器</h2>
@@ -295,7 +297,7 @@
                     <div class="space-y-2 md:col-span-2">
                         <label class="block text-xs font-black text-slate-400 uppercase tracking-widest">內包裝與封膠 (長度/張數基準)</label>
                         <select id="select-inner" onchange="runCalculatorSim()" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 font-bold text-sm focus:outline-none focus:border-green-500 shadow-sm">
-                            <option value="base_inner">傳統透明OPP膠帶封箱 (每公尺)</option>
+                            <option value="base_inner">傳統透明OPP膠帶封箱 (低於1公尺)</option>
                             <option value="kraft_tape">水性牛皮紙膠帶 (寬5cm沾水即粘)</option>
                             <option value="glassine_paper">格拉辛紙 / 雪面紙 (50×70cm平張)</option>
                             <option value="pla_bag">PLA 生物可分解透明袋 (25×35cm)</option>
@@ -305,6 +307,7 @@
             </div>
         </section>
 
+        <!-- 減碳計算 -->
         <section id="page-carbon" class="page-content">
             <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <div class="lg:col-span-5 bg-white p-6 md:p-8 rounded-[2.5rem] shadow-xl border border-slate-100 space-y-6">
@@ -351,27 +354,31 @@
             </div>
         </section>
 
+        <!-- 包材連連看分頁（改造成真實電商出貨情境與永續減碳包材對應模式） -->
         <section id="page-test" class="page-content">
             <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-[3rem] shadow-xl border border-slate-100 space-y-8">
                
                 <div class="text-center border-b pb-6">
-                    <span class="bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-emerald-100 inline-block mb-2">真實數據連動測試</span>
-                    <h2 class="text-3xl font-black text-slate-800">綠色耗材「精確商業規格」連連看</h2>
-                    <p class="text-sm text-slate-400 mt-1 font-bold">考驗你對台灣電商最常用的中小型包裹真實物理單位的記憶！請先點擊左邊「環保包材」，再點擊右邊正確的「計價單位與精確規格」進行連線配對！</p>
+                    <span class="bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-emerald-100 inline-block mb-2">出貨實戰連連看</span>
+                    <h2 class="text-3xl font-black text-slate-800">電商實務：「商品出貨方案」最佳化配對</h2>
+                    <p class="text-sm text-slate-400 mt-1 font-bold">請先點擊左欄的「真實出貨商品與痛點」，再點擊右欄「最完美平衡排碳效益與商務成本」的黃金永續包材決策套餐！</p>
                 </div>
 
                 <div class="flex items-center justify-between px-2">
-                    <button onclick="resetCurrentPart()" class="bg-slate-800 text-white px-4 py-2 rounded-xl text-xs font-black hover:bg-slate-700 transition">重新洗牌遊戲</button>
+                    <button onclick="resetCurrentPart()" class="bg-slate-800 text-white px-4 py-2 rounded-xl text-xs font-black hover:bg-slate-700 transition">重新洗牌題目</button>
                     <span id="lbl-score-board" class="text-sm font-black bg-emerald-600 text-white px-4 py-1.5 rounded-full">已成功配對：0 / 5 組</span>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
+                <!-- 雙欄排版連連看區 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                    <!-- 左欄：真實電商商品出貨需求 -->
                     <div class="space-y-3" id="match-left-container"></div>
+                    <!-- 右欄：最佳化永續包材綠色套餐 -->
                     <div class="space-y-3" id="match-right-container"></div>
                 </div>
 
                 <div class="p-4 rounded-xl text-center font-bold text-sm" id="box-time-msg">
-                    💡 點選左欄其中一個綠色包材開始配對！
+                    💡 點選左欄其中一個商品出貨情境開始配對！
                 </div>
             </div>
         </section>
@@ -379,7 +386,7 @@
     </main>
 
     <script>
-        // 頁面切換控制
+        // 頁面控制
         function showPage(pageId) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + pageId).className = 'page-content active';
@@ -393,7 +400,7 @@
 
         // 百科精確數據庫
         const materialData = {
-            'FSC 認證環保紙箱': { icon: '📦', img: 'https://i.ibb.co/r2WRVyq5/FSC.jpg', desc: '符合高標準永續森林認證。木材來源受到嚴格管控，確保森林永續，是賣家最基礎且最完美的無痛替換綠色選項。', base: '傳統全新瓦楞紙箱（約 NT$10.0/每只 9 公升規格箱）', truePrice: 'NT$ 12.0 / 每只 9 公升規格箱', oldCarbon: '250g CO2e / 每個', newCarbon: '每個包裹減少 30 公克碳排', carbonRate: '精確規格：長 30 cm × 寬 20 cm × 高 15 cm（外觀體積：9,000 立方公分 / 容積約 9 公升），專為夏裝與鞋盒尺寸優化結構。' },
+            'FSC 認證環保紙箱': { icon: '📦', img: 'https://i.ibb.co/r2WRVyq5/FSC.jpg', desc: '符合高標準永續森林認證。木材來源受到嚴格管控，確保森林永續，是賣家最基礎且最完美的無痛替換綠色选项。', base: '傳統全新瓦楞紙箱（約 NT$10.0/每只 9 公升規格箱）', truePrice: 'NT$ 12.0 / 每只 9 公升規格箱', oldCarbon: '250g CO2e / 每個', newCarbon: '每個包裹減少 30 公克碳排', carbonRate: '精確規格：長 30 cm × 寬 20 cm × 高 15 cm（外觀體積：9,000 立方公分 / 容積約 9 公升），專為夏裝與鞋盒尺寸優化結構。' },
             'PCR 再生塑料破壞袋': { icon: '♻️', img: 'https://i.ibb.co/VctHKk79/PCR.png', desc: 'Post-Consumer Recycled 核心應用。100% 完全使用消費後回收塑料循環製成，材質堅韌防水，極適合投放不怕壓的軟性衣物。', base: '傳統塑膠破壞袋（約 NT$3.0/每只 30×40 cm 規格袋）', truePrice: 'NT$ 4.5 / 每只 30×40 cm 規格袋', oldCarbon: '120g CO2e / 每個', newCarbon: '每個包裹減少 25 公克碳排', carbonRate: '精確規格：長 40 cm × 寬 30 cm（總表面積：1,200 平方公分），厚度 0.05 mm 雙層共擠袋，能有效降低石化原生塑料開採損耗。' },
             '無膠帶卡扣式環保紙箱': { icon: '🧰', img: 'https://i.ibb.co/9mcZVywM/image.jpg', desc: '一體成型飛機盒結構。底部與封口透過特殊齒舌結構相互咬合，完全不需要消耗任何膠帶，綠色環保且倍增出貨人員包裝效率。', base: '傳統紙箱＋塑膠 OP 膠帶組合費（總計約 NT$ 10.5）', truePrice: 'NT$ 14.0 / 每只 9 公升免膠帶規格箱', oldCarbon: '285g CO2e / 每個', newCarbon: '每個包裹減少 35 公克碳排', carbonRate: '精確規格：長 30 cm × 寬 20 cm × 高 15 cm（外觀體積：9,000 立方公分），零膠帶依賴，一體化卡扣結構。' },
             '牛皮蜂巢紙': { icon: '🐝', img: 'https://i.ibb.co/hFfnZjTV/image.jpg', desc: '純永續森林認證紙裁剪製成。平鋪極省空間，現場拉伸後即刻展現立體的 3D 蜂巢網格承重幾何結構。空間效益高，防震力強，能大幅度增進出貨包裹的高級質感。', base: '傳統塑膠氣泡紙（約 NT$3.0/每延米覆蓋面積）', truePrice: 'NT$ 6.0 / 每延米（即 50 cm × 100 cm 的覆蓋面積）', oldCarbon: '85g CO2e / 每公尺', newCarbon: '每公尺包裹減少 15g 碳排', carbonRate: '精確規格：幅寬 50 cm（以 1:1.6 比例拉伸延展後的 3D 結構為準）。全紙質自然生物降解，杜絕微塑膠污染。' },
@@ -435,24 +442,24 @@
         // --- 策略計算器模擬引擎 ---
         const calcData = {
             outer: {
-                base_box: { name: '傳統瓦楞紙箱', cost: 10.0, carbon: 0 },
-                base_bag: { name: '傳統塑膠破壞袋', cost: 3.0, carbon: 0 },
-                fsc_box: { name: 'FSC 認證環保紙箱', cost: 12.0, carbon: 30 },
-                pcr_bag: { name: 'PCR 100% 再生塑料破壞袋', cost: 4.5, carbon: 25 },
-                lock_box: { name: '無膠帶卡扣式環保紙箱', cost: 14.0, carbon: 35 }
+                base_box: { name: '傳統瓦楞紙箱 (9公升)', cost: 10.0, carbon: 0 },
+                base_bag: { name: '傳統塑膠破壞袋 (30×40cm)', cost: 3.0, carbon: 0 },
+                fsc_box: { name: 'FSC 認證環保紙箱 (9L箱)', cost: 12.0, carbon: 30 },
+                pcr_bag: { name: 'PCR 100% 再生塑料破壞袋 (1200cm²)', cost: 4.5, carbon: 25 },
+                lock_box: { name: '無膠帶卡扣式環保紙箱 (一體盒)', cost: 14.0, carbon: 35 }
             },
             cushion: {
-                base_bubble: { name: '傳統塑膠氣泡紙', cost: 3.0, carbon: 0 },
-                base_foam: { name: '傳統保麗龍防撞粒', cost: 2.0, carbon: 0 },
-                honey_paper: { name: '牛皮蜂巢紙', cost: 6.0, carbon: 15 },
-                water_peanuts: { name: '水溶性防撞粒', cost: 4.0, carbon: 30 },
-                shred_box: { name: '廢紙壓邊緩衝材', cost: 2.5, carbon: 25 }
+                base_bubble: { name: '傳統塑膠氣泡紙 (每延米)', cost: 3.0, carbon: 0 },
+                base_foam: { name: '傳統保麗龍防撞粒 (每L)', cost: 2.0, carbon: 0 },
+                honey_paper: { name: '牛皮蜂巢紙 (展開每延米)', cost: 6.0, carbon: 15 },
+                water_peanuts: { name: '水溶性防撞粒 (玉米澱粉L)', cost: 4.0, carbon: 30 },
+                shred_box: { name: '廢紙壓邊緩衝材 (網狀紙墊延米)', cost: 2.5, carbon: 25 }
             },
             inner: {
-                base_inner: { name: '傳統塑膠內袋 + 透明膠帶', cost: 1.5, carbon: 0 },
-                kraft_tape: { name: '水性牛皮紙膠帶', cost: 2.0, carbon: 7 },
-                glassine_paper: { name: '格拉辛紙 / 雪面紙', cost: 1.5, carbon: 8 },
-                pla_bag: { name: 'PLA 生物可分解透明袋', cost: 3.0, carbon: 10 }
+                base_inner: { name: '傳統塑膠袋+OPP透明膠帶組合', cost: 1.5, carbon: 0 },
+                kraft_tape: { name: '水性牛皮紙膠帶 (每公尺長度)', cost: 2.0, carbon: 7 },
+                glassine_paper: { name: '格拉辛紙 / 雪面紙 (3500cm²張)', cost: 1.5, carbon: 8 },
+                pla_bag: { name: 'PLA 生物可分解透明袋 (25×35cm)', cost: 3.0, carbon: 10 }
             }
         };
 
@@ -502,14 +509,14 @@
         }
 
         // ================================================================
-        // 5. 智慧互動連連看遊戲引擎 (同步最新商業真實規格單位與精確單價)
+        // 5. 智慧互動連連看遊戲引擎 (全面改造成「商品出貨情境對配」模式)
         // ================================================================
         const matchPairs = [
-            { id: 1, name: "FSC 認證環保紙箱", spec: "NT$ 12.0 / 每只 9 公升規格箱 (長30×寬20×高15cm)" },
-            { id: 2, name: "PCR 再生塑料破壞袋", spec: "NT$ 4.5 / 每只 30×40 cm 規格袋 (表面積 1,200 平方公分)" },
-            { id: 3, name: "牛皮蜂巢紙", spec: "NT$ 6.0 / 每延米 (幅寬 50 cm，採 1:1.6 拉伸延展結構)" },
-            { id: 4, name: "水溶性防撞粒 (玉米澱粉)", spec: "NT$ 4.0 / 每公升 (可填滿 1,000 立方公分空間，遇水即溶)" },
-            { id: 5, name: "水性牛皮紙膠帶", spec: "NT$ 2.0 / 每公尺 (標準寬度 5 cm，沾水即粘)" }
+            { id: 1, name: "👚 中小型平價服飾成衣，超商月出貨上萬件", spec: "【黃金組合】PCR 100%再生破壞袋 + 內層薄霧防潮格拉辛紙（最完美平衡高效率、防水與低成本）" },
+            { id: 2, name: "💍 高客單、精緻輕奢的珠寶首飾、品牌精品", spec: "【永續升級】一體成型飛機盒免膠帶卡扣紙箱 + 3D幾何立體牛皮蜂巢紙（拉滿精品高級感與極致吸震防防摔）" },
+            { id: 3, name: "🏺 網購脆弱的文青易碎陶瓷器皿、生活玻璃", spec: "【強力防碰撞】9公升規格瓦楞紙箱 + 玉米澱粉水溶性防撞粒（全面塞滿空隙死角，親水速溶不留固體包材廢棄物）" },
+            { id: 4, name: "🧦 不怕重壓的軟性日用品、廉價便宜短襪", spec: "【傳統包材對照組】常規石化塑膠普通破壞袋 (30×40cm)（表面成本低但產生大量固體垃圾，無法隨大自然分解）" },
+            { id: 5, name: "📦 店鋪內收件累積、多餘的二手舊紙箱回收", spec: "【循環經濟極致】投入自購膨切機壓製成幅寬 40cm 的廢紙壓邊緩衝材（材料支出直接歸零，賦予廢料二次生命）" }
         ];
 
         let selectedLeftId = null;
@@ -522,22 +529,22 @@
             successCount = 0;
             document.getElementById('lbl-score-board').innerText = "已成功配對：0 / 5 組";
             document.getElementById('lbl-score-board').className = "text-sm font-black bg-emerald-600 text-white px-4 py-1.5 rounded-full";
-            document.getElementById('box-time-msg').innerText = "💡 遊戲已洗牌！請先點選左欄其中一個綠色包材開始配對！";
+            document.getElementById('box-time-msg').innerText = "💡 題目已全新重組！請先點選左欄其中一個「商品出貨情境需求」開始配對！";
             document.getElementById('box-time-msg').className = "p-4 rounded-xl text-center font-bold text-sm bg-slate-100 text-slate-600";
 
-            // 洗牌算法
+            // 洗牌
             const shuffledLeft = [...matchPairs].sort(() => Math.random() - 0.5);
             const shuffledRight = [...matchPairs].sort(() => Math.random() - 0.5);
 
             let leftHTML = "";
             shuffledLeft.forEach(p => {
-                leftHTML += `<button onclick="clickLeft(${p.id}, this)" class="match-btn" id="match-l-${p.id}">🌿 ${p.name}</button>`;
+                leftHTML += `<button onclick="clickLeft(${p.id}, this)" class="match-btn" id="match-l-${p.id}">${p.name}</button>`;
             });
             document.getElementById('match-left-container').innerHTML = leftHTML;
 
             let rightHTML = "";
             shuffledRight.forEach(p => {
-                rightHTML += `<button onclick="clickRight(${p.id}, this)" class="match-btn" id="match-r-${p.id}">📐 ${p.spec}</button>`;
+                rightHTML += `<button onclick="clickRight(${p.id}, this)" class="match-btn text-xs leading-relaxed" id="match-r-${p.id}">${p.spec}</button>`;
             });
             document.getElementById('match-right-container').innerHTML = rightHTML;
         }
@@ -545,12 +552,11 @@
         function clickLeft(id, el) {
             if (el.classList.contains('matched')) return;
             
-            // 清除現有左側選取狀態
             document.querySelectorAll('#match-left-container .match-btn').forEach(b => b.classList.remove('selected'));
             selectedLeftId = id;
             el.classList.add('selected');
             
-            document.getElementById('box-time-msg').innerText = `已選取「${matchPairs.find(p=>p.id===id).name}」，請點擊右側對應的物理單位與規格標籤！`;
+            document.getElementById('box-time-msg').innerText = `已選取此商品情境，請點擊右側，為它配對出最完美的「永續出貨耗材套餐」！`;
             document.getElementById('box-time-msg').className = "p-4 rounded-xl text-center font-bold text-sm bg-blue-50 text-blue-700 border border-blue-200";
 
             checkMatch();
@@ -559,7 +565,7 @@
         function clickRight(id, el) {
             if (el.classList.contains('matched')) return;
             if (selectedLeftId === null) {
-                document.getElementById('box-time-msg').innerText = "❌ 請先從左欄選擇一個環保包材品名，再選擇規格單位！";
+                document.getElementById('box-time-msg').innerText = "❌ 請先從左欄選擇一個真實的出貨商品情境，再到右欄配對耗材方案！";
                 document.getElementById('box-time-msg').className = "p-4 rounded-xl text-center font-bold text-sm bg-rose-50 text-rose-700 border border-rose-200";
                 return;
             }
@@ -581,20 +587,23 @@
                     const rBtn = document.getElementById(`match-r-${selectedRightId}`);
                     
                     lBtn.className = "match-btn matched";
-                    rBtn.className = "match-btn matched";
+                    rBtn.className = "match-btn text-xs leading-relaxed matched";
                     lBtn.disabled = true;
                     rBtn.disabled = true;
                     
                     successCount++;
                     document.getElementById('lbl-score-board').innerText = `已成功配對：${successCount} / 5 組`;
                     
-                    msgBox.innerText = `🎉 恭喜！配對成功！「${matchPairs.find(p=>p.id===selectedLeftId).name}」的基線物理規格與價格完全正確！`;
+                    msgBox.innerText = `🎉 答對了！這就是該商品在商業物流實務中最佳化、也最減碳的完美包裝決定！`;
                     msgBox.className = "p-4 rounded-xl text-center font-black text-sm bg-emerald-50 text-emerald-800 border border-emerald-200 animate-bounce";
                     
+                    selectedLeftId = null;
+                    selectedRightId = null;
+
                     if (successCount === 5) {
-                        document.getElementById('lbl-score-board').innerText = "👑 滿分大通關！";
+                        document.getElementById('lbl-score-board').innerText = "👑 電商減碳大師！";
                         document.getElementById('lbl-score-board').className = "text-sm font-black bg-indigo-600 text-white px-4 py-1.5 rounded-full animate-pulse";
-                        msgBox.innerText = "🏆 精彩絕倫！你已完美掌握台灣電商最常用的中小型包裹真實物理採購基線！你現在是一名合格的循環經濟專研家了！";
+                        msgBox.innerText = "🏆 大滿貫通關！你已完全學會如何在有限的商務成本與防護痛點下，為各類網購商品選用對環境最好的永續包裝！太優秀了！";
                         msgBox.className = "p-4 rounded-xl text-center font-black text-sm bg-indigo-50 text-indigo-800 border border-indigo-200";
                     }
                 } else {
@@ -602,12 +611,11 @@
                     const rBtn = document.getElementById(`match-r-${selectedRightId}`);
                     rBtn.classList.remove('selected');
                     
-                    msgBox.innerText = "❌ 規格或單價對應錯誤！傳統模糊單位不等於真實商業規格，再看一眼百科數據試試看！";
+                    msgBox.innerText = "❌ 搭配不當！這個包裝策略不符合該商品的防護硬性痛點、或是產生了不必要的原生塑料浪費喔！再看看百科指南！";
                     msgBox.className = "p-4 rounded-xl text-center font-black text-sm bg-rose-50 text-rose-800 border border-rose-200";
+                    
+                    selectedRightId = null;
                 }
-                
-                // 清空右側暫存狀態，等待下次點擊
-                selectedRightId = null;
             }
         }
 
