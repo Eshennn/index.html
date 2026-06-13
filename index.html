@@ -71,6 +71,7 @@
 
     <main class="max-w-6xl mx-auto px-4 py-10">
 
+        <!-- 頁面 1：動態明亮首頁 -->
         <section id="page-home" class="page-content active space-y-12">
             <div class="hero-gradient text-white p-12 md:p-16 rounded-[3rem] shadow-xl relative overflow-hidden text-center">
                 <div class="relative z-10 max-w-3xl mx-auto">
@@ -93,7 +94,7 @@
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-5">
-                    <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 text-2xl shrink-0"><i class="fa-solid fa-cloud-showers-water"></i></div>
+                    <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 text-2xl shrink-0"><i class="fa-solid fa-cloud-showers-water"></i></div>
                     <div>
                         <span class="block text-xs font-bold text-slate-400 uppercase">傳統耗材平均單件排碳</span>
                         <span class="text-2xl font-black text-slate-800 block mt-0.5">約 180 ~ 320g</span>
@@ -143,6 +144,7 @@
             </div>
         </section>
 
+        <!-- 包材百科 -->
         <section id="page-compare" class="page-content">
             <div class="flex flex-col md:flex-row justify-between items-end gap-4 mb-8">
                 <div>
@@ -158,6 +160,7 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4" id="material-grid">
+                <!-- 外包裝 -->
                 <div class="material-card shadow-sm" data-cat="outer" onclick="openInfo('FSC 認證環保紙箱', this)">
                     <div class="text-4xl mb-2">📦</div><div class="font-black text-slate-700 text-sm">FSC 認證環保紙箱</div>
                     <span class="text-[10px] bg-amber-50 text-amber-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">外包裝 (9公升)</span>
@@ -170,6 +173,7 @@
                     <div class="text-4xl mb-2">🧰</div><div class="font-black text-slate-700 text-sm">無膠帶卡扣式環保紙箱</div>
                     <span class="text-[10px] bg-amber-50 text-amber-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">外包裝 (9,000cm³)</span>
                 </div>
+                <!-- 緩衝材料 -->
                 <div class="material-card shadow-sm" data-cat="cushion" onclick="openInfo('牛皮蜂巢紙', this)">
                     <div class="text-4xl mb-2">🐝</div><div class="font-black text-slate-700 text-sm">牛皮蜂巢紙</div>
                     <span class="text-[10px] bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">緩衝材料 (每延米)</span>
@@ -182,6 +186,7 @@
                     <div class="text-4xl mb-2">📠</div><div class="font-black text-slate-700 text-sm">廢紙壓邊緩衝材</div>
                     <span class="text-[10px] bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">緩衝材料 (幅寬40cm)</span>
                 </div>
+                <!-- 內包裝與封膠 -->
                 <div class="material-card shadow-sm" data-cat="inner" onclick="openInfo('水性牛皮紙膠帶', this)">
                     <div class="text-4xl mb-2">🩹</div><div class="font-black text-slate-700 text-sm">水性牛皮紙膠帶</div>
                     <span class="text-[10px] bg-blue-50 text-blue-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">封膠 (寬5cm)</span>
@@ -196,6 +201,7 @@
                 </div>
             </div>
 
+            <!-- 詳細資訊面板 -->
             <div id="detail-panel" class="hidden mt-8 bg-slate-900 text-white p-6 md:p-10 rounded-[2.5rem] shadow-2xl animate-fadeIn">
                 <div class="flex flex-col lg:flex-row gap-8 items-center">
                     <div class="w-full lg:w-80 h-52 bg-slate-800 rounded-2xl overflow-hidden shadow-inner shrink-0 relative border border-white/10 flex items-center justify-center">
@@ -228,6 +234,7 @@
             </div>
         </section>
 
+        <!-- 策略模擬器 -->
         <section id="page-balance" class="page-content">
             <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-[2.5rem] shadow-xl border border-slate-100">
                 <h2 class="text-2xl md:text-3xl font-black text-slate-800 mb-4 tracking-tight">綠色包材減碳計算器</h2>
@@ -313,6 +320,7 @@
             </div>
         </section>
 
+        <!-- 減碳計算 -->
         <section id="page-carbon" class="page-content">
             <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <div class="lg:col-span-5 bg-white p-6 md:p-8 rounded-[2.5rem] shadow-xl border border-slate-100 space-y-6">
@@ -359,9 +367,11 @@
             </div>
         </section>
 
+        <!-- 挑戰賽：回歸經典高互動物理規格排碳連連看（Canvas 拉線） -->
         <section id="page-test" class="page-content">
             <div class="max-w-5xl mx-auto bg-white p-6 md:p-10 rounded-[3rem] shadow-xl relative">
                 
+                <!-- 頂部關卡頁籤 -->
                 <div class="flex justify-center gap-1.5 mb-8 bg-slate-100 p-1.5 rounded-2xl max-w-xl mx-auto">
                     <button onclick="switchPart(1)" id="part-tab-1" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all bg-white text-green-700 shadow-sm">第一關：外包裝排碳</button>
                     <button onclick="switchPart(2)" id="part-tab-2" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black text-slate-500">第二關：緩衝材料排碳</button>
@@ -373,6 +383,7 @@
                     <p id="part-guide" class="text-sm text-slate-500 mt-1">請為左側的綠色永續包材規格，連線對配出其相對應的精確環境減碳克數！</p>
                 </div>
 
+                <!-- 連連看 Canvas 互動區 -->
                 <div class="game-container my-8" id="canvas-wrapper" onmousemove="trackMouseMove(event)">
                     <canvas id="link-canvas" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-4 relative z-10">
@@ -381,6 +392,7 @@
                     </div>
                 </div>
 
+                <!-- 挑戰動態回饋 -->
                 <div class="flex flex-col items-center justify-center gap-4 border-t pt-6 mt-8">
                     <div id="match-msg" class="font-black text-lg text-slate-700 h-8 text-center"></div>
                     <button onclick="resetCurrentPart()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-6 py-2.5 rounded-xl text-sm transition-all shadow-sm">
@@ -405,7 +417,7 @@
             window.scrollTo(0,0);
         }
 
-        // 核心相片與規格資料庫（絕對保護：與本地 img1.png ~ img7.png 圖片精確對齊綁定）
+        // 核心相片與規格資料庫（鎖定保護：專題真實相片img1.png~img7.png完好無損，且套用精確物理規格）
         const materialData = {
             'FSC 認證環保紙箱': { 
                 icon: '📦', img: 'img5.png', 
@@ -427,7 +439,7 @@
             },
             '無膠帶卡扣式環保紙箱': { 
                 icon: '🧰', img: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=cover&w=500&q=80', 
-                desc: '一體成型飛機盒結構。底部與封口透過特殊結構咬合鎖死，完全不需要任何塑膠膠帶封口，不僅環保也大幅提升打包出貨人員效率。', 
+                desc: '一體成型飛機盒結構。底部與封口透過特殊結構咬合鎖死，完全不需要消耗任何塑膠膠帶封口，不僅環保也大幅提升打包出貨人員效率。', 
                 base: '傳統紙箱＋塑膠 OP 膠帶組合費（總計約 NT$ 10.5）', 
                 truePrice: 'NT$ 14.0 / 每只免膠帶規格箱', 
                 oldCarbon: '285g CO2e / 每個組合',
@@ -436,7 +448,7 @@
             },
             '牛皮蜂巢紙': { 
                 icon: '🐝', img: 'img2.png', 
-                desc: '純天然牛皮紙基材。平鋪極省倉儲空間，現場拉伸後呈現 3D 幾何蜂巢網格結構，防震吸震效果優異，包裝視覺質感極高。', 
+                desc: '背部具備獨特 3D 結構。平鋪極省倉儲空間，現場拉伸後呈現 3D 幾何蜂巢網格結構，防震吸震效果優異，包裝視覺質感極高。', 
                 base: '傳統塑膠氣泡紙（約 NT$ 3.0 / 每延米覆蓋面積）', 
                 truePrice: 'NT$ 6.0 / 每延米（即 50 cm × 100 cm 展開覆蓋面積）', 
                 oldCarbon: '85g CO2e / 每公尺',
@@ -445,7 +457,7 @@
             },
             '水溶性防撞粒': { 
                 icon: '🌱', img: 'img1.png', 
-                desc: '100% 利用玉米澱粉發泡製作。密度與重量極小，填充箱體死角性能優良。最核心的教學特色是自帶極高親水性，遇水即迅速溶解。', 
+                desc: '100% 利用玉米澱粉發泡製作。密度與重量極小，填充箱體死角性能優良。核心教學特色是自帶極高親水性，遇水即迅速溶解消失。', 
                 base: '傳統保麗龍防撞粒（約 NT$ 2.0 / 每公升體積）', 
                 truePrice: 'NT$ 4.0 / 每公升體積（可填滿 1,000 立方公分空間）', 
                 oldCarbon: '60g CO2e / 每公升',
@@ -472,9 +484,9 @@
             },
             '格拉辛紙 / 雪面紙': { 
                 icon: '📄', img: 'img3.png', 
-                desc: '經高壓光澤處理的特種紙張。不含任何塑膠成分，卻天然具有強大的防油、防潮與防塵特性，常用於包裹高級服飾或精緻珠寶精品的內層。', 
+                desc: '經高壓光澤處理的特種紙張。不含任何塑膠耗材，卻天然具有強大的防油、防潮與防塵特性，常用於包裹高級服飾或精緻內層。', 
                 base: '傳統全新塑膠內袋（約 NT$ 1.0 / 每個獨立包裝袋）', 
-                truePrice: 'NT$ 1.5 / 每張 50×70 cm 規格平張紙', 
+                truePrice: 'NT$ 1.5 / 每張平張紙', 
                 oldCarbon: '45g CO2e / 每張',
                 newCarbon: '每張獨立包裝減少 8 公克碳排', 
                 carbonRate: '精確規格：長 70 cm × 寬 50 cm 的半透明紙張（單張總面積：3,500 平方公分）。開箱視覺朦朧薄霧感極強，極具開箱美學。' 
@@ -489,6 +501,32 @@
                 carbonRate: '純植物來源，防水型獨立內包裝防護首選，可在特定工業堆肥環境下被微生物完全分解。' 
             }
         };
+
+        // 核心修正：將 openInfo 函數百分之百原樣補回
+        function openInfo(name, el) {
+            const d = materialData[name];
+            document.querySelectorAll('.material-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('detail-panel').classList.remove('hidden');
+            document.getElementById('detail-img').src = d.img;
+            document.getElementById('detail-title').innerText = name;
+            document.getElementById('detail-icon').innerText = d.icon;
+            document.getElementById('detail-desc').innerText = d.desc;
+            document.getElementById('detail-base-info').innerText = `📊 基準比較對象：${d.base}`;
+            document.getElementById('detail-true-price').innerText = d.truePrice;
+            document.getElementById('detail-new-carbon').innerText = d.newCarbon;
+            document.getElementById('detail-carbon-rate').innerText = d.carbonRate;
+        }
+
+        function filterCat(cat, el) {
+            document.querySelectorAll('.filter-btn-sub').forEach(b => {
+                b.className = "filter-btn-sub px-4 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-sm hover:bg-slate-50";
+            });
+            if(el) { el.className = "filter-btn-sub active px-4 py-1.5 rounded-lg text-xs font-bold bg-slate-100 border border-slate-200 shadow-sm"; }
+            document.querySelectorAll('.material-card').forEach(c => {
+                c.style.display = (cat === 'all' || c.getAttribute('data-cat') === cat) ? 'block' : 'none';
+            });
+        }
 
         // --- 策略計算器模擬引擎數據庫 ---
         const calcData = {
