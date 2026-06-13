@@ -147,7 +147,7 @@
             </div>
         </section>
 
-        <!-- 包材百科 -->
+        <!-- 包材百科（已完全整合精確尺寸、體積、與面積規格數據） -->
         <section id="page-compare" class="page-content">
             <div class="flex flex-col md:flex-row justify-between items-end gap-4 mb-8">
                 <div>
@@ -163,6 +163,7 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4" id="material-grid">
+                <!-- 外包裝 -->
                 <div class="material-card shadow-sm" data-cat="outer" onclick="openInfo('FSC 認證環保紙箱', this)">
                     <div class="text-4xl mb-2">📦</div><div class="font-black text-slate-700 text-sm">FSC 認證環保紙箱</div>
                     <span class="text-[10px] bg-amber-50 text-amber-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">外包裝 (9公升)</span>
@@ -175,6 +176,7 @@
                     <div class="text-4xl mb-2">🧰</div><div class="font-black text-slate-700 text-sm">無膠帶卡扣式環保紙箱</div>
                     <span class="text-[10px] bg-amber-50 text-amber-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">外包裝 (9,000cm³)</span>
                 </div>
+                <!-- 緩衝材料 -->
                 <div class="material-card shadow-sm" data-cat="cushion" onclick="openInfo('牛皮蜂巢紙', this)">
                     <div class="text-4xl mb-2">🐝</div><div class="font-black text-slate-700 text-sm">牛皮蜂巢紙</div>
                     <span class="text-[10px] bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">緩衝材料 (每延米)</span>
@@ -187,6 +189,7 @@
                     <div class="text-4xl mb-2">📠</div><div class="font-black text-slate-700 text-sm">廢紙壓邊緩衝材</div>
                     <span class="text-[10px] bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">緩衝材料 (幅寬40cm)</span>
                 </div>
+                <!-- 內包裝與封膠 -->
                 <div class="material-card shadow-sm" data-cat="inner" onclick="openInfo('水性牛皮紙膠帶', this)">
                     <div class="text-4xl mb-2">🩹</div><div class="font-black text-slate-700 text-sm">水性牛皮紙膠帶</div>
                     <span class="text-[10px] bg-blue-50 text-blue-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">封膠 (寬5cm)</span>
