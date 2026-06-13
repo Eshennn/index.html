@@ -42,9 +42,6 @@
         .match-card.selected .node-dot { background: #10b981; transform: translateY(-50%) scale(1.3); }
         .match-card.correct .node-dot { background: #10b981; }
 
-        .tree-unit { display: inline-block; animation: grow 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes grow { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
         /* 頂部高質感明亮翠綠漸層封面 */
         .hero-gradient { background: linear-gradient(135deg, #0f766e 0%, #10b981 50%, #065f46 100%); }
 
@@ -74,13 +71,12 @@
 
     <main class="max-w-6xl mx-auto px-4 py-10">
 
-        <!-- 頁面 1：動態明亮首頁 -->
         <section id="page-home" class="page-content active space-y-12">
             <div class="hero-gradient text-white p-12 md:p-16 rounded-[3rem] shadow-xl relative overflow-hidden text-center">
                 <div class="relative z-10 max-w-3xl mx-auto">
                     <span class="bg-white/20 text-white text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full backdrop-blur-sm inline-block mb-4">歡迎來到網購永續轉型沙盒</span>
                     <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tight">循環物流：<br><span class="text-yellow-300">定義下一個十年的出貨基準</span></h1>
-                    <p class="text-base md:text-lg opacity-90 leading-relaxed mb-8 font-medium">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過**數據百科、計算器與連連看排碳挑戰賽**，親手規劃出兼顧商務成本與大自然環境的最佳出貨方案。</p>
+                    <p class="text-base md:text-lg opacity-80 leading-relaxed mb-8 font-medium">台灣電商每年產生巨大包裝廢棄物。在這裡，你將透過**數據百科、計算器與連連看排碳挑戰賽**，親手規劃出兼顧商務成本與大自然環境的最佳出貨方案。</p>
                     <div class="flex justify-center gap-4">
                         <button onclick="showPage('compare')" class="bg-white text-teal-900 px-8 py-3.5 rounded-2xl font-black shadow-md hover:scale-105 transition-all text-sm">開始探索包材</button>
                         <button onclick="showPage('test')" class="bg-teal-950 text-white px-8 py-3.5 rounded-2xl font-black shadow-md hover:bg-teal-900 transition-all text-sm">進入連連看挑戰</button>
@@ -147,7 +143,6 @@
             </div>
         </section>
 
-        <!-- 包材百科（已完全整合精確尺寸、體積、與面積規格數據） -->
         <section id="page-compare" class="page-content">
             <div class="flex flex-col md:flex-row justify-between items-end gap-4 mb-8">
                 <div>
@@ -163,7 +158,6 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4" id="material-grid">
-                <!-- 外包裝 -->
                 <div class="material-card shadow-sm" data-cat="outer" onclick="openInfo('FSC 認證環保紙箱', this)">
                     <div class="text-4xl mb-2">📦</div><div class="font-black text-slate-700 text-sm">FSC 認證環保紙箱</div>
                     <span class="text-[10px] bg-amber-50 text-amber-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">外包裝 (9公升)</span>
@@ -176,7 +170,6 @@
                     <div class="text-4xl mb-2">🧰</div><div class="font-black text-slate-700 text-sm">無膠帶卡扣式環保紙箱</div>
                     <span class="text-[10px] bg-amber-50 text-amber-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">外包裝 (9,000cm³)</span>
                 </div>
-                <!-- 緩衝材料 -->
                 <div class="material-card shadow-sm" data-cat="cushion" onclick="openInfo('牛皮蜂巢紙', this)">
                     <div class="text-4xl mb-2">🐝</div><div class="font-black text-slate-700 text-sm">牛皮蜂巢紙</div>
                     <span class="text-[10px] bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">緩衝材料 (每延米)</span>
@@ -189,7 +182,6 @@
                     <div class="text-4xl mb-2">📠</div><div class="font-black text-slate-700 text-sm">廢紙壓邊緩衝材</div>
                     <span class="text-[10px] bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">緩衝材料 (幅寬40cm)</span>
                 </div>
-                <!-- 內包裝與封膠 -->
                 <div class="material-card shadow-sm" data-cat="inner" onclick="openInfo('水性牛皮紙膠帶', this)">
                     <div class="text-4xl mb-2">🩹</div><div class="font-black text-slate-700 text-sm">水性牛皮紙膠帶</div>
                     <span class="text-[10px] bg-blue-50 text-blue-800 px-2 py-0.5 rounded font-bold mt-2 inline-block">封膠 (寬5cm)</span>
@@ -204,7 +196,6 @@
                 </div>
             </div>
 
-            <!-- 詳細資訊面板 -->
             <div id="detail-panel" class="hidden mt-8 bg-slate-900 text-white p-6 md:p-10 rounded-[2.5rem] shadow-2xl animate-fadeIn">
                 <div class="flex flex-col lg:flex-row gap-8 items-center">
                     <div class="w-full lg:w-80 h-52 bg-slate-800 rounded-2xl overflow-hidden shadow-inner shrink-0 relative border border-white/10 flex items-center justify-center">
@@ -237,7 +228,6 @@
             </div>
         </section>
 
-        <!-- 策略模擬器 -->
         <section id="page-balance" class="page-content">
             <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-[2.5rem] shadow-xl border border-slate-100">
                 <h2 class="text-2xl md:text-3xl font-black text-slate-800 mb-4 tracking-tight">綠色包材減碳計算器</h2>
@@ -323,7 +313,6 @@
             </div>
         </section>
 
-        <!-- 減碳計算 -->
         <section id="page-carbon" class="page-content">
             <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <div class="lg:col-span-5 bg-white p-6 md:p-8 rounded-[2.5rem] shadow-xl border border-slate-100 space-y-6">
@@ -370,11 +359,9 @@
             </div>
         </section>
 
-        <!-- 挑戰賽：回歸經典高互動連連看，完全聚焦物理規格排碳效益 -->
         <section id="page-test" class="page-content">
             <div class="max-w-5xl mx-auto bg-white p-6 md:p-10 rounded-[3rem] shadow-xl relative">
                 
-                <!-- 頂部關卡頁籤 -->
                 <div class="flex justify-center gap-1.5 mb-8 bg-slate-100 p-1.5 rounded-2xl max-w-xl mx-auto">
                     <button onclick="switchPart(1)" id="part-tab-1" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black transition-all bg-white text-green-700 shadow-sm">第一關：外包裝排碳</button>
                     <button onclick="switchPart(2)" id="part-tab-2" class="flex-1 py-2.5 rounded-xl text-xs md:text-sm font-black text-slate-500">第二關：緩衝材料排碳</button>
@@ -386,16 +373,14 @@
                     <p id="part-guide" class="text-sm text-slate-500 mt-1">請為左側的綠色永續包材規格，連線對配出其相對應的精確環境減碳克數！</p>
                 </div>
 
-                <!-- 連連看 Canvas 互動主體區 -->
                 <div class="game-container my-8" id="canvas-wrapper" onmousemove="trackMouseMove(event)">
                     <canvas id="link-canvas" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-6 relative z-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-4 relative z-10">
                         <div class="space-y-4 flex flex-col justify-between" id="left-container"></div>
                         <div class="space-y-4 flex flex-col justify-between" id="right-container"></div>
                     </div>
                 </div>
 
-                <!-- 挑戰動態回饋 -->
                 <div class="flex flex-col items-center justify-center gap-4 border-t pt-6 mt-8">
                     <div id="match-msg" class="font-black text-lg text-slate-700 h-8 text-center"></div>
                     <button onclick="resetCurrentPart()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-6 py-2.5 rounded-xl text-sm transition-all shadow-sm">
@@ -420,43 +405,90 @@
             window.scrollTo(0,0);
         }
 
-        // 百科精確數據庫
+        // 核心相片與規格資料庫（絕對保護：與本地 img1.png ~ img7.png 圖片精確對齊綁定）
         const materialData = {
-            'FSC 認證環保紙箱': { icon: '📦', img: 'img5.png', desc: '符合高標準永續森林認證。木材來源受到嚴格管控，確保森林生態永續，長30×寬20×高15cm，是賣家最基礎的無痛替換選項。', base: '傳統全新瓦楞紙箱（約 NT$ 10.0 / 每只 9 公升規格箱）', truePrice: 'NT$ 12.0 / 每只 9 公升規格箱', oldCarbon: '250g CO2e / 每個', newCarbon: '每個包裹減少 30 公克碳排', carbonRate: '服飾與鞋盒尺寸優化結構，體積 9,000 cm³' },
-            'PCR 再生塑料破壞袋': { icon: '♻️', img: 'img6.png', desc: 'Post-Consumer Recycled 核心綠色應用。100% 完全使用消費後回收塑料循環製成，規格 30×40cm，材質堅韌防水，極適合投放不怕壓的軟性衣物。', base: '傳統塑膠破壞袋（約 NT$ 3.0 / 每只 30×40 cm 規格袋）', truePrice: 'NT$ 4.5 / 每只 30×40 cm 規格袋', oldCarbon: '120g CO2e / 每個', newCarbon: '每個減少 25 公克碳排', carbonRate: '降低石化原生塑料開採損耗，表面積 1,200 cm²' },
-            '無膠帶卡扣式環保紙箱': { icon: '🧰', img: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=cover&w=500&q=80', desc: '一體成型飛機盒結構。底部與封口透過特殊齒舌結構相互咬合，完全不需要消耗任何塑膠膠帶封口，不僅環保也大幅提升打包出貨人員效率。', base: '傳統紙箱＋塑膠 OP 膠帶組合費（總計約 NT$ 10.5）', truePrice: 'NT$ 14.0 / 每只免膠帶規格箱', oldCarbon: '285g CO2e / 每個組合', newCarbon: '每個包裹減少 35 公克碳排', carbonRate: '零膠帶依賴，一體化卡扣結構，規格 30×20×15cm' },
-            '牛皮蜂巢紙': { icon: '🐝', img: 'img2.png', desc: '幅寬 50cm，拉開後以 1:1.6 比例展現立體的 3D 蜂巢網格承重幾何結構。空間效益高，防震力強，能大幅度增進出貨包裹的高級質感。', base: '傳統塑膠氣泡紙（約 NT$ 3.0 / 每延米覆蓋面積）', truePrice: 'NT$ 6.0 / 每延米（即 50 cm × 100 cm 展開覆蓋面積）', oldCarbon: '85g CO2e / 每公尺', newCarbon: '每公尺減少 15g 碳排', carbonRate: '純牛皮紙製，100%全紙質無塑化緩衝墊' },
-            '水溶性防撞粒': { icon: '🌱', img: 'img1.png', desc: '100% 利用玉米澱粉發泡製作。密度與重量極小，填充箱體死角性能優良。最核心的教學特色是自帶極高親水性，遇水即迅速溶解。', base: '傳統保麗龍防撞粒（約 NT$ 2.0 / 每公升體積）', truePrice: 'NT$ 4.0 / 每公升體積（可填滿 1,000 立方公分空間）', oldCarbon: '60g CO2e / 每公升', newCarbon: '每公升減少 30g 碳排', carbonRate: '親水速溶，解決出貨多餘空隙死角填充痛點' },
-            '廢紙壓邊緩衝材': { icon: '📠', img: 'img7.png', desc: '幅寬 40cm，將店鋪內廢棄的二手舊紙箱直接透過專用壓切機器切碎為網狀防震緩衝墊，賦予廢料二次生命，閉環封閉循環。', base: '傳統塑膠氣泡紙（約 NT$ 3.0 / 每延米覆蓋面積）', truePrice: 'NT$ 2.5 / 每延米（即 40 cm × 100 cm 的覆蓋面積）', oldCarbon: '85g CO2e / 每公尺', newCarbon: '每公尺減少 25g 碳排', carbonRate: '自購機器處理時材料成本趨近 0，變廢為寶' },
-            '水性牛皮紙膠帶': { icon: '🩹', img: 'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?auto=format&fit=cover&w=500&q=80', desc: '工業標準寬度 5cm，自帶水性植物黏膠，沾水即展現極高抓箱黏性。消費者在回收紙箱時不用費時撕除膠帶，可直接紙箱同時回收。', base: '傳統 OPP 透明膠帶（約 NT$ 0.5 / 每公尺封箱長度）', truePrice: 'NT$ 2.0 / 每公尺長度（100 cm 封箱長度）', oldCarbon: '35g CO2e / 每公尺', newCarbon: '每公尺減少 7g 碳排', carbonRate: '同質化無塑封箱，資源流轉流暢' },
-            '格拉辛紙 / 雪面紙': { icon: '📄', img: 'img3.png', desc: '規格 50×70cm 的平張半透明特種紙張。具有優異防油、防潮特性，常用於高端服飾或精緻珠寶精品的內層包裹，完全無塑。', base: '傳統全新塑膠內袋（約 NT$ 1.0 / 每個獨立包裝袋）', truePrice: 'NT$ 1.5 / 每張平張紙', oldCarbon: '45g CO2e / 每張', newCarbon: '每張減少 8g 碳排', carbonRate: '100%全紙質，兼具防油防水霧面感' },
-            'PLA 生物可分解透明袋': { icon: '🌽', img: 'img3.png', desc: '長 35cm × 寬 25cm，帶有自粘膠條。由可再生植物澱粉萃取物聚合製成，非常適合需要向消費者清晰展示內容物且絕對防水的商品。', base: '傳統全新塑膠內袋（約 NT$ 1.0 / 每個獨立包裝袋）', truePrice: 'NT$ 3.0 / 每只 25×35 cm 規格內袋', oldCarbon: '45g CO2e / 每個', newCarbon: '每個內層防護減少 10g 碳排', carbonRate: '純植物來源，防水型防護首選' }
+            'FSC 認證環保紙箱': { 
+                icon: '📦', img: 'img5.png', 
+                desc: '符合高標準永續森林認證。木材來源受到嚴格管控，確保森林生態永續，是賣家最基礎的無痛替換選項。', 
+                base: '傳統全新瓦楞紙箱（約 NT$ 10.0 / 每只 9 公升規格箱）', 
+                truePrice: 'NT$ 12.0 / 每只 9 公升規格箱', 
+                oldCarbon: '250g CO2e / 每個',
+                newCarbon: '每個包裹減少 30 公克碳排', 
+                carbonRate: '精確規格：長 30 cm × 寬 20 cm × 高 15 cm（外觀體積：9,000 立方公分 / 容積約 9 公升），專為中小型鞋盒與夏裝出貨設計。' 
+            },
+            'PCR 再生塑料破壞袋': { 
+                icon: '♻️', img: 'img6.png', 
+                desc: 'Post-Consumer Recycled 核心綠色應用。100% 完全使用消費後回收塑料循環製成，規格 30×40cm，材質堅韌防水，極適合投放不怕壓的軟性衣物。', 
+                base: '傳統塑膠破壞袋（約 NT$ 3.0 / 每只 30×40 cm 規格袋）', 
+                truePrice: 'NT$ 4.5 / 每只 30×40 cm 規格袋', 
+                oldCarbon: '120g CO2e / 每個',
+                newCarbon: '每個包裹減少 25 公克碳排', 
+                carbonRate: '降低石化原生塑料開採損耗，表面積 1,200 平方公分，厚度 0.05 mm 雙層共擠袋。' 
+            },
+            '無膠帶卡扣式環保紙箱': { 
+                icon: '🧰', img: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=cover&w=500&q=80', 
+                desc: '一體成型飛機盒結構。底部與封口透過特殊結構咬合鎖死，完全不需要任何塑膠膠帶封口，不僅環保也大幅提升打包出貨人員效率。', 
+                base: '傳統紙箱＋塑膠 OP 膠帶組合費（總計約 NT$ 10.5）', 
+                truePrice: 'NT$ 14.0 / 每只免膠帶規格箱', 
+                oldCarbon: '285g CO2e / 每個組合',
+                newCarbon: '每個包裹減少 35 公克碳排', 
+                carbonRate: '精確規格：長 30 cm × 寬 20 cm × 高 15 cm（外觀體積：9,000 立方公分），完美排除回收時繁瑣的撕除塑膠膠帶工序。' 
+            },
+            '牛皮蜂巢紙': { 
+                icon: '🐝', img: 'img2.png', 
+                desc: '純天然牛皮紙基材。平鋪極省倉儲空間，現場拉伸後呈現 3D 幾何蜂巢網格結構，防震吸震效果優異，包裝視覺質感極高。', 
+                base: '傳統塑膠氣泡紙（約 NT$ 3.0 / 每延米覆蓋面積）', 
+                truePrice: 'NT$ 6.0 / 每延米（即 50 cm × 100 cm 展開覆蓋面積）', 
+                oldCarbon: '85g CO2e / 每公尺',
+                newCarbon: '每公尺包裹減少 15 公克碳排', 
+                carbonRate: '精確規格：幅寬 50 cm，以 1:1.6 比例拉伸延展。全紙質自然生物降解，徹底杜絕海洋微塑膠污染。' 
+            },
+            '水溶性防撞粒': { 
+                icon: '🌱', img: 'img1.png', 
+                desc: '100% 利用玉米澱粉發泡製作。密度與重量極小，填充箱體死角性能優良。最核心的教學特色是自帶極高親水性，遇水即迅速溶解。', 
+                base: '傳統保麗龍防撞粒（約 NT$ 2.0 / 每公升體積）', 
+                truePrice: 'NT$ 4.0 / 每公升體積（可填滿 1,000 立方公分空間）', 
+                oldCarbon: '60g CO2e / 每公升',
+                newCarbon: '每公升空間減少 30 公克碳排', 
+                carbonRate: '精確規格：散裝顆粒填充物。完全生物可分解，填滿中小型包裹（9公升箱）的 30% 空隙需要約 3 公升的量，解決消費者垃圾回收痛點。' 
+            },
+            '廢紙壓邊緩衝材': { 
+                icon: '📠', img: 'img7.png', 
+                desc: '資源封閉循環的極致體現。利用碎紙機將網購店鋪內收到的廢棄舊紙箱直接膨切壓製成網狀防震緩衝墊，賦予廢料二次生命，閉環封閉循環。', 
+                base: '傳統塑膠氣泡紙（約 NT$ 3.0 / 每延米覆蓋面積）', 
+                truePrice: 'NT$ 2.5 / 每延米（即 40 cm × 100 cm 的覆蓋面積）', 
+                oldCarbon: '85g CO2e / 每公尺',
+                newCarbon: '每公尺包裹減少 25 公克碳排', 
+                carbonRate: '精確規格：膨切網狀紙墊幅寬 40 cm。備註：若電商自購專用膨切機處理店鋪廢箱，後續此材料耗材成本將直接趨近於 NT$ 0。' 
+            },
+            '水性牛皮紙膠帶': { 
+                icon: '🩹', img: 'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?auto=format&fit=cover&w=500&q=80', 
+                desc: '高強度純牛皮紙基材。背部塗佈沾水即生極高黏性的天然植物膠。最大優勢在於不污染紙纖維，可與紙箱百分之百同時回收碎漿造紙。', 
+                base: '傳統 OPP 透明膠帶（約 NT$ 0.5 / 每公尺封箱長度）', 
+                truePrice: 'NT$ 2.0 / 每公尺長度（100 cm 封箱長度）', 
+                oldCarbon: '35g CO2e / 每公尺',
+                newCarbon: '每公尺封箱減少 7 公克碳排', 
+                carbonRate: '精確規格：工業標準規格寬度 5 cm (50 mm)。消費者回收包裹時不需大費周章撕除膠帶，同質化回收效率最高。' 
+            },
+            '格拉辛紙 / 雪面紙': { 
+                icon: '📄', img: 'img3.png', 
+                desc: '經高壓光澤處理的特種紙張。不含任何塑膠成分，卻天然具有強大的防油、防潮與防塵特性，常用於包裹高級服飾或精緻珠寶精品的內層。', 
+                base: '傳統全新塑膠內袋（約 NT$ 1.0 / 每個獨立包裝袋）', 
+                truePrice: 'NT$ 1.5 / 每張 50×70 cm 規格平張紙', 
+                oldCarbon: '45g CO2e / 每張',
+                newCarbon: '每張獨立包裝減少 8 公克碳排', 
+                carbonRate: '精確規格：長 70 cm × 寬 50 cm 的半透明紙張（單張總面積：3,500 平方公分）。開箱視覺朦朧薄霧感極強，極具開箱美學。' 
+            },
+            'PLA 生物可分解透明袋': { 
+                icon: '🌽', img: 'img3.png', 
+                desc: '長 35cm × 寬 25cm，帶有自粘膠條。由可再生植物澱粉萃取物（聚乳酸）聚合製成，非常適合需要向消費者清晰展示內容物且絕對防水的商品。', 
+                base: '傳統全新塑膠內袋（約 NT$ 1.0 / 每個獨立包裝袋）', 
+                truePrice: 'NT$ 3.0 / 每只 25×35 cm 規格內袋', 
+                oldCarbon: '45g CO2e / 每個',
+                newCarbon: '每個內層防護減少 10 公克碳排', 
+                carbonRate: '純植物來源，防水型獨立內包裝防護首選，可在特定工業堆肥環境下被微生物完全分解。' 
+            }
         };
-
-        function openInfo(name, el) {
-            const d = materialData[name];
-            document.querySelectorAll('.material-card').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            document.getElementById('detail-panel').classList.remove('hidden');
-            document.getElementById('detail-img').src = d.img;
-            document.getElementById('detail-title').innerText = name;
-            document.getElementById('detail-icon').innerText = d.icon;
-            document.getElementById('detail-desc').innerText = d.desc;
-            document.getElementById('detail-base-info').innerText = `📊 基準比較對象：${d.base}`;
-            document.getElementById('detail-true-price').innerText = d.truePrice;
-            document.getElementById('detail-new-carbon').innerText = d.newCarbon;
-            document.getElementById('detail-carbon-rate').innerText = d.carbonRate;
-        }
-
-        function filterCat(cat, el) {
-            document.querySelectorAll('.filter-btn-sub').forEach(b => {
-                b.className = "filter-btn-sub px-4 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-sm hover:bg-slate-50";
-            });
-            if(el) { el.className = "filter-btn-sub active px-4 py-1.5 rounded-lg text-xs font-bold bg-slate-100 border border-slate-200 shadow-sm"; }
-            document.querySelectorAll('.material-card').forEach(c => {
-                c.style.display = (cat === 'all' || c.getAttribute('data-cat') === cat) ? 'block' : 'none';
-            });
-        }
 
         // --- 策略計算器模擬引擎數據庫 ---
         const calcData = {
@@ -528,15 +560,10 @@
             document.getElementById('impact-forest-box').innerHTML = trees === "" ? "<span class='text-xs text-slate-500 font-bold p-2'>請提高出貨量或變更包材方案以種植森林...</span>" : trees;
         }
 
-        // ================================================================
-        // 5. 經典物理減碳連連看挑戰賽核心引擎
-        // ================================================================
-        let selectedLeftId = null, selectedLeftEl = null, correctMatches = [], currentPart = 1;
-        
-        // 關卡資料庫：完美鎖定物理規格與減碳效益
+        // --- 連連看題庫：純粹聚焦物理包材規格與環境減碳公克數 ---
         const quizData = {
             part1: { 
-                title: "第一關：外包裝袋箱減碳對配賽", 
+                title: "第一關：外包裝排碳效能對配", 
                 guide: "💡 教學任務：請將左側的綠色外包裝材料，與右側其能為單一包裹創造的精確減碳效益進行拉線配對！",
                 left: [
                     { id: "o1", icon: "📦", name: "FSC 認證環保紙箱", type: "規格 30×20×15cm" }, 
@@ -544,37 +571,37 @@
                     { id: "o3", icon: "🧰", name: "無膠帶卡扣式環保紙箱", type: "容積 9 公升規格箱" }
                 ], 
                 right: [
-                    { id: "o2", text: "<b>每個包裹減少 25 公克碳排</b><br>100%消費後再生料（表面積 1,200 cm²），相較傳統全新快遞塑膠袋大大降低化石塑料開採消耗。" }, 
+                    { id: "o2", text: "<b>每個包裹減少 25 公克碳排</b><br>100%消費後再生塑料（表面積 1,200 cm²），相較傳統全新快遞塑膠袋大大降低化石原生塑料開採損耗。" }, 
                     { id: "o1", text: "<b>每個包裹減少 30 公克碳排</b><br>永續林木造紙箱（外觀 9,000 立方公分），相較傳統瓦楞紙箱，為中小型鞋盒或衣物提供無痛環境替換基準。" }, 
-                    { id: "o3", text: "<b>每個包裹減少 35 公克碳排</b><br>免除傳統化石塑膠 OPP 膠帶封口。利用特種卡扣齒舌物理結構咬合，大幅省去包裝繁瑣工序且環境效益最優。" }
+                    { id: "o3", text: "<b>每個包裹減少 35 公克碳排</b><br>免除傳統化石塑膠透明膠帶封口。利用特種卡扣齒舌物理結構咬合，大幅省去包裝繁瑣工序且環境效益最優。" }
                 ] 
             },
             part2: { 
-                title: "第二關：緩衝防震材料減碳對配賽", 
+                title: "第二關：緩衝防震材料減碳對配", 
                 guide: "💡 教學任務：請將左側的全無塑綠色緩衝材，與右側相對應的長度/體積減碳數據進行拉線配對！",
                 left: [
-                    { id: "c1", icon: "🐝", name: "延展牛皮蜂巢紙", type: "計價：每延米幅寬50cm" }, 
-                    { id: "c2", icon: "🌱", name: "玉米澱粉水溶性防撞粒", type: "計價：每公升散裝填充" }, 
-                    { id: "c3", icon: "📠", name: "廢紙壓邊緩衝材紙墊", type: "計價：每延米幅寬40cm" }
+                    { id: "c1", icon: "🐝", name: "牛皮蜂巢紙", type: "計價：每延米幅寬 50cm" }, 
+                    { id: "c2", icon: "🌱", name: "水溶性防撞粒", type: "計價：每公升散裝填充" }, 
+                    { id: "c3", icon: "📠", name: "廢紙壓邊緩衝材", type: "計價：每延米幅寬 40cm" }
                 ], 
                 right: [
-                    { id: "c2", text: "<b>每公升填充空間減少 30 公克碳排</b><br>物理氣體發泡具完全親水速溶性，相較常規石化保麗龍球防撞粒，徹底解決消費者拆箱垃圾固體廢棄物痛點。" }, 
-                    { id: "c3", text: "<b>每公尺包裝覆蓋減少 25 公克碳排</b><br>網裝切碎舊紙箱，若自購膨切機材料成本歸 0。相較常規氣泡紙能提供同等防震，且完美實現店鋪閉環回收生命。" }, 
-                    { id: "c1", text: "<b>每公尺包裹長度減少 15 公克碳排</b><br>拉開後展現 3D 承重力學結構。相較傳統塑膠氣泡薄膜，全紙質可與瓦楞箱 100% 打包碎漿，開箱輕奢精品感極強。" }
+                    { id: "c2", text: "<b>每公升填充空間減少 30 公克碳排</b><br>玉米澱粉物理發泡具完全親水速溶性，相較常規石化保麗龍球防撞粒，徹底解決消費者拆箱垃圾固體廢棄物痛點。" }, 
+                    { id: "c3", text: "<b>每公尺包裝覆蓋減少 25 公克碳排</b><br>網狀切碎舊紙箱，若自購膨切機材料成本趨近 0。相較常規氣泡紙能提供同等防震，且完美實現店鋪資源回收生命。" }, 
+                    { id: "c1", text: "<b>每公尺包裹長度減少 15 公克碳排</b><br>拉開後展現 3D 幾何蜂巢結構。相較傳統塑膠氣泡薄膜，全紙質可與瓦楞箱 100% 打包碎漿，開箱質感極強。" }
                 ] 
             },
             part3: { 
-                title: "第三關：內層防護與封膠減碳對配賽", 
-                guide: "💡 教學任務：請將左側的內層綠色配件，與右側相對應的平張/封箱減碳數據進行拉線配對！",
+                title: "第三關：內包裝與封膠減碳對配", 
+                guide: "💡 教學任務：請將左側的內層綠色封膠，與右側相對應的平張/封箱減碳數據進行拉線配對！",
                 left: [
                     { id: "s1", icon: "🩹", name: "水性牛皮紙膠帶", type: "規格：幅寬 5cm 工業標準" }, 
-                    { id: "s2", icon: "📄", name: "格拉辛紙 / 雪面防潮紙", type: "規格：50×70cm 平張紙" }, 
-                    { id: "s3", icon: "🌽", name: "PLA 生物分解透明服飾袋", type: "規格：25×35cm 自粘內貼袋" }
+                    { id: "s2", icon: "📄", name: "格拉辛紙 / 雪面紙", type: "規格：50×70cm 平張紙" }, 
+                    { id: "s3", icon: "🌽", name: "PLA 生物可分解透明袋", type: "規格：25×35cm 自粘內貼袋" }
                 ], 
                 right: [
-                    { id: "s2", text: "<b>每張內層美學包裹減少 8 公克碳排</b><br>單張總面積達 3,500 平方公分。半透明且高防油防潮特種紙，完全無塑，常用於包裹高級服飾、皮件襯墊。" }, 
-                    { id: "s1", text: "<b>每公尺封箱長度減少 7 公克碳排</b><br>天然植物膠，沾水即粘。最大優勢在造紙廠碎漿機中排除殘膠污染，消費者與紙箱回收免去撕除OPP塑膠帶工序。" }, 
-                    { id: "s3", text: "<b>每個內層防護貼袋減少 10 公克碳排</b><br>純植物澱粉萃取物（聚乳酸）聚合。具自粘膠條，具備塑膠內袋的絕對防水防塵韌性，且在工業堆肥下可全水解。" }
+                    { id: "s2", text: "<b>每張內層美學包裹減少 8 公克碳排</b><br>單張總面積達 3,500 平方公分。半透明且高防油防潮特種紙，常用於包裹高級服飾、皮件襯墊，完全不含化石塑膠。" }, 
+                    { id: "s1", text: "<b>每公尺封箱長度減少 7 公克碳排</b><br>天然植物膠，沾水即粘。最大優勢在造紙廠碎漿機中排除殘膠污染，消費者回收紙箱時免去手動撕除OPP塑膠帶工序。" }, 
+                    { id: "s3", text: "<b>每個內層防護貼袋減少 10 公克碳排</b><br>純植物澱粉萃取物（聚乳酸）聚合。具自粘膠條，具備塑膠內袋的絕對防水防塵韌性，且在特定工業堆肥下可全分解。" }
                 ] 
             }
         };
@@ -583,7 +610,6 @@
         
         function switchPart(partNum) {
             currentPart = partNum; selectedLeftId = null; selectedLeftEl = null; correctMatches = [];
-            
             const data = currentPart === 1 ? quizData.part1 : (currentPart === 2 ? quizData.part2 : quizData.part3);
             
             document.getElementById('part-title').innerText = data.title;
@@ -610,7 +636,7 @@
             
             let rHTML = ""; 
             data.right.forEach(item => { 
-                rHTML += `<div id="r_node_${item.id}" onclick="clickRightNode('${item.id}', this)" class="match-card text-xs text-slate-600 leading-relaxed pl-6 pr-4"><div class="node-dot node-right"></div><div>${item.text}</div></div>`; 
+                rHTML += `<div id="r_node_${item.id}" onclick="clickRightContainer('${item.id}', this)" class="match-card text-xs text-slate-600 leading-relaxed pl-6 pr-4"><div class="node-dot node-right"></div><div>${item.text}</div></div>`; 
             });
             document.getElementById('right-container').innerHTML = rHTML;
         }
@@ -620,32 +646,32 @@
             selectedLeftId = id; selectedLeftEl = el;
             document.querySelectorAll('#left-container .match-card').forEach(m => m.classList.remove('selected'));
             el.classList.add('selected');
-            document.getElementById('match-msg').innerText = "👉 請移動手指或滑鼠點擊右側，尋找正確的物理規格減碳效益...";
+            document.getElementById('match-msg').innerText = "👉 請點擊右側，尋找相對應的物理包材減碳規格效益...";
             document.getElementById('match-msg').className = "font-black text-lg text-green-600 h-8 text-center";
         }
 
-        function clickRightNode(id, el) {
+        function clickRightContainer(id, el) {
             if(!selectedLeftId || el.classList.contains('correct')) return;
             const data = currentPart === 1 ? quizData.part1 : (currentPart === 2 ? quizData.part2 : quizData.part3);
             
             if(selectedLeftId === id) {
                 selectedLeftEl.classList.remove('selected'); selectedLeftEl.classList.add('correct'); el.classList.add('correct');
                 correctMatches.push({ leftId: `l_node_${selectedLeftId}`, rightId: `r_node_${id}` });
-                document.getElementById('match-msg').innerText = "✅ 數據匹配！包材物理規格減碳理解正確！";
+                document.getElementById('match-msg').innerText = "✅ 數據配對成功！完全符合永續包材規格！";
                 document.getElementById('match-msg').className = "font-black text-lg text-emerald-600 h-8 text-center animate-bounce";
                 selectedLeftId = null; selectedLeftEl = null;
                 
                 if(correctMatches.length === data.left.length) {
                     if(currentPart < 3) {
-                        document.getElementById('match-msg').innerText = `🏆 太強了！第 ${currentPart} 關全對！請點擊上方切換至下一關卡挑戰！`;
+                        document.getElementById('match-msg').innerText = `🏆 太厲害了！第 ${currentPart} 關過關！請點擊上方按鈕前往下一關！`;
                         document.getElementById('match-msg').className = "font-black text-xl text-blue-600 h-8 text-center";
                     } else {
-                        document.getElementById('match-msg').innerText = "👑 精彩絕倫！你已完美掌握「外包裝、緩衝、封膠內包」三大核心領域的精確規格減碳效能！";
+                        document.getElementById('match-msg').innerText = "👑 大圓滿通關！你已徹底掌握「外包裝、緩衝保護、封膠內包」三大物理層面的精確減碳效益！";
                         document.getElementById('match-msg').className = "font-black text-lg text-indigo-600 h-8 text-center animate-pulse";
                     }
                 }
             } else {
-                document.getElementById('match-msg').innerText = "❌ 數據不匹配！這不是此規格對應的減碳貢獻喔，再試一次！";
+                document.getElementById('match-msg').innerText = "❌ 排碳特性或規格數據不匹配！再看一眼百科的物理規格提示！";
                 document.getElementById('match-msg').className = "font-black text-lg text-rose-500 h-8 text-center";
             }
         }
@@ -658,7 +684,6 @@
             const canvas = document.getElementById('link-canvas'); if(!canvas) return; const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height);
             const wRect = document.getElementById('canvas-wrapper').getBoundingClientRect();
             
-            // 繪製答對的綠色連線
             correctMatches.forEach(match => {
                 const l = document.getElementById(match.leftId).querySelector('.node-left').getBoundingClientRect();
                 const r = document.getElementById(match.rightId).querySelector('.node-right').getBoundingClientRect();
@@ -666,7 +691,6 @@
                 ctx.beginPath(); ctx.moveTo(x1, y1); ctx.bezierCurveTo(x1 + 60, y1, x2 - 60, y2, x2, y2); ctx.lineWidth = 4; ctx.strokeStyle = "#10b981"; ctx.stroke();
             });
             
-            // 繪製拖曳中的藍色引導虛線
             if (selectedLeftId) {
                 const l = document.getElementById(`l_node_${selectedLeftId}`).querySelector('.node-left').getBoundingClientRect();
                 const x1 = l.left - wRect.left + 7, y1 = l.top - wRect.top + 7;
